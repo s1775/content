@@ -1,0 +1,2 @@
+zone "example.com" { type slave; file "/etc/bind/zone.example.com"; masters { 192.168.1.2; }; };
+zone "1.168.192.in-addr.arpa" { type slave; file "/etc/bind/zone.example.com.rev"; masters { 192.168.1.2; }; };

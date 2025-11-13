@@ -1,0 +1,5 @@
+[mysqldump]
+
+quick
+quote_names
+single_transaction
