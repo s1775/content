@@ -3,7 +3,7 @@
 # GENERAL
 # -------------------------------------------------------------------------------------------------------------------- #
 
-title: 'Установка MS Exchange'
+title: 'MS Exchange: Установка'
 description: ''
 icon: 'far fa-file-lines'
 categories:
