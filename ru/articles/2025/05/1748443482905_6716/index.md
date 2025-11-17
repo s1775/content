@@ -3,20 +3,20 @@
 # GENERAL
 # -------------------------------------------------------------------------------------------------------------------- #
 
-title: 'Установка и настройка Bind9'
+title: 'Bind9: Установка и настройка'
 description: ''
 icon: 'far fa-file-lines'
 categories:
-  - 'cat_01'
-  - 'cat_02'
-  - 'cat_03'
+  - 'inDev'
+  - 'linux'
+  - 'network'
 tags:
-  - 'tag_01'
-  - 'tag_02'
-  - 'tag_03'
+  - 'linux'
+  - 'debian'
+  - 'bind'
+  - 'dns'
 authors:
-  - 'JohnDoe'
-  - 'JaneDoe'
+  - 'KaiKimera'
 sources:
   - ''
 license: 'CC-BY-SA-4.0'
