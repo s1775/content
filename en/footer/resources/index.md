@@ -3,6 +3,8 @@ title: 'Resources'
 weight: '2'
 ---
 
-- [Kai Kimera](https://kaikim.ru/)
-- [Package Store](https://pkgstore.ru/)
-- [Universal AIK](https://uaik.ru/)
+- [Databases](https://libdb.ru/)
+- [Terminal commands](https://libcmd.ru/)
+- [Proxmox VE](https://libpve.ru/)
+- [ZFS](https://libzfs.ru/)
+- [Network documentation](https://netcfg.ru/)
