@@ -21,7 +21,7 @@ sources:
   - 'https://www.alitajran.com/move-exchange-database-to-another-drive/'
   - 'https://learn.microsoft.com/en-us/exchange/plan-and-deploy/deployment-ref/storage-configuration'
 license: 'CC-BY-SA-4.0'
-complexity: '0'
+complexity: '1'
 toc: 1
 comments: 1
 
