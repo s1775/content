@@ -28,6 +28,7 @@ function Install-ExFeature() {
   $WinName = $(Get-WinName)
 
   $Features = @(
+    'BitLocker'
     'Web-Mgmt-Console',
     'Web-Metabase'
   ); Install-WindowsFeature -Name $Features
