@@ -114,6 +114,10 @@ for %i in ("DB00" "DB01" "DB02" "DB03" "DB04") do ( if not exist "C:\Exchange\Da
 X:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareAD /OrganizationName:"Example Corp"
 ```
 
+```
+repadmin /syncall
+```
+
 ### Установка MS Exchange
 
 {{< alert "warning" >}}
