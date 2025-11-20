@@ -71,18 +71,10 @@ draft: 1
   - `C:\Exchange\Update\` - директория для обновлений.
 
 {{< alert "tip" >}}
-Прикладываю команду (`cmd.exe` запускается от имени администратора) для быстрого создания структуры директорий для установки MS Exchange:
+Команда (`cmd.exe` запускается от имени администратора) для быстрого создания структуры директорий для установки MS Exchange:
 
 ```batch
 for %i in ("Server" "Database" "Log" "Update") do ( if not exist "C:\Exchange\%i" md "C:\Exchange\%i" )
-```
-{{< /alert >}}
-
-{{< alert "tip" >}}
-Команда для проверки размера сектора у дисков:
-
-```powershell
-Get-CimInstance -ClassName 'Win32_Volume' | Select-Object Name, FileSystem, Label, BlockSize | Sort-Object Name | Format-Table -AutoSize
 ```
 {{< /alert >}}
 
@@ -95,7 +87,15 @@ Get-CimInstance -ClassName 'Win32_Volume' | Select-Object Name, FileSystem, Labe
 - База данных `DB00` является стартовой базой данных, создаваемой при установке MS Exchange.
 
 {{< alert "tip" >}}
-Прикладываю команду (`cmd.exe` запускается от имени администратора) для быстрого создания структуры директорий для точек монтирования:
+Команда PowerShell для проверки размера сектора у дисков:
+
+```powershell
+Get-CimInstance -ClassName 'Win32_Volume' | Select-Object Name, FileSystem, Label, BlockSize | Sort-Object Name | Format-Table -AutoSize
+```
+{{< /alert >}}
+
+{{< alert "tip" >}}
+Команда (`cmd.exe` запускается от имени администратора) для быстрого создания структуры директорий для точек монтирования:
 
 ```batch
 for %i in ("DB00" "DB01" "DB02" "DB03" "DB04") do ( if not exist "C:\Exchange\Database\%i" md "C:\Exchange\Database\%i" )
