@@ -114,7 +114,7 @@ for %i in ("DB00" "DB01" "DB02" "DB03" "DB04") do ( if not exist "C:\Exchange\Da
 
 - К диску `X:` (CD-ROM) подключить ISO с дистрибутивом MS Exchange.
 
-### Подготовка Active Directory
+### Подготовка
 
 - От имени администратора запустить `cmd.exe`.
 - Выполнить команду для расширения схемы Active Directory:
@@ -151,7 +151,7 @@ repadmin /syncall
 X:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareDomain:"example.com"
 ```
 
-### Установка MS Exchange
+### Установка
 
 {{< alert "warning" >}}
 При установке MS Exchange нельзя менять размер окна терминала. Это приведёт к сбою и вылету установщика:
@@ -171,9 +171,9 @@ Parameter name: left
 X:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /Mode:Install /Roles:Mailbox /InstallWindowsComponents /TargetDir:"C:\Exchange\Server" /AnswerFile:"C:\Exchange\exchange.ini"
 ```
 
-### Настройка MS Exchange
+### Настройка
 
-#### Настройка списка обслуживаемых доменов
+#### Список обслуживаемых доменов
 
 - Показать текущие домены:
 
@@ -187,7 +187,7 @@ Get-AcceptedDomain
 New-AcceptedDomain -DomainName 'example.com' -DomainType Authoritative -Name 'Example COM'
 ```
 
-#### Настройка коннектора отправки
+#### Коннектор отправки
 
 - Показать текущие коннекторы отправки:
 
