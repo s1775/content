@@ -13,6 +13,8 @@ tags:
   - 'email'
   - 'exchange'
   - 'install'
+  - 'powershell'
+  - 'migration'
 authors:
   - 'KaiKimera'
 sources:

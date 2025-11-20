@@ -12,7 +12,8 @@ categories:
 tags:
   - 'email'
   - 'exchange'
-  - 'database'
+  - 'user'
+  - 'powershell'
 authors:
   - 'KaiKimera'
 sources:

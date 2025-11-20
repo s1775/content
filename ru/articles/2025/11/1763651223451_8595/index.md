@@ -12,7 +12,8 @@ categories:
 tags:
   - 'email'
   - 'exchange'
-  - 'database'
+  - 'migration'
+  - 'powershell'
 authors:
   - 'KaiKimera'
 sources:

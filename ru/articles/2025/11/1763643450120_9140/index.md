@@ -13,6 +13,7 @@ tags:
   - 'email'
   - 'exchange'
   - 'database'
+  - 'powershell'
 authors:
   - 'KaiKimera'
 sources:
