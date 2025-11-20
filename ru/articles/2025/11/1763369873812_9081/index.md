@@ -20,6 +20,7 @@ sources:
   - 'https://www.alitajran.com/exchange-database-best-practices/'
   - 'https://www.alitajran.com/move-exchange-database-to-another-drive/'
   - 'https://learn.microsoft.com/en-us/exchange/plan-and-deploy/deployment-ref/storage-configuration'
+  - 'https://clintboessen.blogspot.com/2019/08/preparing-exchange-topology-preparead.html'
 license: 'CC-BY-SA-4.0'
 complexity: '1'
 toc: 1
@@ -45,7 +46,7 @@ slug: 'ccafbaad-1898-5c91-9c31-637d635b5f6b'
 draft: 1
 ---
 
-Summary...
+Установка MS Exchange в организации.
 
 <!--more-->
 
@@ -57,10 +58,9 @@ Summary...
   - `Disk 1` - диск `C:`, операционная система. Размер `60 GB`.
   - `Disk 2` - диск `D:`, дополнительные данные, чтобы не ковырять системный диск. Размер `5 GB`. Форматирование с размером блока `4 KB`.
   - `Disk 3...9` - набор дисков для баз данных MS Exchange. Размер `5 GB`. Форматирование с размером блока `64 KB`. В дальнейшем размеры дисков можно увеличить до необходимого размера.
-- Диски создаются в режиме **Thick provisioned, eagerly zeroed**.
 - Для CD-ROM в операционной системе указывается буква `X:`.
 
-### Настройка файловой структуры
+### Подготовка файловой структуры
 
 - Перед установкой MS Exchange на диске `C:` создаются директории:
   - `C:\Exchange\Database\` - директория для монтирования баз данных.
@@ -68,17 +68,21 @@ Summary...
   - `C:\Exchange\Server\` - директория для установки MS Exchange Server.
   - `C:\Exchange\Update\` - директория для обновлений.
 
-Прикладываю команду (`cmd.exe` запускается от имени администратора) для быстрого создания структуры директорий MS Exchange:
+{{< alert "tip" >}}
+Прикладываю команду (`cmd.exe` запускается от имени администратора) для быстрого создания структуры директорий для установки MS Exchange:
 
 ```batch
 for %i in ("Server" "Database" "Log" "Update") do ( if not exist "C:\Exchange\%i" md "C:\Exchange\%i" )
 ```
+{{< /alert >}}
 
+{{< alert "tip" >}}
 Команда для проверки размера сектора у дисков:
 
 ```powershell
 Get-CimInstance -ClassName 'Win32_Volume' | Select-Object Name, FileSystem, Label, BlockSize | Sort-Object Name | Format-Table -AutoSize
 ```
+{{< /alert >}}
 
 #### Базы данных
 
@@ -88,13 +92,15 @@ Get-CimInstance -ClassName 'Win32_Volume' | Select-Object Name, FileSystem, Labe
 - Точки монтирования располагаются в директории `C:\Exchange\Database\`.
 - База данных `DB00` является стартовой базой данных, создаваемой при установке MS Exchange.
 
-Прикладываю команду (`cmd.exe` запускается от имени администратора) для быстрого создания структуры директорий точек монтирования:
+{{< alert "tip" >}}
+Прикладываю команду (`cmd.exe` запускается от имени администратора) для быстрого создания структуры директорий для точек монтирования:
 
 ```batch
 for %i in ("DB00" "DB01" "DB02" "DB03" "DB04") do ( if not exist "C:\Exchange\Database\%i" md "C:\Exchange\Database\%i" )
 ```
+{{< /alert >}}
 
-{{< alert "tip" >}}
+{{< alert "important" >}}
 При использовании точек монтирования на **VMware**, MS Windows может уведомлять ошибкой `Device status: This device cannot start. (Code 10)` в **Device Manager**. Для исправления этой ошибки, необходимо в конфигурации виртуальной машины добавить параметр и значение `devices.hotplug:FALSE`.
 {{< /alert >}}
 
@@ -108,14 +114,39 @@ for %i in ("DB00" "DB01" "DB02" "DB03" "DB04") do ( if not exist "C:\Exchange\Da
 
 ### Подготовка Active Directory
 
-- От имени администратора запустить `cmd.exe` и выполнить команду:
+- От имени администратора запустить `cmd.exe`.
+- Выполнить команду для расширения схемы Active Directory:
+
+```
+X:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareSchema
+```
+
+- Выполнить команду для подготовки Active Directory:
+
+```
+X:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareAD
+```
+
+{{< alert "tip" >}}
+Если в организации устанавливается первый сервер MS Exchange, то в команду добавляется опция `/OrganizationName` с названием организации `Example Corp`:
 
 ```
 X:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareAD /OrganizationName:"Example Corp"
 ```
 
+Без этой опции, организация в MS Exchange будет называться `First Organization`.
+{{< /alert >}}
+
+- После успешной подготовки Active Directory, на сервере DC выполнить синхронизацию:
+
 ```
 repadmin /syncall
+```
+
+- Подготовить домен `example.com` для установки MS Exchange:
+
+```
+X:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareDomain:"example.com"
 ```
 
 ### Установка MS Exchange
@@ -138,4 +169,32 @@ Parameter name: left
 X:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /Mode:Install /Roles:Mailbox /InstallWindowsComponents /TargetDir:"C:\Exchange\Server" /AnswerFile:"C:\Exchange\exchange.ini"
 ```
 
-{{< file "exchange.ps1" "powershell" >}}
+### Настройка MS Exchange
+
+#### Настройка списка обслуживаемых доменов
+
+- Показать текущие домены:
+
+```powershell
+Get-AcceptedDomain
+```
+
+- Создать новый домен example.com:
+
+```powershell
+New-AcceptedDomain -DomainName 'example.com' -DomainType Authoritative -Name 'Example COM'
+```
+
+#### Настройка коннектора отправки
+
+- Показать текущие коннекторы отправки:
+
+```powershell
+Get-SendConnector | Format-Table Identity, AddressSpaces, SourceTransportServers, MaxMessageSize, Enabled
+```
+
+- Создать новый коннектор отправки:
+
+```powershell
+New-SendConnector -Name 'Internet' -Usage 'Internet' -SourceTransportServers 'SRV-MX' -AddressSpaces ('SMTP:*;1')
+```
