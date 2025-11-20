@@ -3,7 +3,7 @@
 # GENERAL
 # -------------------------------------------------------------------------------------------------------------------- #
 
-title: 'MS Exchange: Установка'
+title: 'MS Exchange: Установка и миграция'
 description: ''
 icon: 'far fa-file-lines'
 categories:
@@ -48,7 +48,7 @@ slug: 'ccafbaad-1898-5c91-9c31-637d635b5f6b'
 draft: 1
 ---
 
-Установка MS Exchange в организации.
+Установка и миграция MS Exchange в организации.
 
 <!--more-->
 
