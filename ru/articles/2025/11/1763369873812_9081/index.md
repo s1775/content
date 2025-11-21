@@ -114,16 +114,17 @@ for %i in ("DB00" "DB01" "DB02" "DB03" "DB04") do ( if not exist "C:\Exchange\Da
 
 - К диску `X:` (CD-ROM) подключить ISO с дистрибутивом MS Exchange.
 
-### Подготовка
+### Подготовка AD
 
+- Добавить пользователя, под которым будет производиться установка, в группы **Schema Admins** и **Enterprise Admins**.
 - От имени администратора запустить `cmd.exe`.
-- Выполнить команду для расширения схемы Active Directory:
+- Выполнить команду для расширения схемы AD:
 
 ```
 X:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareSchema
 ```
 
-- Выполнить команду для подготовки Active Directory:
+- Выполнить команду для подготовки AD:
 
 ```
 X:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareAD
