@@ -201,3 +201,61 @@ Get-SendConnector | Format-Table Identity, AddressSpaces, SourceTransportServers
 ```powershell
 New-SendConnector -Name 'Internet' -Usage 'Internet' -SourceTransportServers 'SRV-MX' -AddressSpaces ('SMTP:*;1')
 ```
+
+## Миграция
+
+### Переключение SMTP траффика
+
+### Перемещение почтовых ящиков
+
+#### Арбитражные ящики
+
+- Посмотреть арбитражные ящики:
+
+```powershell
+Get-Mailbox -Arbitration
+```
+
+- Переместить арбитражные ящики из сервера `MX_OLD` на новый сервер в базу данных `DB_NEW`:
+
+```powershell
+Get-Mailbox -Arbitration -Server 'MX_OLD' | New-MoveRequest -TargetDatabase 'DB_NEW'
+```
+
+- Посмотреть процесс миграции:
+
+```powershell
+Get-MoveRequest -ResultSize 'Unlimited' | Get-MoveRequestStatistics
+```
+
+- Удалить завершённые процессы миграции:
+
+```powershell
+Get-MoveRequest -MoveStatus 'Completed' -ResultSize 'Unlimited' | Remove-MoveRequest -Confirm:$False
+```
+
+#### Пользовательские ящики
+
+- Посмотреть почтовые ящики пользователей:
+
+```powershell
+Get-Mailbox | Format-Table Name, ServerName, Database, AdminDisplayVersion
+```
+
+- Переместить почтовые ящики пользователей из базы дынных `DB_OLD` старого сервера в базу данных `DB_NEW` нового сервера:
+
+```powershell
+Get-Mailbox -Database 'DB_OLD' -ResultSize 'Unlimited' | New-MoveRequest -TargetDatabase 'DB_NEW'
+```
+
+- Посмотреть процесс миграции:
+
+```powershell
+Get-MoveRequest -ResultSize 'Unlimited' | Get-MoveRequestStatistics
+```
+
+- Удалить завершённые процессы миграции:
+
+```powershell
+Get-MoveRequest -MoveStatus 'Completed' -ResultSize 'Unlimited' | Remove-MoveRequest -Confirm:$False
+```
