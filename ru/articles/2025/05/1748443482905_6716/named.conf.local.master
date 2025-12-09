@@ -1,2 +1,10 @@
-zone "example.com" { type master; file "/etc/bind/zone.example.com"; allow-transfer { 192.168.1.3; }; };
-zone "1.168.192.in-addr.arpa" { type master; file "/etc/bind/zone.example.com.rev"; allow-transfer { 192.168.1.3; }; };
+view "local" {
+  match-clients { local; };
+  zone "hostname.local" { type master; file "/etc/bind/zone.hostname.local"; allow-transfer { 192.168.1.3; }; };
+};
+
+view "public" {
+  match-clients { any; };
+  zone "example.com" { type master; file "/etc/bind/zone.example.com"; allow-transfer { 192.168.1.3; }; };
+  zone "1.168.192.in-addr.arpa" { type master; file "/etc/bind/zone.example.com.rev"; allow-transfer { 192.168.1.3; }; };
+};
