@@ -70,7 +70,7 @@ curl -fsSL 'https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX-B5333005' | gpg --dearmor
 - Создать файл репозитория `/etc/apt/sources.list.d/zabbix.sources`:
 
 ```bash
-. '/etc/os-release' && echo -e "X-Repolib-Name: Zabbix\nTypes: deb\nURIs: https://repo.zabbix.com/zabbix/${ZABBIX_VER}/stable/debian\nSuites: ${VERSION_CODENAME}\nComponents: main\nSigned-By: /etc/apt/keyrings/zabbix.gpg\n" | tee '/etc/apt/sources.list.d/zabbix.sources' > '/dev/null'
+. '/etc/os-release' && echo -e "X-Repolib-Name: Zabbix\nTypes: deb\nURIs: https://repo.zabbix.com/zabbix/${ZABBIX_VER}/stable/${ID}\nSuites: ${VERSION_CODENAME}\nComponents: main\nSigned-By: /etc/apt/keyrings/zabbix.gpg\n" | tee '/etc/apt/sources.list.d/zabbix.sources' > '/dev/null'
 ```
 
 ## Zabbix Server
