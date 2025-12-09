@@ -1,16 +1,16 @@
 $TTL 24h
 ; SOA
-@                   IN  SOA     ns01.example.com. postmaster.example.com. (
+@                   IN  SOA     ns1.example.com. postmaster.example.com. (
                                 2024061000  ; Serial
                                 10m         ; Refresh
                                 1h          ; Retry
                                 1w          ; Expire
                                 6m )        ; Negative Cache TTL
 ; NS
-@                   IN  NS      ns01.example.com.
-@                   IN  NS      ns02.example.com.
-2                   IN  PTR     ns01.example.com.
-3                   IN  PTR     ns02.example.com.
+@                   IN  NS      ns1.example.com.
+@                   IN  NS      ns2.example.com.
+2                   IN  PTR     ns1.example.com.
+3                   IN  PTR     ns2.example.com.
 ; MAIN
 5                   IN  PTR     www.example.com.
 6                   IN  PTR     mail.example.com.

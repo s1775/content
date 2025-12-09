@@ -1,14 +1,14 @@
 $TTL 3h
 ; SOA
-@                   IN  SOA     ns01.hostname.local. postmaster.hostname.local. (
+@                   IN  SOA     ns1.hostname.local. postmaster.hostname.local. (
                                 2024061000  ; Serial
                                 10m         ; Refresh
                                 1h          ; Retry
                                 1w          ; Expire
                                 6m )        ; Negative Cache TTL
 ; NS
-@                   IN  NS      ns01.hostname.local.
-1                   IN  PTR     ns01.hostname.local.
+@                   IN  NS      ns1.hostname.local.
+1                   IN  PTR     ns1.hostname.local.
 ; MAIN
 1                   IN  PTR     www.hostname.local.
 1                   IN  PTR     mail.hostname.local.
