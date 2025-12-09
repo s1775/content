@@ -449,10 +449,10 @@ curl -sL 'https://raw.githubusercontent.com/pkgstore/bash-install/refs/heads/mai
 
 #### Примеры
 
-- Запустить **получение** сертификата ACME с типом ключа `rsa4096` для домена `example.org` (файл конфигурации имеет название `example.org`):
+- Запустить **получение** сертификата ACME с типом ключа `rsa2048` для домена `example.org` (файл конфигурации имеет название `example.org`):
 
 ```bash
-"${HOME}/apps/acme/app.acme.sh" 'example.org' 'rsa4096' 'run'
+"${HOME}/apps/acme/app.acme.sh" 'example.org' 'rsa2048' 'run'
 ```
 
 - Запустить **получение** сертификата ACME с типом ключа `ec256` для домена `example.org` (файл конфигурации имеет название `example.org`):
@@ -469,4 +469,4 @@ curl -sL 'https://raw.githubusercontent.com/pkgstore/bash-install/refs/heads/mai
 
 ### Задание
 
-Задание запускает скрипт каждый день в `03:35` и `04:35` для типа ключа `RSA4096` и `EC256`, соответственно.
+Задание запускает скрипт каждый день в `03:35` и `04:35` для типа ключа `RSA2048` и `EC256`, соответственно.
