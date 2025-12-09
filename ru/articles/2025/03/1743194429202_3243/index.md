@@ -431,7 +431,7 @@ curl -sL 'https://raw.githubusercontent.com/pkgstore/bash-install/refs/heads/mai
 Скрипт принимает параметры в следующей очередности:
 
 ```bash
-"${HOME}/apps/acme/app_acme.sh" 'DOMAIN_FILE' 'KEY' 'ACTION'
+"${HOME}/apps/acme/app.acme.sh" 'DOMAIN_FILE' 'KEY' 'ACTION'
 ```
 
 - `DOMAIN_FILE` - файл с конфигурацией домена. Желательно название файла указывать согласно имени домена.
@@ -452,19 +452,19 @@ curl -sL 'https://raw.githubusercontent.com/pkgstore/bash-install/refs/heads/mai
 - Запустить **получение** сертификата ACME с типом ключа `rsa4096` для домена `example.org` (файл конфигурации имеет название `example.org`):
 
 ```bash
-"${HOME}/apps/acme/app_acme.sh" 'example.org' 'rsa4096' 'run'
+"${HOME}/apps/acme/app.acme.sh" 'example.org' 'rsa4096' 'run'
 ```
 
 - Запустить **получение** сертификата ACME с типом ключа `ec256` для домена `example.org` (файл конфигурации имеет название `example.org`):
 
 ```bash
-"${HOME}/apps/acme/app_acme.sh" 'example.org' 'ec256' 'run'
+"${HOME}/apps/acme/app.acme.sh" 'example.org' 'ec256' 'run'
 ```
 
 - Запустить **обновление** сертификата ACME с типом ключа `ec256` для домена `example.org` (файл конфигурации имеет название `example.org`):
 
 ```bash
-"${HOME}/apps/acme/app_acme.sh" 'example.org' 'ec256' 'renew'
+"${HOME}/apps/acme/app.acme.sh" 'example.org' 'ec256' 'renew'
 ```
 
 ### Задание
