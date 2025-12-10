@@ -11,7 +11,7 @@ categories:
   - 'terminal'
 tags:
   - 'debian'
-  - 'email'
+  - 'mail'
   - 'dovecot'
   - 'fts'
   - 'xapian'

@@ -14,7 +14,7 @@ tags:
   - 'debian'
   - 'apt'
   - 'install'
-  - 'email'
+  - 'mail'
   - 'iredmail'
   - 'roundcube'
   - 'iredadmin'

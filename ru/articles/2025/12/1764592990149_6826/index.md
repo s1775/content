@@ -9,7 +9,7 @@ icon: 'far fa-file-lines'
 categories:
   - 'scripts'
 tags:
-  - 'email'
+  - 'mail'
   - 'powershell'
 authors:
   - 'KaiKimera'

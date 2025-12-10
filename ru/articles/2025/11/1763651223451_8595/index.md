@@ -10,7 +10,7 @@ categories:
   - 'inDev'
   - 'windows'
 tags:
-  - 'email'
+  - 'mail'
   - 'exchange'
   - 'migration'
   - 'powershell'

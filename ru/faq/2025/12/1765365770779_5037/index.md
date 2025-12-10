@@ -3,40 +3,46 @@
 # GENERAL
 # -------------------------------------------------------------------------------------------------------------------- #
 
-title: 'Как удалить исходящие заголовки Postfix?'
+title: 'iRedMail: "Bad interpreter: No such file or directory"'
 description: ''
 icon: 'far fa-circle-question'
 tags:
   - 'mail'
-  - 'postfix'
+  - 'iredmail'
+  - 'fail2ban'
+  - 'bash'
 authors:
   - 'KaiKimera'
 sources:
-  - 'https://major.io/p/remove-sensitive-information-from-email-headers-with-postfix/'
-  - 'https://unixmin.com/blog/remove-headers-in-postfix'
-  - 'https://forum.iredmail.org/topic6689-removing-originial-sender-ip-from-headers.html'
+  - 'https://github.com/iredmail/iRedMail/issues/290'
+  - 'https://forum.iredmail.org/topic20910-fail2ban-error-command-not-found.html'
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # DATE
 # -------------------------------------------------------------------------------------------------------------------- #
 
-date: '2025-12-10T12:34:34+03:00'
-publishDate: '2025-12-10T12:34:34+03:00'
-lastMod: '2025-12-10T12:34:34+03:00'
+date: '2025-12-10T14:22:52+03:00'
+publishDate: '2025-12-10T14:22:52+03:00'
+lastMod: '2025-12-10T14:22:52+03:00'
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # META
 # -------------------------------------------------------------------------------------------------------------------- #
 
 type: 'faq'
-hash: '87300cdca1562c6e00b0f53151ce1046d93c2549'
-uuid: '87300cdc-a156-5c6e-a0b0-f53151ce1046'
-slug: '87300cdc-a156-5c6e-a0b0-f53151ce1046'
+hash: '15b81e30eefd6311e93d9da55432bc7b49e51968'
+uuid: '15b81e30-eefd-5311-893d-9da55432bc7b'
+slug: '15b81e30-eefd-5311-893d-9da55432bc7b'
 
 draft: 0
 ---
 
-Postfix отправляет письма с заголовками, содержащими конфиденциальную информацию. Как можно эти заголовки удалить?
+При установке v1.7.4 в логах fail2ban появляется ошибка `bad interpreter: No such file or directory'`. Как исправить?
 
 <!--more-->
 
+Полная версия ошибки:
+
+```bash
+stderr: '/bin/sh: /usr/local/bin/fail2ban_banned_db: /usr/local/bin/bash: bad interpreter: No such file or directory' 
+```

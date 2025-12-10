@@ -11,7 +11,7 @@ categories:
   - 'security'
   - 'terminal'
 tags:
-  - 'email'
+  - 'mail'
   - 'iredmail'
   - 'iredapd'
   - 'whitelist'
