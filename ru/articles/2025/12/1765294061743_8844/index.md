@@ -83,7 +83,7 @@ server {
 - Перезапустить службу:
 
 ```bash
-systemctl restart 'angie.service'
+systemctl restart angie.service
 ```
 
 ## Postfix
@@ -112,7 +112,7 @@ tls_server_sni_maps = hash:/etc/postfix/ssl.map
 - Перезапустить службу:
 
 ```bash
-systemctl restart 'postfix.service'
+systemctl restart postfix.service
 ```
 
 ## Dovecot
@@ -137,7 +137,7 @@ ssl_key = </etc/ssl/default.key
 - Перезапустить службу:
 
 ```bash
-systemctl restart 'dovecot.service'
+systemctl restart dovecot.service
 ```
 
 ## Проверка
