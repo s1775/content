@@ -80,7 +80,7 @@ f=('angie'); d='/etc/angie'; s='https://libsys.ru/ru/2025/02/b825cd19-f0f5-5a63-
 - Скачать файлы локальной конфигурации модулей в `/etc/angie/conf.d/`:
 
 ```bash
-f=('http.acme' 'http.brotli' 'http.core' 'http.gzip' 'http.headers' 'http.proxy' 'http.real_ip' 'http.ssl' 'http.v3' 'http.zstd'); d='/etc/angie/conf.d'; s='https://libsys.ru/ru/2025/02/b825cd19-f0f5-5a63-acb2-00784311b738'; [[ ! -d "${d}" ]] && mkdir "${d}"; for i in "${f[@]}"; do curl -fsSLo "${d}/90-${i}.local.conf" "${s}/module.${i}.conf"; done
+f=('http.acme' 'http.brotli' 'http.core' 'http.gzip' 'http.headers' 'http.proxy' 'http.real_ip' 'http.ssl' 'http.ssl.map' 'http.v3' 'http.zstd'); d='/etc/angie/conf.d'; s='https://libsys.ru/ru/2025/02/b825cd19-f0f5-5a63-acb2-00784311b738'; [[ ! -d "${d}" ]] && mkdir "${d}"; for i in "${f[@]}"; do curl -fsSLo "${d}/90-${i}.local.conf" "${s}/module.${i}.conf"; done
 ```
 
 - Скачать файлы стандартных сайтов (`80` и `443`) в `/etc/angie/http.d/`:
