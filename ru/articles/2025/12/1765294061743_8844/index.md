@@ -55,10 +55,12 @@ Summary...
 ## Postfix
 
 ```ini
+#smtpd_tls_key_file = <...>
+#smtpd_tls_cert_file = <...>
 smtpd_tls_chain_files =
-    /etc/ssl/acme/rsa2048/denita.info.key,
-    /etc/ssl/acme/rsa2048/denita.info.crt
-tls_server_sni_maps = hash:/etc/postfix/sni.map
+    /etc/ssl/default.key,
+    /etc/ssl/default.crt
+tls_server_sni_maps = hash:/etc/postfix/ssl.map
 ```
 
 {{< file "postfix.ssl.map" >}}
@@ -68,6 +70,11 @@ postmap -F 'hash:/etc/postfix/ssl.map'
 ```
 
 ## Dovecot
+
+```ini
+ssl_cert = </etc/ssl/default.crt
+ssl_key = </etc/ssl/default.key
+```
 
 {{< file "dovecot.ssl.map" >}}
 
