@@ -40,7 +40,7 @@ slug: '1f77872e-d835-510b-9dc0-99ac3b4abadf'
 draft: 0
 ---
 
-Написал небольшой [скрипт](https://github.com/pkgstore/pwsh-mail), позволяющий отправлять email через терминал {{< tag "PowerShell" >}}.
+Написал [скрипт](https://github.com/pkgstore/pwsh-mail), позволяющий отправлять email через терминал {{< tag "PowerShell" >}}.
 
 <!--more-->
 
@@ -91,10 +91,13 @@ draft: 0
   - `Low` - низкий приоритет.
   - `Normal` - стандартный приоритет.
   - `High` - высокий приоритет.
+- `Storage` - директория для хранения отправленных вложений. По умолчанию: `C:\Storage\Email`. При каждом новом email, в хранилище создаётся контейнер (директория) с названием в виде метки времени UNIX и содержанием вложений.
+- `Count` - количество контейнеров (директорий) в хранилище. При превышении этого значения, наиболее старый контейнер (директория) в хранилище удаляется. Таким образом обеспечивается ротация контейнеров (директорий) в хранилище. По умолчанию: `5`.
+- `DateTime` - включить название контейнеров (директорий) в виде даты `2019-06-27.17-45-52`.
 - `Wildcard` - включить поддержку регулярных выражений в параметре `File`.
-- `FileRename` - переименовать файлы вложений после отправки email.
-- `FileRemove` - удалить файлы вложений после отправки email.
-- `FileList` - вставить в содержимое email список файлов и их путей, которые были использованы в качестве вложений в email.
+- `FileMove` - переместить вложения в хранилище после отправки email.
+- `FileRemove` - удалить вложения после отправки email.
+- `FileList` - вставить в содержимое email список файлов, которые были использованы в качестве вложений в email. При этом сами вложения НЕ прикрепляются к email.
 - `HTML` - если указано, email будет иметь разметку HTML.
 - `SSL` - если указано, подключение к SMTP-серверу будет осуществляться при помощи протокола SSL.
 - `NoSign` - отключить добавление подписи в email.
@@ -114,7 +117,7 @@ draft: 0
 - Письмо отправляется от `mail@example.com` для `mail@example.org`:
 
 ```terminal {os="windows",lang="pwsh"}
-C:\Apps\Email\app.mail.ps1 -Subject 'Example' -Body 'Hello world!' -From 'mail@example.com' -To 'mail@example.org'
+.\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org'
 ```
 
 #### Письмо с вложениями
@@ -122,7 +125,31 @@ C:\Apps\Email\app.mail.ps1 -Subject 'Example' -Body 'Hello world!' -From 'mail@e
 - Письмо отправляется от `mail@example.com` для `mail@example.org` с вложениями `C:\file.01.txt` и `C:\file.02.txt`:
 
 ```terminal {os="windows",lang="pwsh"}
-C:\Apps\Email\app.mail.ps1 -Subject 'Example' -Body 'Hello world!' -From 'mail@example.com' -To 'mail@example.org' -Attachment 'C:\file.01.txt', 'C:\file.02.txt'
+.\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org' -File 'C:\file.01.txt', 'C:\file.02.txt'
+```
+
+- Письмо отправляется от `mail@example.com` для `mail@example.org` со всеми вложениями, имеющими расширение `*.txt` (`C:\*.txt`):
+
+```terminal {os="windows",lang="pwsh"}
+.\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org' -File 'C:\*.txt' -Wildcard
+```
+
+- Письмо отправляется от `mail@example.com` для `mail@example.org` с вложениями `C:\file.01.txt` и `C:\file.02.txt`. После отправки email, вложения перемещаются в хранилище:
+
+```terminal {os="windows",lang="pwsh"}
+.\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org' -File 'C:\file.01.txt', 'C:\file.02.txt' -FileMove
+```
+
+- Письмо отправляется от `mail@example.com` для `mail@example.org` с вложениями `C:\file.01.txt` и `C:\file.02.txt`. После отправки email, вложения перемещаются в хранилище `D:\Email`, ротация контейнеров (директорий) в хранилище в переделах `3`:
+
+```terminal {os="windows",lang="pwsh"}
+.\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org' -File 'C:\file.01.txt', 'C:\file.02.txt' -Storage 'D:\Email' -Count 3 -FileMove
+```
+
+- Письмо отправляется от `mail@example.com` для `mail@example.org` с вложениями `C:\file.01.txt` и `C:\file.02.txt`. После отправки email, вложения удаляются:
+
+```terminal {os="windows",lang="pwsh"}
+.\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org' -File 'C:\file.01.txt', 'C:\file.02.txt' -FileRemove
 ```
 
 #### HTML-письмо
@@ -130,7 +157,7 @@ C:\Apps\Email\app.mail.ps1 -Subject 'Example' -Body 'Hello world!' -From 'mail@e
 - Письмо отправляется от `mail@example.com` для `mail@example.org` в формате `HTML`:
 
 ```terminal {os="windows",lang="pwsh"}
-C:\Apps\Email\app.mail.ps1 -Subject 'Example' -Body 'Hello world!' -From 'mail@example.com' -To 'mail@example.org' -HTML
+.\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org' -HTML
 ```
 
 #### Письмо с приоритетом
@@ -138,7 +165,7 @@ C:\Apps\Email\app.mail.ps1 -Subject 'Example' -Body 'Hello world!' -From 'mail@e
 - Письмо отправляется от `mail@example.com` для `mail@example.org` в высоким приоритетом:
 
 ```terminal {os="windows",lang="pwsh"}
-C:\Apps\Email\app.mail.ps1 -Subject 'Example' -Body 'Hello world!' -From 'mail@example.com' -To 'mail@example.org' -Priority 'High'
+.\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org' -Priority 'High'
 ```
 
 #### Письмо с копией
@@ -146,5 +173,5 @@ C:\Apps\Email\app.mail.ps1 -Subject 'Example' -Body 'Hello world!' -From 'mail@e
 - Письмо отправляется от `mail@example.com` для `mail@example.org` с копией к `mail@example.net` и `mail@example.biz`:
 
 ```terminal {os="windows",lang="pwsh"}
-C:\Apps\Email\app.mail.ps1 -Subject 'Example' -Body 'Hello world!' -From 'mail@example.com' -To 'mail@example.org' -Cc 'mail@example.net', 'mail@example.biz'
+.\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org' -Cc 'mail@example.net', 'mail@example.biz'
 ```
