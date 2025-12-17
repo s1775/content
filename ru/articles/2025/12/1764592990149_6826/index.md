@@ -58,8 +58,9 @@ draft: 0
 
 ### Установка
 
-- Скопировать файлы `app.mail.ps1` и `app.mail.ini` в директорию `C:\Apps\Email`.
-- Изменить параметры скрипта в файле `app.mail.ini`.
+```powershell
+$APP = "mail"; $ORG = "pkgstore"; $PFX = "pwsh-"; $URI = "https://raw.githubusercontent.com/${ORG}/${PFX}${APP}/refs/heads/main"; $META = Invoke-RestMethod -Uri "${URI}/meta.json"; $META.install.file.ForEach({ if (-not (Test-Path "$($_.path)")) { New-Item -Path "$($_.path)" -ItemType "Directory" | Out-Null }; Invoke-WebRequest "${URI}/$($_.name)" -OutFile "$($_.path)" })
+```
 
 ### Настройка
 

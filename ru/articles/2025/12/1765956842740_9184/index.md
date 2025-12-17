@@ -66,9 +66,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elementum sem ex,
 
 ### Установка
 
-- Скопировать файлы `app.mail.request.ps1` и `app.mail.request.ini` в директорию `C:\Apps\MailRequest`.
-- Импортировать файл `task.mail.request.xml` в Windows Task Scheduler и настроить задачу.
-- Изменить параметры скрипта в файле `app.mail.request.ini`.
+```powershell
+$APP = "mail-request"; $ORG = "pkgstore"; $PFX = "pwsh-"; $URI = "https://raw.githubusercontent.com/${ORG}/${PFX}${APP}/refs/heads/main"; $META = Invoke-RestMethod -Uri "${URI}/meta.json"; $META.install.file.ForEach({ if (-not (Test-Path "$($_.path)")) { New-Item -Path "$($_.path)" -ItemType "Directory" | Out-Null }; Invoke-WebRequest "${URI}/$($_.name)" -OutFile "$($_.path)" })
+```
 
 ### Настройка
 
