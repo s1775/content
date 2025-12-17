@@ -48,7 +48,7 @@ draft: 0
 
 [Скрипт](https://github.com/pkgstore/pwsh-mail) позволяет отправлять {{< tag "email" >}} через терминал {{< tag "PowerShell" >}}.
 
-Скрипт состоит из двух компонентов:
+Скрипт состоит из следующих компонентов:
 
 - `app.mail.ini` - файл с настройками.
 - `app.mail.ps1` - приложение.
@@ -110,17 +110,11 @@ draft: 0
 
 ## Примеры
 
-Набор примеров для работы со скриптом.
-
-### Обычное письмо
-
 - Письмо отправляется от `mail@example.com` для `mail@example.org`:
 
 ```terminal {os="windows",lang="pwsh"}
 .\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org'
 ```
-
-#### Письмо с вложениями
 
 - Письмо отправляется от `mail@example.com` для `mail@example.org` с вложениями `C:\file.01.txt` и `C:\file.02.txt`:
 
@@ -152,23 +146,17 @@ draft: 0
 .\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org' -File 'C:\file.01.txt', 'C:\file.02.txt' -FileRemove
 ```
 
-#### HTML-письмо
-
 - Письмо отправляется от `mail@example.com` для `mail@example.org` в формате `HTML`:
 
 ```terminal {os="windows",lang="pwsh"}
 .\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org' -HTML
 ```
 
-#### Письмо с приоритетом
-
 - Письмо отправляется от `mail@example.com` для `mail@example.org` в высоким приоритетом:
 
 ```terminal {os="windows",lang="pwsh"}
 .\app.mail.ps1 -From 'mail@example.com' -To 'mail@example.org' -Priority 'High'
 ```
-
-#### Письмо с копией
 
 - Письмо отправляется от `mail@example.com` для `mail@example.org` с копией к `mail@example.net` и `mail@example.biz`:
 
