@@ -1,17 +1,17 @@
 $TTL 24h
 $ORIGIN example.com.
 ; SOA
-@                   IN  SOA     ns01.example.com. postmaster.example.com. (
+@                   IN  SOA     ns1.example.com. postmaster.example.com. (
                                 2024061000  ; Serial
                                 10m         ; Refresh
                                 1h          ; Retry
                                 1w          ; Expire
                                 6m )        ; Negative Cache TTL
 ; NS
-@                   IN  NS      ns01.example.com.
-@                   IN  NS      ns02.example.com.
-ns01                IN  A       192.168.1.2
-ns02                IN  A       192.168.1.3
+@                   IN  NS      ns1.example.com.
+@                   IN  NS      ns2.example.com.
+ns1                 IN  A       192.168.1.2
+ns2                 IN  A       192.168.1.3
 ; MAIN
 @                   IN  A       192.168.1.5
 www                 IN  CNAME   @
