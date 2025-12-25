@@ -82,7 +82,7 @@ The security database on the server does not have a computer account for this wo
 
 Параметр у скрипта один, это название сервера Domain Controller {{< tag "DC" >}}.
 
-- `-S` `-P_Server` - название сервера DC (контроллера домена). Если параметр не задан, скрипт выбирает для операции контроллер домена по умолчанию.
+- `Server`, `DC` - название сервера DC (контроллера домена). Если параметр не задан, скрипт выбирает для операции контроллер домена по умолчанию.
 
 ### Примеры
 
@@ -95,7 +95,7 @@ The security database on the server does not have a computer account for this wo
 Восстановить доверительные отношения с доменом `DC-server.domain.com`:
 
 ```terminal {os="windows",mode="root"}
-.\pwsh.csc.repair.ps1 -DC 'DC-server.domain.com'
+.\pwsh.csc.repair.ps1 -Server 'DC-server.domain.com'
 ```
 
 ### Алгоритм работы
