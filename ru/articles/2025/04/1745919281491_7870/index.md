@@ -56,7 +56,7 @@ draft: 0
 - Установить пакеты ClamAV и пакет развёртывания виртуальной среды Python:
 
 ```bash
-apt install --yes clamdscan python3-venv
+apt install --yes clamdscan python3-pip python3-venv
 ```
 
 - Создать директорию `/var/lib/fangfrisch` и окружение:
