@@ -73,19 +73,19 @@ mv '/etc/default/named' '/etc/default/named.orig' && cp '/etc/default/named.orig
 
 ### Первичный сервер DNS
 
-- Сделать резервную копию файлов `named.conf.options` и `named.conf.default-zones`:
+- Сделать резервную копию файлов `named.conf.options` и `named.conf.root-hints`:
 
 ```bash
-for i in 'named.conf.options' 'named.conf.default-zones'; do mv "/etc/bind/${i}" "/etc/bind/${i}.orig" && touch "/etc/bind/${i}"; done
+for i in 'named.conf.options' 'named.conf.root-hints'; do mv "/etc/bind/${i}" "/etc/bind/${i}.orig" && touch "/etc/bind/${i}"; done
 ```
 
 - Привести файл `/etc/bind/named.conf.options` к следующему виду:
 
 {{< file "named.conf.options" >}}
 
-- Привести файл `/etc/bind/named.conf.default-zones` к следующему виду:
+- Привести файл `/etc/bind/named.conf.root-hints` к следующему виду:
 
-{{< file "named.conf.default-zones" >}}
+{{< file "named.conf.root-hints" >}}
 
 - Создать файл прямой зоны `/etc/bind/zone.example.org` со следующим содержанием:
 
