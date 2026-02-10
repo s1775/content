@@ -99,13 +99,13 @@ mkfs.xfs "/dev/${VG}/${LV}"
 Создание точки монтирования и монтирование логического тома **LV** в директорию `/mnt/storage` с файловой системой **EXT4**:
 
 ```bash
-mkdir '/mnt/storage' && echo "/dev/${VG}/${LV} /mnt/storage ext4 defaults 0 0" >> '/etc/fstab' && mount "/dev/${VG}/${LV}" '/mnt/storage'
+p='/mnt/storage'; mkdir "${p}" && echo "/dev/${VG}/${LV} ${p} ext4 defaults 0 0" >> '/etc/fstab' && mount "/dev/${VG}/${LV}" "${p}"
 ```
 
 Создание точки монтирования и монтирование логического тома **LV** в директорию `/mnt/storage` с файловой системой **XFS**:
 
 ```bash
-mkdir '/mnt/storage' && echo "/dev/${VG}/${LV} /mnt/storage xfs defaults 0 0" >> '/etc/fstab' && mount "/dev/${VG}/${LV}" '/mnt/storage'
+p='/mnt/storage'; mkdir "${p}" && echo "/dev/${VG}/${LV} ${p} xfs defaults 0 0" >> '/etc/fstab' && mount "/dev/${VG}/${LV}" "${p}"
 ```
 
 ## Расширение LVM
