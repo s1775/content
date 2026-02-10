@@ -176,7 +176,7 @@ docker run --rm -it -v './license:/license-generator/build' -e LICENSE_NAME='Git
 - Скачать открытый ключ в директорию `/opt/gitlab/embedded/service/gitlab-rails` и заменить им оригинальный файл `license_encryption_key.pub`:
 
 ```bash
-f=('public'); d='/opt/gitlab/embedded/service/gitlab-rails'; s='https://libsys.ru/ru/2025/02/f2d03575-8435-5182-925d-ac2a22100055'; [[ -f "${d}/.license_encryption_key.pub" && ! -f "${d}/.license_encryption_key.pub.orig" ]] && mv "${d}/.license_encryption_key.pub" "${d}/.license_encryption_key.pub.orig"; for i in "${f[@]}"; do curl -fsSLo "${d}/.license_encryption_key.pub" "${s}/${i}.key"
+f=('public'); d='/opt/gitlab/embedded/service/gitlab-rails'; s='https://libsys.ru/ru/2025/02/f2d03575-8435-5182-925d-ac2a22100055'; [[ -f "${d}/.license_encryption_key.pub" && ! -f "${d}/.license_encryption_key.pub.orig" ]] && mv "${d}/.license_encryption_key.pub" "${d}/.license_encryption_key.pub.orig"; for i in "${f[@]}"; do curl -fsSLo "${d}/.license_encryption_key.pub" "${s}/${i}.key"; done
 ```
 
 - Установить [файл лицензии](license.key) в Admin / Settings / General / Add License.
