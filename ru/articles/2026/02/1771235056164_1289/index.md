@@ -119,7 +119,7 @@ apt install --yes clamav libclamunrar && apt install --yes arj cabextract cpio l
 - Удаление старого пакета `p7zip` и установка нового `7zip`:
 
 ```bash
-apt purge --yes p7zip && apt install --yes 7zip 7zip-rar
+. '/etc/os-release' && apt purge --yes p7zip && apt install --yes -t "${VERSION_CODENAME}-backports" 7zip 7zip-rar
 ```
 
 - Генерация DKIM записи (длина ключа `1024`):
