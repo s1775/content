@@ -16,13 +16,14 @@ title: 'О проекте'
 {{< table >}}
 | Название | Описание |
 |---|---|
-| [**libSYS**](https://libsys.ru) | Общая библиотека по работе с различными системами. |
-| [libCMD](https://libcmd.ru) | Библиотека по работе с командами терминала. |
-| [libCRYPTO](https://libcrypto.ru) | Библиотека по работе с crypto-функциями. |
-| [libDB](https://libdb.ru) | Библиотека по работе с базами данных. |
-| [libFS](https://libfs.ru) | Библиотека по работе с файловыми системами. |
-| [libPBS](https://libpbs.ru) | Библиотека по работе с Proxmox Backup Server. |
-| [libPMG](https://libpmg.ru) | Библиотека по работе с Proxmox Mail Gateway. |
-| [libPVE](https://libpve.ru) | Библиотека по работе с Proxmox VE. |
-| [libZFS](https://libzfs.ru) | Библиотека по работе с файловой системой ZFS. |
+| [**libSYS**](https://libsys.ru/) | Общая библиотека по работе с различными системами. |
+| [libCMD](https://libcmd.ru/) | Библиотека по работе с командами терминала. |
+| [libCRYPTO](https://libcrypto.ru/) | Библиотека по работе с crypto-функциями. |
+| [libDB](https://libdb.ru/) | Библиотека по работе с базами данных. |
+| [libFS](https://libfs.ru/) | Библиотека по работе с файловыми системами. |
+| [libPBS](https://libpbs.ru/) | Библиотека по работе с Proxmox Backup Server. |
+| [libPMG](https://libpmg.ru/) | Библиотека по работе с Proxmox Mail Gateway. |
+| [libPVE](https://libpve.ru/) | Библиотека по работе с Proxmox VE. |
+| [libZFS](https://libzfs.ru/) | Библиотека по работе с файловой системой ZFS. |
+| [netCFG](https://netcfg.ru/) | Библиотека по работе с сетевой инфраструктурой. |
 {{< /table >}}
