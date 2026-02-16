@@ -20,7 +20,6 @@ tags:
   - 'iredadmin'
   - 'iredapd'
   - 'mlmmjadmin'
-  - 'clamav'
 authors:
   - 'KaiKimera'
 sources:
@@ -55,42 +54,6 @@ draft: 0
 <!--more-->
 
 Все действия необходимо выполнять предельно аккуратно, понимая за что отвечает та или иная команда.
-
-## Установка iRedMail
-
-- Скачать и распаковать последнюю версию {{< tag "iRedMail" >}}:
-
-```bash
-export GH_NAME='iRedMail'; export GH_API="gh.api.${GH_NAME}.json"; export IRM_DIR="${HOME}/iRM.iRedMail.$( date '+%s' )"; mkdir "${IRM_DIR}" && cd "${IRM_DIR}" && curl -fsSL "https://api.github.com/repos/iredmail/${GH_NAME}/tags" | tee "${GH_API}" > '/dev/null'; url="$( grep '"tarball_url":' < "${GH_API}" | head -n 1 | awk -F '"' '{ print $(NF-1) }' )"; ver="$( echo "${url}" | awk -F '/' '{ print $(NF) }' )"; cid="$( grep '"sha":' < "${GH_API}" | head -n 1 | awk -F '"' '{ print $(NF-1) }' | head -c 7 )"; curl -fSLOJ "${url}" && tar -xzf ./*"${cid}.tar.gz" && mv ./*"${cid}" "${GH_NAME}-${ver}" && cd "${GH_NAME}-${ver}" && curl -fsSLo 'config' 'https://libsys.ru/ru/2025/02/7deb49ab-bb4f-50e6-b196-82b4a9778a2d/irm.config' || return
-```
-
-{{< alert "tip" >}}
-Если требуется конкретная версия iRedMail, то можно воспользоваться командой:
-
-```bash
-v='1.7.2'; curl -fSLo "iRedMail-${v}.tar.gz" "https://github.com/iredmail/iRedMail/archive/refs/tags/${v}.tar.gz" && tar -xzf "iRedMail-${v}.tar.gz" && cd "iRedMail-${v}" || exit
-```
-{{< /alert >}}
-
-- Создать файл `config` в корневой директории {{< tag "iRedMail" >}} со следующим шаблоном:
-
-{{< file "irm.config" "bash" >}}
-
-- Заполнить шаблон `config` своими параметрами.
-
-{{< alert "tip" >}}
-Для генерации паролей можно воспользоваться командой:
-
-```bash
-u=('MYSQL_ROOT_PASSWD' 'DOMAIN_ADMIN_PASSWD_PLAIN' 'SOGO_SIEVE_MASTER_PASSWD' 'AMAVISD_DB_PASSWD' 'FAIL2BAN_DB_PASSWD' 'IREDADMIN_DB_PASSWD' 'IREDAPD_DB_PASSWD' 'NETDATA_DB_PASSWD' 'RCM_DB_PASSWD' 'SOGO_DB_PASSWD' 'VMAIL_DB_ADMIN_PASSWD' 'VMAIL_DB_BIND_PASSWD'); for i in "${u[@]}"; do printf "%-25s = %s\n" "${i}" "$( < '/dev/urandom' tr -dc 'a-zA-Z0-9' | head -c "${1:-32}"; echo; )"; done
-```
-{{< /alert >}}
-
-- Запустить установку {{< tag "iRedMail" >}}:
-
-```bash
-bash ./iRedMail.sh
-```
 
 ## Миграция компонентов
 
@@ -367,54 +330,4 @@ export GH_NAME='iRedAPD'; export GH_API="gh.api.${GH_NAME}.json"; export IRM_DIR
 
 ```bash
 export GH_NAME='mlmmjadmin'; export GH_API="gh.api.${GH_NAME}.json"; export IRM_DIR="${HOME}/iRM.mlmmjadmin.$( date '+%s' )"; mkdir "${IRM_DIR}" && cd "${IRM_DIR}" && curl -fsSL "https://api.github.com/repos/iredmail/${GH_NAME}/tags" | tee "${GH_API}" > '/dev/null'; url="$( grep '"tarball_url":' < "${GH_API}" | head -n 1 | awk -F '"' '{ print $(NF-1) }' )"; ver="$( echo "${url}" | awk -F '/' '{ print $(NF) }' )"; cid="$( grep '"sha":' < "${GH_API}" | head -n 1 | awk -F '"' '{ print $(NF-1) }' | head -c 7 )"; curl -fSLOJ "${url}" && tar -xzf ./*"${cid}.tar.gz" && mv ./*"${cid}" "${GH_NAME}-${ver}" && cd "${GH_NAME}-${ver}/tools/" && bash "upgrade_$( echo "${GH_NAME}" | tr '[:upper:]' '[:lower:]' ).sh"
-```
-
-## Дополнительные настройки
-
-В этом разделе собраны дополнительные настройки по различным сервисам {{< tag "iRedMail" >}}.
-
-### Amavis
-
-- Установка командной строки антивируса и утилит для работы с архивами:
-
-```bash
-apt install --yes clamav libclamunrar && apt install --yes arj cabextract cpio lhasa lzop nomarch pax unrar unzip
-```
-
-- Удаление старого пакета `p7zip` и установка нового `7zip`:
-
-```bash
-apt purge --yes p7zip && apt install --yes -t 'stable-backports' 7zip 7zip-rar
-```
-
-- Генерация DKIM записи (длина ключа `1024`):
-
-```bash
-d='example.org'; f="/var/lib/dkim/${d}.1024.pem"; amavisd genrsa "${f}" 1024 && chown amavis:amavis "${f}" && chmod 0400 "${f}"
-```
-
-### ClamAV
-
-- Настройка российского зеркала обновлений {{< tag "ClamAV" >}}:
-
-```bash
-sed -i 's|ScriptedUpdates yes|ScriptedUpdates no|g' '/etc/clamav/freshclam.conf' && echo -e 'PrivateMirror https://clamav-mirror.ru\nPrivateMirror https://mirror.truenetwork.ru/clamav\nPrivateMirror http://mirror.truenetwork.ru/clamav\n' | tee -a '/etc/clamav/freshclam.conf' > '/dev/null' && rm -rf '/var/lib/clamav/freshclam.dat' && systemctl stop clamav-freshclam.service && freshclam -vvv && systemctl restart clamav-freshclam.service && systemctl restart clamav-daemon.service
-```
-
-### Postscreen
-
-- В директиве `postscreen_dnsbl_threshold` заменить `2` на `3`.
-- В директиву `postscreen_dnsbl_sites` добавить дополнительные спам-фильтры:
-
-```
-    bl.spamcop.net=127.0.0.2*2
-    psbl.surriel.com=127.0.0.2*2
-    dnsbl-3.uceprotect.net=127.0.0.2*2
-    all.spamrats.com=127.0.0.[2..43]*2
-    bl.mailspike.net=127.0.0.[2..13]*2
-    all.s5h.net=127.0.0.2*2
-    multi.surbl.org=127.0.0.[2..254]*1
-    list.dnswl.org=127.0.[0..255].1*-2
-    list.dnswl.org=127.0.[0..255].2*-10
-    list.dnswl.org=127.0.[0..255].3*-100
 ```
