@@ -52,12 +52,24 @@ draft: 0
 
 <!--more-->
 
+## Экспорт переменных
+
+- Экспортировать заранее подготовленные общие параметры в переменные окружения:
+
+```bash
+export IRM_DOMAIN='mail.example.org'
+```
+
+### Параметры
+
+- `IRM_DOMAIN='mail.example.org'` - домен почтового сервера.
+
 ## Настройка ОС
 
 - Добавить в файл `/etc/hosts` строку `127.0.0.1 mail.example.org mail localhost localhost.localdomain`:
 
 ```bash
-d='mail.example.org'; f='/etc/hosts'; hostnamectl hostname "${d%%.*}" && cp "${f}" "${f}.orig" && sed -i '/^127\.0/d' "${f}" && sed -i "1i 127.0.0.1 ${d} ${d%%.*} localhost localhost.localdomain" "${f}"
+f='/etc/hosts'; hostnamectl hostname "${IRM_DOMAIN%%.*}" && cp "${f}" "${f}.orig" && sed -i '/^127\.0/d' "${f}" && sed -i "1i 127.0.0.1 ${IRM_DOMAIN} ${IRM_DOMAIN%%.*} localhost localhost.localdomain" "${f}"
 ```
 
 - Перезагрузить систему:
@@ -131,7 +143,7 @@ apt install --yes clamav libclamunrar && apt install --yes arj cabextract cpio l
 - Генерация DKIM записи (длина ключа `1024`):
 
 ```bash
-d='example.org'; f="/var/lib/dkim/${d}.1024.pem"; amavisd genrsa "${f}" 1024 && chown amavis:amavis "${f}" && chmod 0400 "${f}"
+f="/var/lib/dkim/${IRM_DOMAIN#*.}.1024.pem"; amavisd genrsa "${f}" 1024 && chown amavis:amavis "${f}" && chmod 0400 "${f}"
 ```
 
 ### ClamAV
