@@ -60,6 +60,12 @@ draft: 0
 d='mail.example.org'; f='/etc/hosts'; hostnamectl hostname "${d%%.*}" && cp "${f}" "${f}.orig" && sed -i '/^127\.0/d' "${f}" && sed -i "1i 127.0.0.1 ${d} ${d%%.*} localhost localhost.localdomain" "${f}"
 ```
 
+- Перезагрузить систему:
+
+```bash
+shutdown -r now
+```
+
 ## Установка iRedMail
 
 - Скачать и распаковать последнюю версию {{< tag "iRedMail" >}}:
