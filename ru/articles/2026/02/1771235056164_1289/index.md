@@ -136,6 +136,12 @@ d='example.org'; f="/var/lib/dkim/${d}.1024.pem"; amavisd genrsa "${f}" 1024 && 
 sed -i 's|ScriptedUpdates yes|ScriptedUpdates no|g' '/etc/clamav/freshclam.conf' && echo -e 'PrivateMirror https://mirror.sg.gs/clamav\nPrivateMirror https://clamav-mirror.ru\n' | tee -a '/etc/clamav/freshclam.conf' > '/dev/null' && rm -rf '/var/lib/clamav/freshclam.dat' && systemctl stop clamav-freshclam.service && freshclam -vvv && systemctl restart clamav-freshclam.service && systemctl restart clamav-daemon.service
 ```
 
+### Fangfrisch
+
+**Fangfrisch** - это аналог утилиты ClamAV FreshClam. Он позволяет загружать файлы определений вирусов, которые не являются официальными файлами ClamAV, например, от SaneSecurity , URLhaus и других. Fangfrisch был разработан с учетом безопасности и может запускаться только от непривилегированного пользователя.
+
+Установить и настроить Fangfrisch можно по инструкции {{< uuid "96bdcb5c-a58b-58ae-9e6b-536b49bf1c51" >}}.
+
 ### Postfix: Postscreen
 
 - В директиве `postscreen_dnsbl_threshold` заменить `2` на `3`.
