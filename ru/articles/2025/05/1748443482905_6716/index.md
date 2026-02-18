@@ -50,8 +50,8 @@ Summary...
 
 ## Исходные данные
 
-- IP-адрес DNS-сервера `NS01`: `192.168.1.2`.
-- IP-адрес DNS-сервера `NS02`: `192.168.1.3`.
+- IP-адрес DNS-сервера `NS1`: `192.168.1.2`.
+- IP-адрес DNS-сервера `NS2`: `192.168.1.3`.
 - IP-адрес домена `example.org`: `192.168.1.5`.
 - IP-адрес домена `mail.example.org`: `192.168.1.6`.
 
@@ -71,21 +71,23 @@ apt install --yes bind9
 mv '/etc/default/named' '/etc/default/named.orig' && cp '/etc/default/named.orig' '/etc/default/named' && sed -i 's|-u bind|-u bind -4|g' '/etc/default/named'
 ```
 
-### Первичный сервер DNS
-
 - Сделать резервную копию файлов `named.conf.options` и `named.conf.root-hints`:
 
 ```bash
 for i in 'named.conf.options' 'named.conf.root-hints'; do mv "/etc/bind/${i}" "/etc/bind/${i}.orig" && touch "/etc/bind/${i}"; done
 ```
 
+- Привести файл `/etc/bind/named.conf.root-hints` к следующему виду:
+
+{{< file "named.conf.root-hints" >}}
+
+### Authoritative Server
+
 - Привести файл `/etc/bind/named.conf.options` к следующему виду:
 
 {{< file "named.conf.options" >}}
 
-- Привести файл `/etc/bind/named.conf.root-hints` к следующему виду:
-
-{{< file "named.conf.root-hints" >}}
+#### Primary
 
 - Создать файл прямой зоны `/etc/bind/zone.example.org` со следующим содержанием:
 
@@ -95,10 +97,22 @@ for i in 'named.conf.options' 'named.conf.root-hints'; do mv "/etc/bind/${i}" "/
 
 {{< file "zone.example.com.rev" "dns" >}}
 
-- Добавить в файл `/etc/bind/named.conf.local` описание прямой и обратной зоны `example.org`:
+- Создать файл локальной зоны `/etc/bind/zone.example.org.local` со следующим содержанием:
 
-{{< file "named.conf.local.master" >}}
+{{< file "zone.example.com.local" "dns" >}}
 
-### Вторичный сервер DNS
+- Добавить в файл `/etc/bind/named.conf.local` описание локальной, прямой и обратной зоны `example.org`:
 
-{{< file "named.conf.local.slave" >}}
+{{< file "named.conf.local.primary" >}}
+
+#### Secondary
+
+- Добавить в файл `/etc/bind/named.conf.local` описание локальной, прямой и обратной зоны `example.org`:
+
+{{< file "named.conf.local.secondary" >}}
+
+### Resolver (Caching Name Servers)
+
+- Привести файл `/etc/bind/named.conf.options` к следующему виду:
+
+{{< file "named.conf.options.resolver" >}}

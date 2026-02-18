@@ -2,7 +2,7 @@ $TTL 3h
 $ORIGIN example.com.
 ; SOA
 @                   IN  SOA     ns1.example.com. postmaster.example.com. (
-                                2024061000  ; Serial
+                                2025031500  ; Serial
                                 10m         ; Refresh
                                 1h          ; Retry
                                 1w          ; Expire

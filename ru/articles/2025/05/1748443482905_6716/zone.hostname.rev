@@ -1,7 +1,7 @@
 $TTL 3h
 ; SOA
 @                   IN  SOA     ns1.hostname.local. postmaster.hostname.local. (
-                                2024061000  ; Serial
+                                2025031500  ; Serial
                                 10m         ; Refresh
                                 1h          ; Retry
                                 1w          ; Expire
