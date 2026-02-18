@@ -16,6 +16,6 @@ options {
   qname-minimization off;
   version none;
 
-  # forward only;
-  # forwarders { 8.8.8.8; 77.88.8.8; };
+  // forward only;
+  // forwarders { 8.8.8.8; 77.88.8.8; };
 };
