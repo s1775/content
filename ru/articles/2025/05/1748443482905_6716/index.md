@@ -13,7 +13,7 @@ categories:
 tags:
   - 'linux'
   - 'debian'
-  - 'bind'
+  - 'bind9'
   - 'dns'
 authors:
   - 'KaiKimera'
@@ -41,10 +41,10 @@ hash: '2e155edf9a477f8bf968a27047debf562a15d45e'
 uuid: '2e155edf-9a47-5f8b-9968-a27047debf56'
 slug: '2e155edf-9a47-5f8b-9968-a27047debf56'
 
-draft: 1
+draft: 0
 ---
 
-Summary...
+Инструкция по установке и первичной настройке {{< tag "Bind9" >}}.
 
 <!--more-->
 
@@ -83,11 +83,11 @@ for i in 'named.conf.options' 'named.conf.root-hints'; do mv "/etc/bind/${i}" "/
 
 ### Authoritative Server
 
+#### Primary
+
 - Привести файл `/etc/bind/named.conf.options` к следующему виду:
 
-{{< file "named.conf.options" >}}
-
-#### Primary
+{{< file "primary.named.conf.options" >}}
 
 - Создать файл прямой зоны `/etc/bind/zone.example.org` со следующим содержанием:
 
@@ -103,13 +103,17 @@ for i in 'named.conf.options' 'named.conf.root-hints'; do mv "/etc/bind/${i}" "/
 
 - Добавить в файл `/etc/bind/named.conf.local` описание локальной, прямой и обратной зоны `example.org`:
 
-{{< file "named.conf.local.primary" >}}
+{{< file "primary.named.conf.local" >}}
 
 #### Secondary
 
+- Привести файл `/etc/bind/named.conf.options` к следующему виду:
+
+{{< file "secondary.named.conf.options" >}}
+
 - Добавить в файл `/etc/bind/named.conf.local` описание локальной, прямой и обратной зоны `example.org`:
 
-{{< file "named.conf.local.secondary" >}}
+{{< file "secondary.named.conf.local" >}}
 
 ### Resolver (Caching Name Servers)
 
