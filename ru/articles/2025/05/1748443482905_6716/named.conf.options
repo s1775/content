@@ -1,4 +1,5 @@
 acl "local" { 127.0.0.0/8; };
+acl "transfer" { 192.168.1.3; };
 
 options {
   directory "/var/cache/bind";
@@ -9,6 +10,7 @@ options {
 
   allow-query { any; };
   allow-query-cache { none; };
+  // allow-transfer { "transfer"; }
 
   auth-nxdomain no;
   dnssec-validation no;

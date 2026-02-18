@@ -1,5 +1,5 @@
 acl "local" { 127.0.0.0/8; };
-acl "trusted" { 127.0.0.0/8; 192.168.0.0/16; };
+acl "trusted" { 127.0.0.0/8; };
 
 options {
   directory "/var/cache/bind";
@@ -8,8 +8,8 @@ options {
   listen-on-v6 { none; };
   recursion yes;
 
-  allow-query { trusted; };
-  allow-recursion { trusted; };
+  allow-query { "trusted"; };
+  allow-recursion { "trusted"; };
   allow-transfer { none; };
 
   auth-nxdomain no;
