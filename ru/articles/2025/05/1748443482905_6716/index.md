@@ -119,4 +119,4 @@ for i in 'named.conf.options' 'named.conf.root-hints'; do mv "/etc/bind/${i}" "/
 
 - Привести файл `/etc/bind/named.conf.options` к следующему виду:
 
-{{< file "named.conf.options.resolver" >}}
+{{< file "resolver.named.conf.options" >}}
