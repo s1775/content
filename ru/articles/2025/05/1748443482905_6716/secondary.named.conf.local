@@ -5,6 +5,6 @@
 
 view "public" {
   match-clients { any; };
-  zone "example.com" { type secondary; file "zone.example.com"; primaries { "dns-primary"; }; };
-  zone "1.168.192.in-addr.arpa" { type secondary; file "zone.example.com.rev"; primaries { "dns-primary"; }; };
+  zone "example.com" { type secondary; file "zone.example.com"; primaries { dns-primary; }; };
+  zone "1.168.192.in-addr.arpa" { type secondary; file "zone.example.com.rev"; primaries { dns-primary; }; };
 };

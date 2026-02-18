@@ -83,6 +83,8 @@ for i in 'named.conf.options' 'named.conf.root-hints'; do mv "/etc/bind/${i}" "/
 
 ### Authoritative Server
 
+Настройка основного и вторичного авторитетных серверов имён.
+
 #### Primary
 
 - Привести файл `/etc/bind/named.conf.options` к следующему виду:
@@ -116,6 +118,8 @@ for i in 'named.conf.options' 'named.conf.root-hints'; do mv "/etc/bind/${i}" "/
 {{< file "secondary.named.conf.local" >}}
 
 ### Resolver (Caching Name Servers)
+
+Настройка резолвера в качестве кэширующего сервера имён.
 
 - Привести файл `/etc/bind/named.conf.options` к следующему виду:
 
