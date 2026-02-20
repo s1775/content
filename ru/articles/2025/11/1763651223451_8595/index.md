@@ -67,20 +67,28 @@ Get-MoveRequest -ResultSize 'Unlimited' -MoveStatus 'InProgress' | Get-MoveReque
 Get-MoveRequest -ResultSize 'Unlimited' -MoveStatus 'CompletedWithWarning' | Get-MoveRequestStatistics
 ```
 
-## Удаление миграции
+## Общая миграция
 
-- Удалить завершённые миграции:
+{{< alert "tip" >}}
+Наилучшей практикой является не перемещать почтовые ящики мониторинга между базами данных.
+
+- Отключить почтовые ящики мониторинга перед перемещением почтовых ящиков из базы данных `DB01`:
 
 ```powershell
-Get-MoveRequest -MoveStatus 'Completed' -ResultSize 'Unlimited' | Remove-MoveRequest -Confirm:$False
+Get-Mailbox -Database 'DB01' -Monitoring | Disable-Mailbox -Confirm:$false
 ```
-
-## Общая миграция
+{{< /alert >}}
 
 - Запустить миграцию всех почтовых ящиков из базы данных `DB01` в базу данных `DB02`:
 
 ```powershell
-Get-Mailbox -Database 'DB01' -ResultSize 'Unlimited' | New-MoveRequest -TargetDatabase 'DB02'
+Get-Mailbox -Database 'DB01' -ResultSize 'Unlimited' | New-MoveRequest -TargetDatabase 'DB02' -BatchName 'DB01-DB02'
+```
+
+- Запустить миграцию нескольких почтовых ящиков из списка `C:\Users.txt` в базу данных `DB02`:
+
+```powershell
+Get-Content 'C:\Users.txt' | ForEach-Object { New-MoveRequest "${_}" -TargetDatabase 'DB02' }
 ```
 
 - Запустить миграцию почтового ящика `john.doe@example.com` в базу данных `DB02`:
@@ -90,19 +98,19 @@ New-MoveRequest 'john.doe@example.com' -TargetDatabase 'DB02'
 ```
 
 {{< alert "tip" >}}
-- Запустить миграцию основного и архивного почтовых ящиков в разные базы данных:
+- Запустить миграцию основного и архивного почтовых ящиков пользователя `john.doe@example.com` в разные базы данных:
 
 ```powershell
 New-MoveRequest 'john.doe@example.com' -TargetDatabase 'DB02_MAIN' -ArchiveTargetDatabase 'DB02_ARCHIVE'
 ```
 
-- Запустить миграцию только основного почтового ящика в базу данных `DB02`:
+- Запустить миграцию только основного почтового ящика пользователя `john.doe@example.com` в базу данных `DB02`:
 
 ```powershell
 New-MoveRequest 'john.doe@example.com' -TargetDatabase 'DB02' -PrimaryOnly
 ```
 
-- Запустить миграцию только архивного почтового ящика в базу данных `DB02`:
+- Запустить миграцию только архивного почтового ящика пользователя `john.doe@example.com` в базу данных `DB02`:
 
 ```powershell
 New-MoveRequest 'john.doe@example.com' -ArchiveTargetDatabase 'DB02' -ArchiveOnly
@@ -139,4 +147,12 @@ Get-Mailbox -Database 'DB01' -PublicFolder | New-MoveRequest -TargetDatabase 'DB
 
 ```powershell
 Get-Mailbox -Database 'DB01' -AuditLog | New-MoveRequest -TargetDatabase 'DB02'
+```
+
+## Удаление миграции
+
+- Удалить завершённые миграции:
+
+```powershell
+Get-MoveRequest -MoveStatus 'Completed' -ResultSize 'Unlimited' | Remove-MoveRequest -Confirm:$false
 ```

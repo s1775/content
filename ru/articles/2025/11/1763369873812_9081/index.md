@@ -90,7 +90,7 @@ for %i in ("Server" "Database" "Log" "Update") do ( if not exist "C:\Exchange\%i
 Команда PowerShell для проверки размера сектора у дисков:
 
 ```powershell
-Get-CimInstance -ClassName 'Win32_Volume' | Select-Object Name, FileSystem, Label, BlockSize | Sort-Object Name | Format-Table -AutoSize
+Get-CimInstance -ClassName 'Win32_Volume' | Select-Object 'Name', 'FileSystem', 'Label', 'BlockSize' | Sort-Object 'Name' | Format-Table -AutoSize
 ```
 {{< /alert >}}
 
@@ -193,7 +193,7 @@ New-AcceptedDomain -DomainName 'example.com' -DomainType Authoritative -Name 'Ex
 - Показать текущие коннекторы отправки:
 
 ```powershell
-Get-SendConnector | Format-Table Identity, AddressSpaces, SourceTransportServers, MaxMessageSize, Enabled
+Get-SendConnector | Format-Table 'Identity', 'AddressSpaces', 'SourceTransportServers', 'MaxMessageSize', 'Enabled'
 ```
 
 - Создать новый коннектор отправки:
@@ -231,7 +231,7 @@ Get-MoveRequest -ResultSize 'Unlimited' | Get-MoveRequestStatistics
 - Удалить завершённые процессы миграции:
 
 ```powershell
-Get-MoveRequest -MoveStatus 'Completed' -ResultSize 'Unlimited' | Remove-MoveRequest -Confirm:$False
+Get-MoveRequest -MoveStatus 'Completed' -ResultSize 'Unlimited' | Remove-MoveRequest -Confirm:$false
 ```
 
 #### Пользовательские ящики
@@ -257,5 +257,5 @@ Get-MoveRequest -ResultSize 'Unlimited' | Get-MoveRequestStatistics
 - Удалить завершённые процессы миграции:
 
 ```powershell
-Get-MoveRequest -MoveStatus 'Completed' -ResultSize 'Unlimited' | Remove-MoveRequest -Confirm:$False
+Get-MoveRequest -MoveStatus 'Completed' -ResultSize 'Unlimited' | Remove-MoveRequest -Confirm:$false
 ```
