@@ -100,7 +100,7 @@ Move-DatabasePath 'DB01' -EdbFilePath 'E:\DB01\DB01.edb' -LogFolderPath 'F:\DB01
 - Посмотреть квоты всех баз данных:
 
 ```powershell
-Get-MailboxDatabase -IncludePreExchange | Format-Table Name,IssueWarningQuota,ProhibitSendQuota,ProhibitSendReceiveQuota
+Get-MailboxDatabase -IncludePreExchange | Format-Table 'Name', 'IssueWarningQuota', 'ProhibitSendQuota', 'ProhibitSendReceiveQuota'
 ```
 
 - Установить квоты для базы данных `DB01`:
