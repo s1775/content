@@ -40,7 +40,7 @@ hash: '050bc9b4bc96009f3ea6e386fdea2a153bef89e8'
 uuid: '050bc9b4-bc96-509f-8ea6-e386fdea2a15'
 slug: '050bc9b4-bc96-509f-8ea6-e386fdea2a15'
 
-draft: 1
+draft: 0
 ---
 
 Рассмотрим команды по миграции данных в MS Exchange. Команды вводятся в терминале **Exchange PowerShell** от имени **Администратора**.

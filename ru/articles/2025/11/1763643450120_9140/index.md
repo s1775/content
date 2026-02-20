@@ -40,7 +40,7 @@ hash: '68f0c64fa386e552eff1b38a9339fd8311b5a28c'
 uuid: '68f0c64f-a386-5552-aff1-b38a9339fd83'
 slug: '68f0c64f-a386-5552-aff1-b38a9339fd83'
 
-draft: 1
+draft: 0
 ---
 
 Рассмотрим команды по работе с базами данных MS Exchange. Команды вводятся в терминале **Exchange PowerShell** от имени **Администратора**.
