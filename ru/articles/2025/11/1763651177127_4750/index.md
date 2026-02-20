@@ -52,19 +52,37 @@ draft: 0
 - Посмотреть список почтовых ящиков:
 
 ```powershell
-Get-Mailbox | Format-Table Name, ServerName, Database, AdminDisplayVersion
+Get-Mailbox -ResultSize 'Unlimited' | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'ServerName', 'Database'
+```
+
+- Посмотреть статистику почтовых ящиков:
+
+```powershell
+Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'TotalItemSize', 'ItemCount'
+```
+
+- Посмотреть статистику почтовых ящиков и отсортировать по размеру:
+
+```powershell
+Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'TotalItemSize' -Descending | Select-Object 'DisplayName', 'TotalItemSize' -First 30
+```
+
+- Посмотреть информацию о последнем входе в почтовый ящик:
+
+```powershell
+Get-Mailbox -ResultSize 'Unlimited' -RecipientTypeDetails 'UserMailbox' | ForEach-Object { Get-MailboxStatistics $_.PrimarySmtpAddress.ToString() } | Sort-Object 'LastLogonTime' -Descending | Select-Object 'DisplayName', 'LastLogonTime', @{n="DaysSinceLastLogOn";e={(New-TimeSpan -Start $_.LastLogonTime -End (Get-Date)).Days}}
 ```
 
 - Посмотреть список арбитражных почтовых ящиков:
 
 ```powershell
-Get-Mailbox -Arbitration | Format-Table Name, ServerName, Database, AdminDisplayVersion
+Get-Mailbox -Arbitration | Format-Table 'DisplayName', 'ServerName', 'Database'
 ```
 
 - Посмотреть информацию о почтовом ящике `john.doe@example.com`:
 
 ```powershell
-Get-Mailbox 'john.doe@example.com' | Format-Table Name, PrimarySmtpAddress, Database, ArchiveDatabase
+Get-Mailbox 'john.doe@example.com' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'ServerName', 'Database', 'ArchiveDatabase'
 ```
 
 ## Создание

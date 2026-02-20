@@ -52,19 +52,19 @@ draft: 0
 - Посмотреть список баз данных:
 
 ```powershell
-Get-MailboxDatabase -IncludePreExchange -Status | Sort Name | Format-Table Name, Server, Mounted, AdminDisplayVersion
+Get-MailboxDatabase -IncludePreExchange -Status | Sort-Object 'Name' | Format-Table 'Name', 'Server', 'Mounted', 'AdminDisplayVersion'
 ```
 
 - Посмотреть размер баз данных:
 
 ```powershell
-Get-MailboxDatabase -IncludePreExchange -Status | Select Name, DatabaseSize, AvailableNewMailboxSpace
+Get-MailboxDatabase -IncludePreExchange -Status | Select-Object 'Name', 'DatabaseSize', 'AvailableNewMailboxSpace'
 ```
 
 - Посмотреть размер баз данных в удобном виде:
 
 ```powershell
-Get-MailboxDatabase -IncludePreExchange -Status | Sort-Object -Descending AvailableNewMailboxSpace | Select Name,@{Name='DatabaseSize (GB)';Expression={$_.DatabaseSize.ToGb()}},@{Name='AvailableNewMailboxSpace (GB)';Expression={$_.AvailableNewMailboxSpace.ToGb()}}
+Get-MailboxDatabase -IncludePreExchange -Status | Sort-Object 'AvailableNewMailboxSpace' -Descending | Select Name,@{Name='DatabaseSize (GB)';Expression={$_.DatabaseSize.ToGb()}},@{Name='AvailableNewMailboxSpace (GB)';Expression={$_.AvailableNewMailboxSpace.ToGb()}}
 ```
 
 ## Переименование
@@ -86,7 +86,7 @@ Set-MailboxDatabase 'DB01' -Name 'DB02'
 - Показать базы данных:
 
 ```powershell
-Get-MailboxDatabase | Format-List Name, EdbFilePath, LogFolderPath
+Get-MailboxDatabase | Format-List Name,EdbFilePath,LogFolderPath
 ```
 
 - Переместить базу данных `DB01` на диск `E` и директорию логов на диск `F`:
@@ -100,7 +100,7 @@ Move-DatabasePath 'DB01' -EdbFilePath 'E:\DB01\DB01.edb' -LogFolderPath 'F:\DB01
 - Посмотреть квоты всех баз данных:
 
 ```powershell
-Get-MailboxDatabase -IncludePreExchange | Format-Table Name, IssueWarningQuota, ProhibitSendQuota, ProhibitSendReceiveQuota
+Get-MailboxDatabase -IncludePreExchange | Format-Table Name,IssueWarningQuota,ProhibitSendQuota,ProhibitSendReceiveQuota
 ```
 
 - Установить квоты для базы данных `DB01`:

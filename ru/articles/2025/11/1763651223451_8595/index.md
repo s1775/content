@@ -49,10 +49,22 @@ draft: 0
 
 ## Анализ
 
-- Посмотреть статус миграции:
+- Посмотреть статус всех миграций:
 
 ```powershell
 Get-MoveRequest -ResultSize 'Unlimited' | Get-MoveRequestStatistics
+```
+
+- Посмотреть статус выполняемых миграций:
+
+```powershell
+Get-MoveRequest -ResultSize 'Unlimited' -MoveStatus 'InProgress' | Get-MoveRequestStatistics
+```
+
+- Посмотреть статус выполненных миграций с предупреждениями:
+
+```powershell
+Get-MoveRequest -ResultSize 'Unlimited' -MoveStatus 'CompletedWithWarning' | Get-MoveRequestStatistics
 ```
 
 ## Удаление миграции
