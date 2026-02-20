@@ -64,7 +64,7 @@ Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'Displ
 - Посмотреть статистику почтовых ящиков и отсортировать по размеру:
 
 ```powershell
-Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'TotalItemSize' -Descending | Select-Object 'DisplayName', 'TotalItemSize' -First 30
+Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'TotalItemSize' -Descending | Select-Object 'DisplayName', 'TotalItemSize'
 ```
 
 - Посмотреть информацию о последнем входе в почтовый ящик:
