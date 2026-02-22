@@ -49,10 +49,4 @@ draft: 0
 
 {{< wallet "btc" "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh12313131" >}}
 
-Donate:
-
-{{< requisites url="https://apihost.github.io/requisites.ru.dunaev.json" data="bank,card,crypto" title="qw" >}}
-
-fdf
-
-qwwe
+{{< requisites "https://apihost.github.io/requisites.ru.dunaev.json" "card,crypto" >}}
