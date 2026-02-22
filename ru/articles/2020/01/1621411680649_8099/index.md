@@ -46,3 +46,13 @@ draft: 0
 Это первая запись для тестирования конфигурации и возможностей данного блога. Запись для тестирования функциональности и корректности шаблонов.
 
 {{< page "libsys.ru" "ru" "2026/02/8e0abf88-03dc-5327-b0b8-269f29cebb41" >}}
+
+{{< wallet "btc" "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh12313131" >}}
+
+Donate:
+
+{{< requisites url="https://apihost.github.io/requisites.ru.dunaev.json" data="bank,card,crypto" title="qw" >}}
+
+fdf
+
+qwwe
