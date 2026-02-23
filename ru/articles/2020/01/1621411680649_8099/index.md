@@ -47,6 +47,6 @@ draft: 0
 
 {{< page "libsys.ru" "ru" "2026/02/8e0abf88-03dc-5327-b0b8-269f29cebb41" >}}
 
-{{< wallet "btc" "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh12313131" >}}
+{{< wallet "btc" "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh" >}}
 
-{{< requisites "https://apihost.github.io/requisites.ru.dunaev.json" "card,crypto" >}}
+{{< requisites "https://apihost.github.io/requisites.ru.example.json" "bank,card,crypto" >}}
