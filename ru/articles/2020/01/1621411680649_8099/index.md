@@ -49,4 +49,4 @@ draft: 0
 
 {{< wallet "btc" "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh" >}}
 
-{{< requisites "https://apihost.github.io/requisites.ru.example.json" "bank,card,crypto" >}}
+{{< requisites "https://apihost.github.io/requisites.ru.example.json" "organization;bank;card;crypto" >}}
