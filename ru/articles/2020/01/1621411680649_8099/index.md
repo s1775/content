@@ -47,12 +47,12 @@ draft: 0
 
 ## Организация
 
-{{< requisites "https://apihost.github.io/requisites.ru.example.json" "organization" >}}
+{{< requisites "https://apihost.github.io/api/requisites.ru.example.json" "organization" >}}
 
 ## Банк
 
-{{< requisites "https://apihost.github.io/requisites.ru.example.json" "bank" >}}
+{{< requisites "https://apihost.github.io/api/requisites.ru.example.json" "bank" >}}
 
 ## Карты и крипто
 
-{{< requisites "https://apihost.github.io/requisites.ru.example.json" "cards,crypto" >}}
+{{< requisites "https://apihost.github.io/api/requisites.ru.example.json" "cards,crypto" >}}
