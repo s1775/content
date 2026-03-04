@@ -3,13 +3,14 @@
 # GENERAL
 # -------------------------------------------------------------------------------------------------------------------- #
 
-title: 'Первичная настройка UAIK'
+title: 'Автоматическая установка ОС (UAIK)'
 description: ''
 icon: 'far fa-file-lines'
 categories:
   - 'linux'
+  - 'windows'
 tags:
-  - 'fedora'
+  - 'uaik'
 authors:
   - 'KaiKimera'
 license: 'CC-BY-SA-4.0'
@@ -35,66 +36,101 @@ slug: '59781965-afe7-5dd5-9798-d1c5ba6cdafd'
 draft: 0
 ---
 
-После автоматической установки ({{< tag "Kickstart" >}}) при помощи [UAIK](https://uaik.github.io/), {{< tag "Fedora" >}} запустится в текстовом режиме. На этом этапе необходимо произвести первичную настройку операционной системы.
+
 
 <!--more-->
 
-## Включение графического режима
+## Linux
 
-```text
-systemctl set-default graphical.target
+- Автоматическая установка выполняется на диск `sda` или `vda`.
+- В сценарии автоматической установки прописаны пользователи и их пароли. После установки необходимо сменить стандартные пароли.
+
+### Параметры
+
+Автоматическая установка содержит в себе предварительно заданные параметры.
+
+
+- Диск
+  - `sda`
+  - `vda`
+- Пользователи
+  - ROOT
+    - Логин: `root`
+    - Пароль: `cDFymu2aML`
+  - USER-0000
+    - Логин: `u0000`
+    - Пароль: `7Jxs6PKVAk`
+
+### Debian-based
+
+- На главном экране установки переключить выбор на установку в текстовом режиме.
+- Нажать на клавиатуре кнопку {{< key "TAB" >}}.
+- В параметрах установки прописать:
+
+```ini
+url=https://uaik.ru/os/[os]/[config.ini]
 ```
 
-## Создание пользователя
+#### Примеры
 
-- Добавить пользователя:
+- Установка сценария `vm/sda.ext4.ini` для ОС `debian` на диск `sda` в файловой системе `ext4`:
+
+```ini
+url=https://uaik.ru/os/debian/vm/sda.ext4.ini
+```
+
+- Установка сценария `vm/sda.xfs.ini` для ОС `debian` на диск `sda` в файловой системе `xfs`:
+
+```ini
+url=https://uaik.ru/os/debian/vm/sda.xfs.ini
+```
+
+- Установка сценария `vm/vda.ext4.ini` для ОС `debian` на диск `vda` в файловой системе `ext4`:
+
+```ini
+url=https://uaik.ru/os/debian/vm/vda.ext4.ini
+```
+
+- Установка сценария `vm/vda.xfs.ini` для ОС `debian` на диск `vda` в файловой системе `xfs`:
+
+```ini
+url=https://uaik.ru/os/debian/vm/vda.xfs.ini
+```
+
+### RHEL-based
+
+- На главном экране установки переключить выбор на установку в текстовом режиме.
+- Нажать на клавиатуре кнопку {{< key "TAB" >}}.
+- В параметрах установки прописать:
+
+```ini
+inst.ks=https://uaik.ru/os/[os]/[config.ini]
+```
+
+#### Примеры
+
+- Установка сценария `vm/sda.xfs.ini` для ОС `alma`:
+
+```ini
+inst.ks=https://uaik.ru/os/alma/vm/sda.xfs.ini
+```
+
+### Настройка
+
+- Первичная настройка системы:
 
 ```bash
-useradd -mc "User 0001" user-0001
+curl -sL 'https://uaik.ru/config.00.sh' | bash -s
 ```
 
-- Установить пароль для пользователя:
+- Настройка служб (для **workstation**):
 
 ```bash
-passwd user-0001
+curl -sL 'https://uaik.ru/config.01.sh' | bash -s -- 'pkgmgr;ssh;nft;tmux;sysctl;systemd'
 ```
 
-## Отключение пользователя
+- Настройка служб (для **proxmox**):
 
 ```bash
-usermod -L user-0000
-```
-
-## Перемещение пользователя
-
-```text
-usermod -md /new_home/user-0001 user-0001
-```
-
-## Работа с диском
-
-Чтобы создать на новом диске раздел, необходимо войти в программу `parted`:
-
-```text
-parted -a optimal /dev/sdb
-```
-
-Выполнить следующие команды:
-
-```text
-(parted) mklabel gpt
-(parted) mkpart primary 0% 100%
-(parted) quit
-```
-
-Создать файловую систему:
-
-```text
-mkfs.xfs /dev/sdb1
-```
-
-Настроить автоматическое монтирование раздела в `/etc/fstab`:
-
-```text
-/dev/sdb1 /home/storage xfs defaults 0 0
+curl -sL 'https://uaik.ru/config.01.sh' | bash -s -- 'pkgmgr;ssh;tmux'
 ```
