@@ -11,6 +11,8 @@ categories:
   - 'windows'
 tags:
   - 'uaik'
+  - 'diskpart'
+  - 'autounattend'
 authors:
   - 'KaiKimera'
 license: 'CC-BY-SA-4.0'
@@ -36,7 +38,7 @@ slug: '59781965-afe7-5dd5-9798-d1c5ba6cdafd'
 draft: 0
 ---
 
-
+Использование сценариев для автоматизированной установки операционных систем.
 
 <!--more-->
 
