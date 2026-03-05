@@ -42,13 +42,14 @@ draft: 0
 
 ## Linux
 
+[Сценарии](https://github.com/uaik/uaik.github.io/tree/main/docs/os) для автоматической установки Linux:
+
 - Автоматическая установка выполняется на диск `sda` или `vda`.
 - В сценарии автоматической установки прописаны пользователи и их пароли. После установки необходимо сменить стандартные пароли.
 
 ### Параметры
 
-Автоматическая установка содержит в себе предварительно заданные параметры.
-
+Автоматическая установка содержит в себе предварительно заданные параметры:
 
 - Диск
   - `sda`
@@ -68,7 +69,7 @@ draft: 0
 - В параметрах установки прописать:
 
 ```ini
-url=https://uaik.ru/os/[os]/[config.ini]
+url=https://uaik.ru/os/OS_NAME/SCRIPT_NAME.ini
 ```
 
 #### Примеры
@@ -104,7 +105,7 @@ url=https://uaik.ru/os/debian/vm/vda.xfs.ini
 - В параметрах установки прописать:
 
 ```ini
-inst.ks=https://uaik.ru/os/[os]/[config.ini]
+inst.ks=https://uaik.ru/os/OS_NAME/SCRIPT_NAME.ini
 ```
 
 #### Примеры
@@ -134,3 +135,46 @@ curl -sL 'https://uaik.ru/config.01.sh' | bash -s -- 'pkgmgr;ssh;nft;tmux;sysctl
 ```bash
 curl -sL 'https://uaik.ru/config.01.sh' | bash -s -- 'pkgmgr;ssh;tmux'
 ```
+
+## MS Windows
+
+[Сценарии](https://github.com/uaik/uaik.github.io/tree/main/docs/os/windows) для интеграции в дистрибутив MS Windows.
+
+### Параметры
+
+Автоматическая установка содержит в себе предварительно заданные параметры:
+
+- `diskpart.cmd`
+  - BIOS:
+    - `512` - `EFI` (`SYSTEM`)
+    - `128` - `MSR`
+    - `1024` - `RECOVERY`
+  - UEFI:
+    - `512` - `SYSTEM`
+    - `128` - `id=17`
+    - `1024` - `RECOVERY` (`id=27`)
+  - `<~>` - `OS`
+- `config.cmd`
+  - После установки и перед отображением экрана с учётными записями запускается утилита проверки и исправления системных файлов.
+  - Отключено "Скрывать расширения для зарегистрированных типов файлов".
+  - Включено "Запускать окна с папками в отдельном процессе".
+  - Разрешено удалённое подключение к этому компьютеру при помощи RDP.
+  - Удаление директории `C:\Windows.old` (если существует).
+- `autounattend.<id>.xml`
+  - Пользователи
+    - Administrator
+      - Логин: `Administrator`
+      - Пароль: `cDFymu2aML`
+      - Группа: `Administrators`
+    - USER-0000
+      - Логин: `u0000`
+      - Пароль: `7Jxs6PKVAk`
+      - Группа: `Administrators`
+    - USER-0001
+      - Логин: `u0001`
+      - Пароль: `7Jxs6PKVAk`
+      - Группа: `Users`
+    - USER-0002
+      - Логин: `u0002`
+      - Пароль: `7Jxs6PKVAk`
+      - Группа: `Users`
