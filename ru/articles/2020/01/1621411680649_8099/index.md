@@ -44,17 +44,3 @@ draft: 0
 <!--more-->
 
 Это первая запись для тестирования конфигурации и возможностей данного блога. Запись для тестирования функциональности и корректности шаблонов.
-
-{{< requisites "https://apihost.github.io/api/requisites.ru.dunaev.json" "crypto" >}}
-
-## Организация
-
-{{< requisites "https://apihost.github.io/api/requisites.ru.example.json" "organization" >}}
-
-## Банк
-
-{{< requisites "https://apihost.github.io/api/requisites.ru.example.json" "bank" >}}
-
-## Карты и крипто
-
-{{< requisites "https://apihost.github.io/api/requisites.ru.example.json" "cards,crypto" >}}
