@@ -44,3 +44,5 @@ draft: 0
 <!--more-->
 
 Это первая запись для тестирования конфигурации и возможностей данного блога. Запись для тестирования функциональности и корректности шаблонов.
+
+{{< api "https://raw.githubusercontent.com/apihost/apihost.github.io/refs/heads/main/docs/api/ru.example.organization.json" >}}
