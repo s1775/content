@@ -3,20 +3,17 @@
 # GENERAL
 # -------------------------------------------------------------------------------------------------------------------- #
 
-title: '1773760747845_9113'
+title: '3proxy: Установка и настройка'
 description: ''
 icon: 'far fa-file-lines'
 categories:
-  - 'cat_01'
-  - 'cat_02'
-  - 'cat_03'
+  - 'linux'
 tags:
-  - 'tag_01'
-  - 'tag_02'
-  - 'tag_03'
+  - 'debian'
+  - 'proxy'
+  - '3proxy'
 authors:
-  - 'JohnDoe'
-  - 'JaneDoe'
+  - 'KaiKimera'
 sources:
   - ''
 license: 'CC-BY-SA-4.0'
@@ -41,14 +38,14 @@ hash: '8adf29e1b2b4d71483a631053e3fe67f96ad2592'
 uuid: '8adf29e1-b2b4-5714-93a6-31053e3fe67f'
 slug: '8adf29e1-b2b4-5714-93a6-31053e3fe67f'
 
-draft: 1
+draft: 0
 ---
 
-Summary...
+Инструкция по установке и первичной настройке {{< tag "3proxy" >}}.
 
 <!--more-->
 
-- Добавить пользователя и группу proxy3:
+- Добавить пользователя и группу `proxy3`:
 
 ```bash
 adduser --system --no-create-home --disabled-login --group 'proxy3'
