@@ -1,0 +1,15 @@
+[Unit]
+Description=3proxy Proxy Server
+After=network.target
+
+[Service]
+Type=simple
+User=proxy3
+Group=proxy3
+ExecStart=/usr/local/bin/3proxy /usr/local/etc/3proxy.cfg
+ExecStop=/bin/kill $( /usr/bin/pgrep -u proxy3 )
+RemainAfterExit=yes
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
