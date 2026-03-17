@@ -67,6 +67,10 @@ curl -fsSLo '/etc/apt/keyrings/php.gpg' 'https://libsys.ru/ru/2025/02/9bd1261d-3
 Ключ можно скачать со следующих зеркал:
 
 ```bash
+curl -fsSLo '/etc/apt/keyrings/php.gpg' 'https://packages.sury.org/php/apt.gpg'
+```
+
+```bash
 curl -fsSLo '/etc/apt/keyrings/php.gpg' 'https://packages.sury.su/php/apt.gpg'
 ```
 
