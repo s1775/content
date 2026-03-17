@@ -47,3 +47,27 @@ draft: 1
 Summary...
 
 <!--more-->
+
+- Добавить пользователя и группу proxy3:
+
+```bash
+adduser --system --no-create-home --disabled-login --group 'proxy3'
+```
+
+- Скачать и установить `3proxy.cfg` в директорию `/usr/local/etc`:
+
+```bash
+f=('3proxy.cfg'); d='/usr/local/etc'; s='https://libsys.ru/ru/2026/03/8adf29e1-b2b4-5714-93a6-31053e3fe67f'; for i in "${f[@]}"; do curl -fsSLo "${d}/${i}" "${s}/${i}"; done
+```
+
+- Скачать и установить `3proxy.service` в директорию `/etc/systemd/system`:
+
+```bash
+f=('3proxy.service'); d='/etc/systemd/system'; s='https://libsys.ru/ru/2026/03/8adf29e1-b2b4-5714-93a6-31053e3fe67f'; for i in "${f[@]}"; do curl -fsSLo "${d}/${i}" "${s}/${i}"; done
+```
+
+- Создать директорию `/var/log/3proxy` для логов:
+
+```bash
+u='proxy3'; d='/var/log/3proxy'; mkdir "${d}" && chown "${u}":"${u}" "${d}"
+```
