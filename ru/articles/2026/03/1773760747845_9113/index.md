@@ -64,7 +64,7 @@ f=('3proxy.cfg' 'users.cfg'); d='/usr/local/etc/3proxy'; s='https://libsys.ru/ru
 - Скачать `3proxy.service` в директорию `/etc/systemd/system`:
 
 ```bash
-f=('3proxy.service'); d='/etc/systemd/system'; s='https://libsys.ru/ru/2026/03/8adf29e1-b2b4-5714-93a6-31053e3fe67f'; for i in "${f[@]}"; do curl -fsSLo "${d}/${i}" "${s}/${i}"; done
+f=('3proxy.service'); d='/etc/systemd/system'; s='https://libsys.ru/ru/2026/03/8adf29e1-b2b4-5714-93a6-31053e3fe67f'; for i in "${f[@]}"; do curl -fsSLo "${d}/${i}" "${s}/${i}"; done && systemctl daemon-reload
 ```
 
 - Создать директорию `/var/log/3proxy` для логов:
