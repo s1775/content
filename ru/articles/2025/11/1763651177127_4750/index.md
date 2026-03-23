@@ -73,6 +73,12 @@ Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'Displ
 Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'TotalItemSize' -Descending | Select-Object 'DisplayName', 'TotalItemSize'
 ```
 
+- Посмотреть информацию о последнем входе в почтовый ящик:
+
+```powershell
+Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'LastLogonTime' -Descending | Select-Object 'DisplayName', 'PrimarySmtpAddress', 'LastLogonTime'
+```
+
 - Посмотреть список арбитражных почтовых ящиков:
 
 ```powershell
