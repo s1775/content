@@ -64,7 +64,7 @@ Get-MailboxDatabase -IncludePreExchange -Status | Select-Object 'Name', 'Databas
 - Посмотреть размер баз данных в удобном виде:
 
 ```powershell
-Get-MailboxDatabase -IncludePreExchange -Status | Sort-Object 'AvailableNewMailboxSpace' -Descending | Select Name,@{Name='DatabaseSize (GB)';Expression={$_.DatabaseSize.ToGb()}},@{Name='AvailableNewMailboxSpace (GB)';Expression={$_.AvailableNewMailboxSpace.ToGb()}}
+Get-MailboxDatabase -IncludePreExchange -Status | Sort-Object 'AvailableNewMailboxSpace' -Descending | Select Name,@{ Name='DatabaseSize (GB)'; Expression={$_.DatabaseSize.ToGb()} },@{ Name='AvailableNewMailboxSpace (GB)'; Expression={$_.AvailableNewMailboxSpace.ToGb()} }
 ```
 
 ## Переименование

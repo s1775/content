@@ -55,6 +55,12 @@ draft: 0
 Get-Mailbox -ResultSize 'Unlimited' | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'ServerName', 'Database'
 ```
 
+- Посмотреть список почтовых ящиков из базы данных `DB01`:
+
+```powershell
+Get-Mailbox -Database 'DB01' -ResultSize 'Unlimited' | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'ServerName', 'Database'
+```
+
 - Посмотреть статистику почтовых ящиков:
 
 ```powershell
@@ -70,7 +76,7 @@ Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'Total
 - Посмотреть информацию о последнем входе в почтовый ящик:
 
 ```powershell
-Get-Mailbox -ResultSize 'Unlimited' -RecipientTypeDetails 'UserMailbox' | ForEach-Object { Get-MailboxStatistics $_.PrimarySmtpAddress.ToString() } | Sort-Object 'LastLogonTime' -Descending | Select-Object 'DisplayName', 'LastLogonTime', @{n="DaysSinceLastLogOn";e={(New-TimeSpan -Start $_.LastLogonTime -End (Get-Date)).Days}}
+Get-Mailbox -ResultSize 'Unlimited' -RecipientTypeDetails 'UserMailbox' | ForEach-Object { Get-MailboxStatistics $_.PrimarySmtpAddress.ToString() } | Sort-Object 'LastLogonTime' -Descending | Select-Object 'DisplayName', 'LastLogonTime', @{ Name='DaysSinceLastLogOn'; Expression={(New-TimeSpan -Start $_.LastLogonTime -End (Get-Date)).Days} }
 ```
 
 - Посмотреть список арбитражных почтовых ящиков:

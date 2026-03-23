@@ -134,7 +134,7 @@ Get-Mailbox -Arbitration -Server 'MX_OLD' | New-MoveRequest -TargetDatabase 'DB0
 - Запустить миграцию всех архивных почтовых ящиков из базы данных `DB01` в базу данных `DB02`:
 
 ```powershell
-Get-Mailbox -ResultSize 'Unlimited' | Where-Object {$_.ArchiveDatabase -like 'DB01'} | New-MoveRequest -ArchiveTargetDatabase 'DB02'
+Get-Mailbox -ResultSize 'Unlimited' | Where-Object { $_.ArchiveDatabase -like 'DB01' } | New-MoveRequest -ArchiveTargetDatabase 'DB02'
 ```
 
 - Запустить миграцию публичных директорий из базы данных `DB01` в базу данных `DB02`:
