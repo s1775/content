@@ -52,7 +52,7 @@ draft: 0
 - Посмотреть список баз данных:
 
 ```powershell
-Get-MailboxDatabase -IncludePreExchange -Status | Sort-Object 'Name' | Format-Table 'Name', 'Server', 'Mounted', 'AdminDisplayVersion'
+Get-MailboxDatabase -IncludePreExchange -Status | Sort-Object 'Name' | Format-Table 'Name', 'Server', 'Mounted', 'AdminDisplayVersion' -AutoSize
 ```
 
 - Посмотреть размер баз данных:
@@ -86,7 +86,7 @@ Set-MailboxDatabase 'DB01' -Name 'DB02'
 - Показать базы данных:
 
 ```powershell
-Get-MailboxDatabase | Format-List Name,EdbFilePath,LogFolderPath
+Get-MailboxDatabase | Format-List 'Name', 'EdbFilePath', 'LogFolderPath'
 ```
 
 - Переместить базу данных `DB01` на диск `E` и директорию логов на диск `F`:
@@ -100,7 +100,7 @@ Move-DatabasePath 'DB01' -EdbFilePath 'E:\DB01\DB01.edb' -LogFolderPath 'F:\DB01
 - Посмотреть квоты всех баз данных:
 
 ```powershell
-Get-MailboxDatabase -IncludePreExchange | Format-Table 'Name', 'IssueWarningQuota', 'ProhibitSendQuota', 'ProhibitSendReceiveQuota'
+Get-MailboxDatabase -IncludePreExchange | Format-Table 'Name', 'IssueWarningQuota', 'ProhibitSendQuota', 'ProhibitSendReceiveQuota' -AutoSize
 ```
 
 - Установить квоты для базы данных `DB01`:

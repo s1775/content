@@ -52,19 +52,19 @@ draft: 0
 - Посмотреть список почтовых ящиков:
 
 ```powershell
-Get-Mailbox -ResultSize 'Unlimited' | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'ServerName', 'Database'
+Get-Mailbox -ResultSize 'Unlimited' | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'ServerName', 'Database' -AutoSize
 ```
 
 - Посмотреть список почтовых ящиков из базы данных `DB01`:
 
 ```powershell
-Get-Mailbox -Database 'DB01' -ResultSize 'Unlimited' | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'ServerName', 'Database'
+Get-Mailbox -Database 'DB01' -ResultSize 'Unlimited' | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'ServerName', 'Database' -AutoSize
 ```
 
 - Посмотреть статистику почтовых ящиков:
 
 ```powershell
-Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'TotalItemSize', 'ItemCount'
+Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'TotalItemSize', 'ItemCount' -AutoSize
 ```
 
 - Посмотреть статистику почтовых ящиков и отсортировать по размеру:
@@ -82,13 +82,13 @@ Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'LastL
 - Посмотреть список арбитражных почтовых ящиков:
 
 ```powershell
-Get-Mailbox -Arbitration | Format-Table 'DisplayName', 'ServerName', 'Database'
+Get-Mailbox -Arbitration | Format-Table 'DisplayName', 'ServerName', 'Database' -AutoSize
 ```
 
 - Посмотреть информацию о почтовом ящике `john.doe@example.com`:
 
 ```powershell
-Get-Mailbox 'john.doe@example.com' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'ServerName', 'Database', 'ArchiveDatabase'
+Get-Mailbox 'john.doe@example.com' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'ServerName', 'Database', 'ArchiveDatabase' -AutoSize
 ```
 
 ## Создание
