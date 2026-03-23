@@ -64,7 +64,7 @@ Get-Mailbox -Database 'DB01' -ResultSize 'Unlimited' | Sort-Object 'DisplayName'
 - Посмотреть статистику почтовых ящиков:
 
 ```powershell
-Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'PrimarySmtpAddress', 'TotalItemSize', 'ItemCount'
+Get-Mailbox -ResultSize 'Unlimited' | Get-MailboxStatistics | Sort-Object 'DisplayName' | Format-Table 'DisplayName', 'TotalItemSize', 'ItemCount'
 ```
 
 - Посмотреть статистику почтовых ящиков и отсортировать по размеру:
