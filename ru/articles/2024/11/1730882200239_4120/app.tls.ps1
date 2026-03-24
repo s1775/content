@@ -2,9 +2,7 @@
 .VERSION      0.1.0
 .GUID         c04a9c7b-cfcd-4f25-b7a0-51bfe7dfc986
 .AUTHOR       Kai Kimera
-.AUTHOREMAIL  mail@kai.kim
-.COMPANYNAME  Library Online
-.COPYRIGHT    2024 Library Online. All rights reserved.
+.AUTHOREMAIL  mail@kaikim.ru
 .TAGS         windows tls ssl
 .LICENSEURI   https://choosealicense.com/licenses/mit/
 .PROJECTURI   https://libsys.ru/ru/2024/11/c915c17d-8e2a-5020-8d55-c81075f4fb65/

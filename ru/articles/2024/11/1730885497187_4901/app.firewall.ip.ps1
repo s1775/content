@@ -2,9 +2,7 @@
 .VERSION      0.1.0
 .GUID         b590ec0a-a68d-437f-b662-781ba086d606
 .AUTHOR       Jason Fossen / Kai Kimera
-.AUTHOREMAIL  mail@kai.kim
-.COMPANYNAME  Library Online
-.COPYRIGHT    2024 Library Online. All rights reserved.
+.AUTHOREMAIL  mail@kaikim.ru
 .TAGS         windows server firewall ip allow block
 .LICENSEURI   https://choosealicense.com/licenses/mit/
 .PROJECTURI   https://libsys.ru/ru/2024/11/e756e17a-f806-5c8a-995d-92f13b436bbc/
