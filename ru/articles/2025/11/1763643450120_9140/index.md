@@ -67,6 +67,40 @@ Get-MailboxDatabase -IncludePreExchange -Status | Select-Object 'Name', 'Databas
 Get-MailboxDatabase -IncludePreExchange -Status | Sort-Object 'AvailableNewMailboxSpace' -Descending | Select Name,@{ Name='DatabaseSize (GB)'; Expression={$_.DatabaseSize.ToGb()} },@{ Name='AvailableNewMailboxSpace (GB)'; Expression={$_.AvailableNewMailboxSpace.ToGb()} }
 ```
 
+## Создание
+
+- Создать базу данных `DB01` в директории `E:\DB01\` на сервере `MX01`:
+
+```powershell
+New-MailboxDatabase 'DB01' -EdbFilePath 'E:\DB01\DB01.edb' -LogFolderPath 'E:\DB01' -Server 'MX01'
+```
+
+- Создать базы данных `DB01`, `DB02` и `DB03` в директории `E:\{DB0*}\` на сервере `MX01`:
+
+```powershell
+'DB01', 'DB02', 'DB03' | ForEach-Object { New-MailboxDatabase "${_}" -EdbFilePath "E:\${_}\${_}.edb" -LogFolderPath "E:\${_}" -Server 'MX01' }
+```
+
+## Подключение / Отключение
+
+- Подключить базу данных `DB01`:
+
+```powershell
+Mount-Database 'DB01' -Confirm:$false
+```
+
+- Отключить базу данных `DB01`:
+
+```powershell
+Dismount-Database 'DB01' -Confirm:$false
+```
+
+- Перезапустить Microsoft Exchange Information Store:
+
+```powershell
+Restart-Service 'MSExchangeIS'
+```
+
 ## Переименование
 
 - Показать базы данных:
