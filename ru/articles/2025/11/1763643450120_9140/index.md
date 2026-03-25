@@ -95,6 +95,20 @@ Get-MailboxDatabase | Format-List 'Name', 'EdbFilePath', 'LogFolderPath'
 Move-DatabasePath 'DB01' -EdbFilePath 'E:\DB01\DB01.edb' -LogFolderPath 'F:\DB01'
 ```
 
+## Удаление
+
+- Удалить базу данных `DB01`:
+
+```powershell
+Remove-MailboxDatabase 'DB01'
+```
+
+- Удалить базы данных `DB01`, `DB02` и `DB03`:
+
+```powershell
+'DB01', 'DB02', 'DB03' | ForEach-Object { Remove-MailboxDatabase "${_}" -Confirm:$false }
+```
+
 ## Квоты
 
 - Посмотреть квоты всех баз данных:
