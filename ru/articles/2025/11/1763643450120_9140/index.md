@@ -103,7 +103,7 @@ Move-DatabasePath 'DB01' -EdbFilePath 'E:\DB01\DB01.edb' -LogFolderPath 'F:\DB01
 Remove-MailboxDatabase 'DB01'
 ```
 
-- Удалить базы данных `DB01`, `DB02` и `DB03`:
+- Удалить базы данных `DB01`, `DB02` и `DB03` без подтверждения операции:
 
 ```powershell
 'DB01', 'DB02', 'DB03' | ForEach-Object { Remove-MailboxDatabase "${_}" -Confirm:$false }
