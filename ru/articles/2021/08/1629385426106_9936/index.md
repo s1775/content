@@ -11,6 +11,7 @@ cover:
 categories:
   - 'dev'
   - 'scripts'
+  - 'linux'
 tags:
   - 'bash'
   - 'find'

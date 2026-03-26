@@ -9,6 +9,7 @@ icon: 'far fa-file-lines'
 categories:
   - 'dev'
   - 'scripts'
+  - 'linux'
 tags:
   - 'imagemagick'
   - 'inkscape'

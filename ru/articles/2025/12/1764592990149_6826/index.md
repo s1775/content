@@ -8,6 +8,7 @@ description: ''
 icon: 'far fa-file-lines'
 categories:
   - 'scripts'
+  - 'windows'
 tags:
   - 'mail'
   - 'powershell'

@@ -10,7 +10,6 @@ categories:
   - 'network'
   - 'diy'
   - 'scripts'
-  - 'windows'
 tags:
   - 'mozilla'
   - 'thunderbird'
