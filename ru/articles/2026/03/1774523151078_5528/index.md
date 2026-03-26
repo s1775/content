@@ -101,7 +101,7 @@ Export-DhcpServer -File 'C:\DHCPServer.xml' -ScopeId '192.168.2.0' -Leases
 
 ### Приложение
 
-{{< file "dhcp.lease.import.ps1" "powershell" >}}
+{{< file "app.dhcp.lease.import.ps1" "powershell" >}}
 
 #### Параметры
 
@@ -113,5 +113,5 @@ Export-DhcpServer -File 'C:\DHCPServer.xml' -ScopeId '192.168.2.0' -Leases
 - Импортировать клиентов из файла `C:\DHCPServer.xml` в область `192.168.2.0`:
 
 ```powershell
-.\dhcp.lease.import.ps1 -Scope '192.168.2.0' -Path 'C:\DHCPServer.xml'
+.\app.dhcp.lease.import.ps1 -Scope '192.168.2.0' -Path 'C:\DHCPServer.xml'
 ```
