@@ -15,7 +15,8 @@ tags:
 authors:
   - 'Kaikimera'
 sources:
-  - ''
+  - 'https://learn.microsoft.com/en-us/powershell/module/dhcpserver/add-dhcpserverv4lease'
+  - 'https://learn.microsoft.com/en-us/powershell/module/dhcpserver/add-dhcpserverv4reservation'
 license: 'CC-BY-SA-4.0'
 complexity: '0'
 toc: 1
@@ -101,17 +102,24 @@ Export-DhcpServer -File 'C:\DHCPServer.xml' -ScopeId '192.168.2.0' -Leases
 
 ### Приложение
 
-{{< file "app.dhcp.reservation.import.ps1" "powershell" >}}
+{{< file "app.dhcp.import.ps1" "powershell" >}}
 
 #### Параметры
 
 - `Scope` - область, в которую необходимо импортировать клиентов.
 - `Path` - путь к файлу, в котором содержится информация об области DHCP-сервера.
+- `Lease` - добавить IP-адреса только в список арендованных (не резервирование).
 
 ## Примеры
 
-- Импортировать клиентов из файла `C:\DHCPServer.xml` в область `192.168.2.0`:
+- Импортировать IP-адреса клиентов из файла `C:\DHCPServer.xml` в область `192.168.2.0` в список зарезервированных:
 
 ```powershell
-.\app.dhcp.reservation.import.ps1 -Scope '192.168.2.0' -Path 'C:\DHCPServer.xml'
+.\app.dhcp.import.ps1 -Scope '192.168.2.0' -Path 'C:\DHCPServer.xml'
+```
+
+- Импортировать IP-адреса клиентов из файла `C:\DHCPServer.xml` в область `192.168.2.0` в список арендованных:
+
+```powershell
+.\app.dhcp.import.ps1 -Scope '192.168.2.0' -Path 'C:\DHCPServer.xml' -Lease
 ```
