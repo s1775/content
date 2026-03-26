@@ -96,7 +96,7 @@ Export-DhcpServer -File 'C:\DHCPServer.xml' -ScopeId '192.168.2.0' -Leases
 - `Name` - имя клиента (hostname).
 - `IPAddress` - IP-адрес клиента.
 - `ClientId` - MAC-адрес клиента.
-- `Type` - тип резервирования.
+- `Type` - тип запроса клиента.
 - `Description` - описание клиента.
 
 ### Приложение
