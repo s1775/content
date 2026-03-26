@@ -8,6 +8,8 @@ description: ''
 icon: 'far fa-file-lines'
 categories:
   - 'linux'
+  - 'network'
+  - 'security'
 tags:
   - 'debian'
   - 'proxy'
