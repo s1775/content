@@ -65,3 +65,34 @@ f=('x-ui.service'); d='/etc/systemd/system'; s='https://libsys.ru/ru/2026/03/60a
 ## Настройка
 
 - Настроить панель можно по адресу `http://SERVER_IP:2053/`.
+
+## Дополнительно
+
+Для большей безопасности, необходимо изменить стандартные пути и порты панели. Идём в настройки и прописываем следующие параметры:
+
+- Panel Settings:
+  - General:
+    - Listen Port: `64801`.
+    - URI Path: `/0728a4S93v964W9y/`.
+  - Subscription:
+    - Listen Port: `64802`.
+    - URI Path: `/38s2ibK4728j71Tr/`.
+
+## Обратный прокси
+
+В качество обратного прокси я буду использовать **Angie**. Также я усилил защите панели HTTP-аутентификацией самого Angie.
+
+- Создать ключ и сертификат в директории `/etc/ssl/`.
+- Создать файл `/etc/angie/users.conf` с пользователями и паролями при помощи этого [сайта](https://hostingcanada.org/htpasswd-generator/) (режим **Bcrypt**).
+- Откорректировать настройки панели:
+  - Panel Settings:
+    - General:
+      - Public Key Path: `/etc/ssl/example.org.crt`.
+      - Private Key Path: `/etc/ssl/example.org.key`.
+    - Subscription:
+      - Reverse Proxy URI: `https://example.org:64800/38s2ibK4728j71Tr/`.
+      - Public Key Path: `/etc/ssl/example.org.crt`.
+      - Private Key Path: `/etc/ssl/example.org.key`.
+- Создать файл `/etc/angie/http.d/example.org.conf` со следующим содержанием:
+
+{{< file "angie.conf" "nginx" >}}
