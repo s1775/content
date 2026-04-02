@@ -65,7 +65,7 @@ f=('x-ui.service'); d='/etc/systemd/system'; s='https://libsys.ru/ru/2026/03/60a
 - Скачать задачу `x-ui` в директорию `/etc/cron.d`:
 
 ```bash
-f=('x-ui'); d='/etc/cron.d'; s='https://libsys.ru/ru/2026/03/60a8071b-878a-510b-99bc-ec1951c4a915'; for i in "${f[@]}"; do curl -fsSLo "${d}/${i}" "${s}/${i}"; done
+f=('x-ui'); d='/etc/cron.d'; s='https://libsys.ru/ru/2026/03/60a8071b-878a-510b-99bc-ec1951c4a915'; for i in "${f[@]}"; do curl -fsSLo "${d}/${i}" "${s}/${i}"; done && systemctl restart 'cron.service'
 ```
 
 ## Настройка
