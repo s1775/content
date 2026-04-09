@@ -10,6 +10,7 @@ categories:
   - 'linux'
   - 'network'
   - 'security'
+  - 'opinion'
 tags:
   - 'proxy'
   - 'vpn'
@@ -102,3 +103,26 @@ f=('x-ui'); d='/etc/cron.d'; s='https://libsys.ru/ru/2026/03/60a8071b-878a-510b-
 - Создать файл `/etc/angie/http.d/example.org.conf` со следующим содержанием:
 
 {{< file "angie.conf" "nginx" >}}
+
+### Клиенты
+
+Для работы VLESS+Reality необходимо добавить клиентов со следующими настройками:
+
+- Protocol: `vless`.
+- Port: `443`.
+- Total Flow: `900`.
+- Traffic Reset: `Monthly`.
+- Transmission: `TCP (RAW)`.
+- В разделе **Security** выбрать `Reality`:
+  - uTLS: `chrome`.
+  - Target: `127.0.0.1:8443`.
+  - SNI: `example.org`.
+  - Нажать кнопку **Get New Cert** для генерации сертификата.
+- Включить **Sniffing**:
+  - Включить: `HTTP`.
+  - Включить: `TLS`.
+  - Включить: `QUIC`.
+  - Включить: `FAKEDNS`.
+- В разделе **Client** добавить клиента с параметрами:
+  - Flow: `xtls-rprx-vision`
+  - Total Flow: `100`
