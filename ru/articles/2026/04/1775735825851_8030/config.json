@@ -1,0 +1,165 @@
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "inbounds": [
+    {
+      "type": "vless",
+      "tag": "vless-in",
+      "listen": "::",
+      "listen_port": 443,
+      "users": [
+        {
+          "name": "",
+          "uuid": "{sing-box generate uuid}",
+          "flow": "xtls-rprx-vision"
+        }
+      ],
+      "tls": {
+        "enabled": true,
+        "server_name": "www.google.com",
+        "reality": {
+          "enabled": true,
+          "handshake": {
+            "server": "www.google.com",
+            "server_port": 443
+          },
+          "private_key": "{sing-box generate reality-keypair}",
+          "short_id": [
+            "{sing-box generate rand --hex 8}"
+          ]
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    }
+  ],
+  "route": {
+    "final": "direct",
+    "rules": [
+      {
+        "ip_is_private": true,
+        "outbound": "block"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "network": "udp",
+            "port_range": [
+              "1024:65534"
+            ]
+          },
+          {
+            "network": "tcp",
+            "port": [
+              25,
+              587,
+              465,
+              2525
+            ],
+            "outbound": "block"
+          },
+          {
+            "protocol": "quic",
+            "port": 443
+          },
+          {
+            "source_ip_cidr": [
+              "224.0.0.0\/3",
+              "ff00::\/8"
+            ]
+          },
+          {
+            "ip_cidr": [
+              "224.0.0.0\/3",
+              "ff00::\/8",
+              "0.0.0.0/8",
+              "10.0.0.0/8",
+              "100.64.0.0/10",
+              "127.0.0.0/8",
+              "169.254.0.0/16",
+              "172.16.0.0/12",
+              "192.0.0.0/24",
+              "192.0.2.0/24",
+              "192.168.0.0/16",
+              "198.18.0.0/15",
+              "198.51.100.0/24",
+              "203.0.113.0/24",
+              "::1/128",
+              "fc00::/7",
+              "fe80::/10"
+            ]
+          }
+        ],
+        "outbound": "block"
+      },
+      {
+        "domain_suffix": [
+          ".ir",
+          ".am",
+          ".az",
+          ".by",
+          ".kg",
+          ".kz",
+          ".md",
+          ".mn",
+          ".ru",
+          ".su",
+          ".tatar",
+          ".tj",
+          ".tm",
+          ".uz",
+          ".xn--p1ai"
+        ],
+        "outbound": "block"
+      },
+      {
+        "rule_set": [
+          "geosite-category-ads-all",
+          "geosite-malware",
+          "geosite-phishing",
+          "geosite-cryptominers",
+          "geoip-malware",
+          "geoip-phishing"
+        ],
+        "outbound": "block"
+      },
+      {
+        "rule_set": [
+          "geoip-ru",
+          "geosite-ru"
+        ],
+        "outbound": "block"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "geoip-ru",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/runetfreedom/russia-v2ray-rules-dat/release/sing-box/rule-set-geoip/geoip-ru.srs",
+        "download_detour": "direct",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-ru",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/runetfreedom/russia-v2ray-rules-dat/release/sing-box/rule-set-geosite/geosite-category-ru.srs",
+        "download_detour": "direct",
+        "update_interval": "1d"
+      }
+    ]
+  }
+}
