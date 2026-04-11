@@ -49,28 +49,27 @@ draft: 0
 
 Ядро {{< tag "XanMod" >}} имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с [официального сайта](https://xanmod.org):
 
-- Caching, Virtual Memory Manager and CPUFreq Governor improvements.
-- Full multi-core block layer runqueue requests for high I/O throughput.
-- BBRv2 TCP congestion control + FQ-PIE packet scheduling and AQM algorithm.
+- Kernel built w/ LLVM's ThinLTO, Software Pipelining, Polyhedral and specific x86_64 optimizations.
+- Core and Process Scheduling, Load Balancing, Caching, Virtual Memory Manager and CPUFreq Governor optimized for heavy workloads.
+- Block layer runqueue requests for high IOPS throughput.
 - ORC Unwinder for kernel stack traces (debuginfo) implementation.
-- High responsiveness multitasking Task Type scheduler (SCHED_NORMAL) build available [5.15-tt].
-- Real-time Linux kernel (PREEMPT_RT) build available [5.15-rt] [5.10-rt].
-- Third-party patchset available: patches
-  - le9's file mappings under memory pressure protection.
-  - Linux Random Number Generator (LRNG) framework.
-  - TCP performance optimizations backport from linux/net-next [5.16] [5.15].
-  - AMD's P-state driver for Zen2 and Zen3 processors [5.16] [5.15].
-  - Futex waitv and legacy WAIT_MULTIPLE implementation for Wine / Proton Fsync support.
-  - WineSync driver for fast kernel-backed Wine [5.16] [5.15] [as module: winesync].
-  - Google's Multigenerational LRU framework [5.16] [5.15].
-  - Google's BBRv2 TCP congestion control.
-  - Paragon's Software NTFS3 driver [as module: ntfs3].
+- Google's Multigenerational LRU framework [default].
+- Real-time Linux kernel (PREEMPT_RT) build available [6.18-rt].
+- Process schedulers class sched_ext (SCX) support.
+- Third-party patchset available: [patches](https://gitlab.com/xanmod/linux-patches)
+  - AMD's 3D V-Cache optimizer driver [as module: amd_3d_vcache].
+  - Cloudflare's TCP collapse processing for high throughput and low latency [info](https://blog.cloudflare.com/optimizing-tcp-for-high-throughput-and-low-latency).
+  - Google's BBRv3 TCP congestion control [built-in: tcp_bbr] [default].
+  - Netfilter nf_tables RFC3489 full-cone NAT support.
+  - Netfilter FLOWOFFLOAD target to speed up processing of packets.
+  - NT synchronization primitives emulation driver [as module: ntsync].
+  - Valve's Steam Deck EC sensors / MFD core and LEDs driver support
+  - [as module: steamdeck, steamdeck-hwmon, leds-steamdeck].
   - PCIe ACS Override for bypassing IOMMU groups support.
-  - Graysky's additional CPU optimizations for GCC and Clang.
+  - Graysky's additional GCC and Clang CPU options.
   - Clear Linux patchset [partial].
-  - Android Ashmem and Binder IPC driver as module for Anbox.
-  - Updated ZSTD library for bug fixes and r/w performance compression improvements on Btrfs, F2FS, SquashFS, pstore, initramfs and vmlinuz.
-- Generic packages for compatibility with most Debian & Ubuntu based distributions. Builts on the latest LLVM 12.0.1, GCC 11.2 and Binutils 2.37.
+  - Android Binder IPC driver for Waydroid [as module: binder_linux].
+- Generic packages for compatibility with any Debian or Ubuntu based distribution.
 - GPLv2 license. Can be built for any distribution or purpose.
 
 Стоит заметить, что ядро {{< tag "XanMod" >}} не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро [**Liquorix**](https://liquorix.net), которое занимается практически тем же самым. Но, посмотрев [обзор и тесты](https://www.phoronix.com/scan.php?page=article&item=ryzen5-xanmod-liquorix) на Phoronix'е, я сделал выбор в пользу {{< tag "XanMod" >}}.
@@ -174,8 +173,8 @@ apt install linux-xanmod-edge-x64v3
 - AMD Family 15h (Excavator)
 - AMD Family 17h (Zen)
 - AMD Family 17h (Zen+)
-- AMD Family 17h (Zen2)
-- AMD Family 19h (Zen3)
+- AMD Family 17h (Zen 2)
+- AMD Family 19h (Zen 3)
 - Intel 4th Gen Core (Haswell)
 - Intel 5th Gen Core (Broadwell)
 - Intel 6th Gen Core (Skylake)
@@ -184,7 +183,8 @@ apt install linux-xanmod-edge-x64v3
 - Intel 10th Gen Core (Comet Lake)
 - Intel 12th Gen (Alder Lake)
 - Intel 13th Gen (Raptor Lake)
-- Intel 14th Gen (Meteor Lake)
+- Intel 14th Gen (Raptor Lake Refresh)
+- Intel 15th Gen (Lunar / Arrow Lake)
 
 ### x86-64-v4 (AVX-512)
 
@@ -192,7 +192,8 @@ apt install linux-xanmod-edge-x64v3
 
 **Поддерживаемые архитектуры:**
 
-- AMD Family 19h (Zen4)
+- AMD Family 19h (Zen 4 / Zen 4c)
+- AMD Family 1Ah (Zen 5 / Zen 5c)
 - Intel 6th Gen Core (Skylake X)
 - Intel 8th Gen Core i3 (Cannon Lake)
 - Intel Xeon / 10th Gen Core (Ice Lake)
