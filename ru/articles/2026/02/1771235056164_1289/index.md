@@ -156,7 +156,7 @@ sed -i 's|ScriptedUpdates yes|ScriptedUpdates no|g' '/etc/clamav/freshclam.conf'
 
 ### Fangfrisch
 
-**Fangfrisch** - это аналог утилиты ClamAV FreshClam. Он позволяет загружать сторонние файлы определений вирусов, например, от SaneSecurity , URLhaus и других. Fangfrisch был разработан с учетом безопасности и может запускаться от непривилегированного пользователя.
+**Fangfrisch** - это аналог утилиты ClamAV FreshClam. Он позволяет загружать сторонние файлы определений вирусов, например, от SaneSecurity, URLhaus и других. Fangfrisch был разработан с учетом безопасности и может запускаться от непривилегированного пользователя.
 
 Установить и настроить Fangfrisch можно по инструкции {{< uuid "96bdcb5c-a58b-58ae-9e6b-536b49bf1c51" >}}.
 
