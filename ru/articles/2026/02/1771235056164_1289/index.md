@@ -162,7 +162,7 @@ sed -i 's|ScriptedUpdates yes|ScriptedUpdates no|g' '/etc/clamav/freshclam.conf'
 
 ### Postfix: Postscreen
 
-- В директиве `postscreen_dnsbl_threshold` заменить `2` на `3`.
+- В директиве `postscreen_dnsbl_threshold` заменить `2` на `5`.
 - В директиву `postscreen_dnsbl_sites` добавить дополнительные спам-фильтры:
 
 ```
