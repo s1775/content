@@ -74,10 +74,18 @@ curl -fsSL 'http://deb.freepbx.org/gpg/aptly-pubkey.asc' | gpg --dearmor -o '/et
 . '/etc/os-release' && echo -e "X-Repolib-Name: FreePBX\nTypes: deb\nURIs: http://deb.freepbx.org/freepbx17-prod\nSuites: ${VERSION_CODENAME}\nComponents: main\nSigned-By: /etc/apt/keyrings/freepbx.gpg\n" | tee '/etc/apt/sources.list.d/freepbx.sources' > '/dev/null'
 ```
 
+- Создать файлы предпочтений `/etc/apt/preferences.d/freepbx.pref` со следующим содержанием:
+
+```
+Package: *
+Pin: origin deb.freepbx.org
+Pin-Priority: 600
+```
+
 ## Установка
 
 - Установить пакеты `asterisk`:
 
 ```bash
-[[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes asterisk${PBX_VER} asterisk${PBX_VER}-core asterisk${PBX_VER}-configs libxslt1.1 liburiparser1
+[[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes asterisk${PBX_VER} asterisk${PBX_VER}-core asterisk${PBX_VER}-configs asterisk${PBX_VER}-ogg asterisk${PBX_VER}-g729 libxslt1.1 liburiparser1
 ```
