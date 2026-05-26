@@ -76,22 +76,8 @@ curl -fsSL 'http://deb.freepbx.org/gpg/aptly-pubkey.asc' | gpg --dearmor -o '/et
 
 ## Установка
 
-- Установить общие приложения и библиотеки:
-
-```bash
-[[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes ffmpeg libavdevice59 liburiparser1
-```
-
 - Установить пакеты `asterisk`:
 
 ```bash
-[[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes asterisk${PBX_VER}-addons asterisk${PBX_VER}-addons-bluetooth asterisk${PBX_VER}-addons-core asterisk${PBX_VER}-addons-ooh323 asterisk${PBX_VER}-core asterisk${PBX_VER}-curl asterisk${PBX_VER}-dahdi asterisk${PBX_VER}-doc asterisk${PBX_VER}-odbc asterisk${PBX_VER}-ogg asterisk${PBX_VER}-flite asterisk${PBX_VER}-g729 asterisk${PBX_VER}-resample asterisk${PBX_VER}-snmp asterisk${PBX_VER}-speex asterisk${PBX_VER}-sqlite3 asterisk${PBX_VER}-res-digium-phone asterisk${PBX_VER}-voicemail asterisk-version-switch "asterisk-sounds-core-en-*"
-```
-
-## Настройка
-
-- Скачать базовые конфигурационные файлы `basic-pbx` в директорию `/etc/asterisk`:
-
-```bash
-[[ ! -v 'PBX_VER' ]] && return; f=('asterisk' 'cdr' 'cdr_custom' 'confbridge' 'extensions' 'indications' 'logger' 'modules' 'musiconhold' 'pjsip' 'pjsip_notify' 'queues' 'voicemail'); d='/etc/asterisk'; s="https://raw.githubusercontent.com/asterisk/asterisk/refs/heads/${PBX_VER}/configs/basic-pbx"; for i in "${f[@]}"; do curl -fsSLo "${d}/${i}.conf" "${s}/${i}.conf"; done;
+[[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes asterisk${PBX_VER} asterisk${PBX_VER}-core asterisk${PBX_VER}-configs libxslt1.1 liburiparser1
 ```
