@@ -95,9 +95,21 @@ source s_net_server {
 - Создать файл `/etc/syslog-ng/conf.d/99-srvName.conf` со следующим содержанием:
 
 ```
-destination d_srvName { file("/mnt/logs/srvName/srvName.log" create_dirs(yes) perm(0644) dir_perm(0755)); };
-filter f_srvName { netmask("192.168.1.2/32"); };
-log { source(s_net_server); filter(f_srvName); destination(d_srvName); };
+destination d_srvName {
+  file("/mnt/logs/srvName/srvName.${YEAR}-${MONTH}-${DAY}.log"
+    create_dirs(yes) perm(0644) dir_perm(0755)
+  );
+};
+
+filter f_srvName {
+  netmask("192.168.1.2/32");
+};
+
+log {
+  source(s_net_server);
+  filter(f_srvName);
+  destination(d_srvName);
+};
 ```
 
 ### Ротация логов
@@ -107,7 +119,7 @@ log { source(s_net_server); filter(f_srvName); destination(d_srvName); };
 ```
 /mnt/logs/*/*.log {
   rotate 180
-  weekly
+  daily
   missingok
   notifempty
   compress
