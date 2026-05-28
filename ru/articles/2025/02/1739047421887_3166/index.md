@@ -76,5 +76,45 @@ apt update && apt install --yes syslog-ng
 - Создать файлы локальной конфигурации в `/etc/syslog-ng/conf.d/`:
 
 ```bash
-f=('syslog-ng'); d='/etc/syslog-ng/conf.d'; s='https://libsys.ru/ru/2025/02/24f7d6b6-531f-5283-b693-4ca9d034f604'; for i in "${f[@]}"; do curl -fsSLo "${d}/90-${i}.local.conf" "${s}/${i}.conf"; done
+f=('local'); d='/etc/syslog-ng/conf.d'; s='https://libsys.ru/ru/2025/02/24f7d6b6-531f-5283-b693-4ca9d034f604'; for i in "${f[@]}"; do curl -fsSLo "${d}/90-${i}.conf" "${s}/${i}.conf"; done
+```
+
+## Сервер логов
+
+### Сбор логов
+
+- Создать файл `/etc/syslog-ng/conf.d/91-server.conf` со следующим содержанием:
+
+```
+source s_net_server {
+  tcp(ip(0.0.0.0) port(514) flags(syslog-protocol));
+  udp(ip(0.0.0.0) port(514) flags(syslog-protocol));
+};
+```
+
+- Создать файл `/etc/syslog-ng/conf.d/99-srvName.conf` со следующим содержанием:
+
+```
+destination d_srvName { file("/mnt/logs/srvName/srvName.log" create_dirs(yes) perm(0644) dir_perm(0755)); };
+filter f_srvName { netmask("192.168.1.2/32"); };
+log { source(s_net_server); filter(f_srvName); destination(d_srvName); };
+```
+
+### Ротация логов
+
+- Создать файл `/etc/logrotate.d/mnt-logs` со следующим содержанием:
+
+```
+/mnt/logs/*/*.log {
+  rotate 180
+  weekly
+  missingok
+  notifempty
+  compress
+  delaycompress
+  sharedscripts
+  postrotate
+    syslog-ng-ctl reload > /dev/null
+  endscript
+}
 ```
