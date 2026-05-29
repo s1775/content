@@ -118,8 +118,8 @@ log {
 
 ```
 /mnt/logs/*/*.log {
-  rotate 25
-  weekly
+  rotate 180
+  daily
   missingok
   notifempty
   compress
