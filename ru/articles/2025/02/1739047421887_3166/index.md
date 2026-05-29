@@ -96,7 +96,7 @@ source s_net_server {
 
 ```
 destination d_srvName {
-  file("/mnt/logs/srvName/srvName.${YEAR}-${MONTH}-${DAY}.log"
+  file("/mnt/logs/srvName/srvName.log"
     create_dirs(yes) perm(0644) dir_perm(0755)
   );
 };
