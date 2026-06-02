@@ -87,7 +87,7 @@ f=('local'); d='/etc/syslog-ng/conf.d'; s='https://libsys.ru/ru/2025/02/24f7d6b6
 
 ```
 source s_net_server {
-  tcp(ip(0.0.0.0) port(514) flags(syslog-protocol));
+  tcp(ip(0.0.0.0) port(514) max-connections(500) so_keepalive(yes) flags(syslog-protocol));
   udp(ip(0.0.0.0) port(514) flags(syslog-protocol));
 };
 ```
