@@ -87,5 +87,11 @@ Pin-Priority: 600
 - Установить пакеты `asterisk`:
 
 ```bash
-[[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes asterisk${PBX_VER} asterisk${PBX_VER}-core asterisk${PBX_VER}-configs asterisk${PBX_VER}-ogg asterisk${PBX_VER}-g729 libxslt1.1 liburiparser1
+[[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes asterisk${PBX_VER} asterisk${PBX_VER}-core asterisk${PBX_VER}-configs asterisk${PBX_VER}-odbc asterisk${PBX_VER}-resample asterisk${PBX_VER}-speex asterisk${PBX_VER}-flite asterisk${PBX_VER}-g729 asterisk${PBX_VER}-ogg
+```
+
+- Установить библиотеки:
+
+```bash
+[[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes ffmpeg libradcli4 libavdevice59 libcodec2-1.0 libfdk-aac2 libgmime-3.0-0 libgsm1 libical3 libiksemel3 libjack0 liblua5.2-0 libneon27 libodbc2 libportaudio2 libradcli4 libresample1 libspandsp2 libspeex1 libspeexdsp1 libsrtp2-1 libunbound8 liburiparser1 libvorbis0a libvorbisenc2 libvorbisfile3 libxslt1.1
 ```
