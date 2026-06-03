@@ -93,7 +93,7 @@ mkdir -p '/var/lib/asterisk/moh'
 - Установить пакеты `asterisk`:
 
 ```bash
-[[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes asterisk${PBX_VER} asterisk${PBX_VER}-core asterisk${PBX_VER}-configs asterisk${PBX_VER}-odbc asterisk${PBX_VER}-sqlite3 asterisk${PBX_VER}-resample asterisk${PBX_VER}-speex asterisk${PBX_VER}-flite asterisk${PBX_VER}-curl asterisk${PBX_VER}-snmp asterisk${PBX_VER}-g729 asterisk${PBX_VER}-ogg asterisk${PBX_VER}-res-digium-phone asterisk${PBX_VER}-voicemail "asterisk-sounds-core-en*"
+[[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes asterisk${PBX_VER} asterisk${PBX_VER}-core asterisk${PBX_VER}-configs asterisk${PBX_VER}-odbc asterisk${PBX_VER}-sqlite3 asterisk${PBX_VER}-resample asterisk${PBX_VER}-speex asterisk${PBX_VER}-flite asterisk${PBX_VER}-curl asterisk${PBX_VER}-snmp asterisk${PBX_VER}-g729 asterisk${PBX_VER}-ogg asterisk${PBX_VER}-res-digium-phone asterisk${PBX_VER}-voicemail
 ```
 
 - Установить библиотеки:
