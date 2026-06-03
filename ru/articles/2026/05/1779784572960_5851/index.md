@@ -95,3 +95,11 @@ Pin-Priority: 600
 ```bash
 [[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes ffmpeg libradcli4 libavdevice59 libcodec2-1.0 libfdk-aac2 libgmime-3.0-0 libgsm1 libical3 libiksemel3 libjack0 liblua5.2-0 libneon27 libodbc2 libportaudio2 libradcli4 libresample1 libspandsp2 libspeex1 libspeexdsp1 libsrtp2-1 libunbound8 liburiparser1 libvorbis0a libvorbisenc2 libvorbisfile3 libxslt1.1
 ```
+
+```bash
+sed -i -e 's|;\[radius\]|\[radius\]|g' -e 's|;radiuscfg => /usr/local/etc/radiusclient-ng/|radiuscfg => /etc/radcli/|g' '/etc/asterisk/cdr.conf'
+```
+
+```bash
+sed -i 's|;radiuscfg => /usr/local/etc/radiusclient-ng/|radiuscfg => /etc/radcli/|g' '/etc/asterisk/cel.conf'
+```
