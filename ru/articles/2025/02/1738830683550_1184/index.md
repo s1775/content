@@ -61,7 +61,7 @@ export ELASTIC_VER='9'
 - Скачать и установить ключ репозитория:
 
 ```bash
-curl -fsSL 'https://artifacts.elastic.co/GPG-KEY-elasticsearch' | gpg --dearmor -o '/etc/apt/keyrings/elastic.gpg'
+curl -fsSL 'https://libsys.ru/ru/2025/02/6542fa14-41f4-5309-98c0-a3bac519b93d/elasticsearch.asc' | gpg --dearmor -o '/etc/apt/keyrings/elastic.gpg'
 ```
 
 - Создать файл репозитория `/etc/apt/sources.list.d/elastic.sources`:
