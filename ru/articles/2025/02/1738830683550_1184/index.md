@@ -53,7 +53,7 @@ draft: 0
 - Экспортировать заранее подготовленные параметры в переменные окружения:
 
 ```bash
-export ELASTICSEARCH_VER='8'
+export ELASTIC_VER='9'
 ```
 
 ## Репозиторий
@@ -61,13 +61,13 @@ export ELASTICSEARCH_VER='8'
 - Скачать и установить ключ репозитория:
 
 ```bash
-curl -fsSL 'https://libsys.ru/ru/2025/02/6542fa14-41f4-5309-98c0-a3bac519b93d/elasticsearch.asc' | gpg --dearmor -o '/etc/apt/keyrings/elasticsearch.gpg'
+curl -fsSL 'https://artifacts.elastic.co/GPG-KEY-elasticsearch' | gpg --dearmor -o '/etc/apt/keyrings/elastic.gpg'
 ```
 
-- Создать файл репозитория `/etc/apt/sources.list.d/elasticsearch.sources`:
+- Создать файл репозитория `/etc/apt/sources.list.d/elastic.sources`:
 
 ```bash
-[[ ! -v 'ELASTICSEARCH_VER' ]] && return; . '/etc/os-release' && echo -e "X-Repolib-Name: ElasticSearch\nTypes: deb\nURIs: https://artifacts.elastic.co/packages/${ELASTICSEARCH_VER}.x/apt\n#URIs: https://mirror.yandex.ru/mirrors/elastic/${ELASTICSEARCH_VER}\nSuites: stable\nComponents: main\nSigned-By: /etc/apt/keyrings/elasticsearch.gpg\n" | tee '/etc/apt/sources.list.d/elasticsearch.sources' > '/dev/null'
+[[ ! -v 'ELASTIC_VER' ]] && return; . '/etc/os-release' && echo -e "X-Repolib-Name: Elastic\nTypes: deb\nURIs: https://artifacts.elastic.co/packages/${ELASTIC_VER}.x/apt\n#URIs: https://mirror.yandex.ru/mirrors/elastic/${ELASTIC_VER}\nSuites: stable\nComponents: main\nSigned-By: /etc/apt/keyrings/elastic.gpg\n" | tee '/etc/apt/sources.list.d/elastic.sources' > '/dev/null'
 ```
 
 ## Установка
