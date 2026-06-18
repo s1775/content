@@ -76,5 +76,5 @@ curl -fsSL 'https://packages.adoptium.net/artifactory/api/gpg/key/public' | gpg 
 - Установить пакеты:
 
 ```bash
-apt update && apt install temurin-${JDK_VER}
+apt update && apt install --yes temurin-${JDK_VER}
 ```
