@@ -71,7 +71,7 @@ v='v1.51.0'; u='victoria-logs'; d="/opt/${u}"; curl -fSLo "/tmp/${u}-linux-amd64
 
 - Запустить службу `victoria-logs.service`:
 
-```
+```bash
 systemctl daemon-reload && systemctl enable --now victoria-logs.service
 ```
 
