@@ -49,37 +49,23 @@ draft: 0
 
 ## Установка
 
-### Пользователь и директории
-
 - Создать пользователя `victoria-logs`, а также директории `/opt/victoria-logs` и `/var/lib/victoria-logs`:
 
 ```bash
-u='victoria-logs'; adduser --system --disabled-login --group --home "/var/lib/${u}" "${u}" && mkdir -p "/opt/${u}" && chown -R "${u}":"${u}" "/opt/${u}"
+u='victoria-logs'; adduser --system --disabled-login --group --home "/var/lib/${u}" "${u}"; mkdir -p "/opt/${u}" && chown -R "${u}":"${u}" "/opt/${u}"; mkdir "/run/${u}" && chown "${u}":"${u}" "/run/${u}"
 ```
 
-### Юнит SystemD
+- Скачать и распаковать `victoria-logs-linux-amd64-*.tar.gz` версии `v1.51.0` в директорию `/opt/victoria-logs`:
+
+```bash
+v='v1.51.0'; u='victoria-logs'; d="/opt/${u}"; curl -fSLo "/tmp/${u}-linux-amd64-${v}.tar.gz" "https://github.com/VictoriaMetrics/VictoriaLogs/releases/download/${v}/${u}-linux-amd64-${v}.tar.gz" && tar -xzf "/tmp/${u}-linux-amd64-${v}.tar.gz" -C "${d}" && chown -R "${u}":"${u}" "${d}"
+```
+
+### Systemd
 
 - Создать файл `/etc/systemd/system/victoria-logs.service` со следующим содержанием:
 
-```ini
-[Unit]
-Description=VictoriaLogs - High-performance log management and analytics
-After=network.target
-
-[Service]
-Type=simple
-User=victoria-logs
-Group=victoria-logs
-LimitNOFILE=65536
-ExecStart=/opt/victoria-logs/victoria-logs-prod \
-  -storageDataPath=/var/lib/victoria-logs \
-  -retentionPeriod=30d \
-  -syslog.listenAddr.tcp=:29514
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-```
+{{< file "victoria-logs.service" "ini" >}}
 
 - Запустить службу `victoria-logs.service`:
 
@@ -87,13 +73,20 @@ WantedBy=multi-user.target
 systemctl daemon-reload && systemctl enable --now victoria-logs.service
 ```
 
-## Настройка
+## Syslog-NG
 
-- Перенаправить логи от Syslog-NG в базу данных VictoriaLogs:
+- Включить опцию `--no-caps`:
 
+```bash
+sed -i 's|#SYSLOGNG_OPTS=|SYSLOGNG_OPTS=|g' '/etc/default/syslog-ng' && systemctl restart syslog-ng.service
 ```
+
+- Перенаправить данные от Syslog-NG в базу данных VictoriaLogs при помощи unix-socket'а `/run/victoria-logs/victoria-logs.sock`:
+
+```ruby
 destination d_victoria_logs {
-  syslog('127.0.0.1' transport('tcp') port(29514));
+  # syslog('127.0.0.1' transport('tcp') port(29514));
+  unix-stream('/run/victoria-logs/victoria-logs.sock' flags(syslog-protocol));
 };
 
 log {
