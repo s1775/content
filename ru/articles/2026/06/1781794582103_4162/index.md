@@ -13,6 +13,8 @@ categories:
 tags:
   - 'debian'
   - 'apt'
+  - 'victoria'
+  - 'logs'
   - 'victoria-logs'
 authors:
   - 'KaiKimera'
