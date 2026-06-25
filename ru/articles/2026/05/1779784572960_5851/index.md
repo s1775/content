@@ -130,6 +130,7 @@ sed -i 's|;radiuscfg => /usr/local/etc/radiusclient-ng/|radiuscfg => /etc/radcli
 ; -------------------------------------------------------------------------------------------------------------------- #
 
 noload => app_adsiprog.so
+noload => app_flite.so
 noload => app_getcpeid.so
 noload => cdr_radius.so
 noload => cel_radius.so
@@ -139,4 +140,6 @@ noload => res_adsi.so
 noload => res_config_ldap.so
 noload => res_digium_phone.so
 noload => res_pjsip_dialog_info_digium_body_supplement.so
+noload => res_pjsip_endpoint_identifier_dpma.so
+noload => res_smdi.so
 ```
