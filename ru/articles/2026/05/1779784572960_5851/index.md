@@ -139,7 +139,9 @@ noload => cel_sqlite3_custom.so
 noload => res_adsi.so
 noload => res_config_ldap.so
 noload => res_digium_phone.so
+noload => res_phoneprov.so
 noload => res_pjsip_dialog_info_digium_body_supplement.so
 noload => res_pjsip_endpoint_identifier_dpma.so
+noload => res_pjsip_phoneprov_provider.so
 noload => res_smdi.so
 ```
