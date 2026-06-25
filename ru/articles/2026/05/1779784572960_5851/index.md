@@ -119,3 +119,24 @@ sed -i -e 's|;\[radius\]|\[radius\]|g' -e 's|;radiuscfg => /usr/local/etc/radius
 ```bash
 sed -i 's|;radiuscfg => /usr/local/etc/radiusclient-ng/|radiuscfg => /etc/radcli/|g' '/etc/asterisk/cel.conf'
 ```
+
+## Настройка
+
+- Открыть файл `/etc/asterisk/modules.conf` и в самый низ добавить неиспользуемые модули для их отключения:
+
+```ini
+; -------------------------------------------------------------------------------------------------------------------- #
+; CUSTOM
+; -------------------------------------------------------------------------------------------------------------------- #
+;
+noload => app_adsiprog.so
+noload => app_getcpeid.so
+noload => cdr_radius.so
+noload => cel_radius.so
+noload => cdr_sqlite3_custom.so
+noload => cel_sqlite3_custom.so
+noload => res_adsi.so
+noload => res_config_ldap.so
+noload => res_digium_phone.so
+noload => res_pjsip_dialog_info_digium_body_supplement.so
+```
