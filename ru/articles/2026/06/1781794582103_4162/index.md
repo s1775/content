@@ -54,7 +54,13 @@ draft: 0
 - Создать пользователя `victoria-logs`, а также директории `/opt/victoria-logs` и `/var/lib/victoria-logs`:
 
 ```bash
-u='victoria-logs'; adduser --system --disabled-login --group --home "/var/lib/${u}" "${u}"; mkdir -p "/opt/${u}" && chown -R "${u}":"${u}" "/opt/${u}"; mkdir "/run/${u}" && chown "${u}":"${u}" "/run/${u}"
+u='victoria-logs'; adduser --system --disabled-login --group --home "/var/lib/${u}" "${u}"; mkdir -p "/opt/${u}" && chown -R "${u}":"${u}" "/opt/${u}"
+```
+
+- Создать директорию `/run/victoria-logs` для UNIX-сокета:
+
+```bash
+echo 'd /run/victoria-logs 0755 victoria-logs victoria-logs - -' > '/etc/tmpfiles.d/victoria-logs.conf' && systemd-tmpfiles --create
 ```
 
 - Скачать и распаковать `victoria-logs-linux-amd64-*.tar.gz` версии `v1.51.0` в директорию `/opt/victoria-logs`:
