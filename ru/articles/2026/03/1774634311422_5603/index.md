@@ -51,10 +51,10 @@ draft: 0
 
 ## Установка
 
-- Скачать и распаковать `3x-ui` версии `v2.8.11`:
+- Скачать и распаковать `3x-ui` версии `v3.5.0`:
 
 ```bash
-v='v2.8.11'; d='/usr/local'; [[ -d "${d}/x-ui" ]] && rm -rf "${d}/x-ui"; curl -fSLo '/tmp/x-ui-linux-amd64.tar.gz' "https://github.com/MHSanaei/3x-ui/releases/download/${v}/x-ui-linux-amd64.tar.gz" && tar -xzf '/tmp/x-ui-linux-amd64.tar.gz' -C "${d}" && chmod +x "${d}/x-ui/x-ui.sh" && { [[ -L "${d}/bin/x-ui" ]] && unlink "${d}/bin/x-ui"; ln -s "${d}/x-ui/x-ui.sh" "${d}/bin/x-ui"; }
+v='v3.5.0'; d='/usr/local'; [[ -d "${d}/x-ui" ]] && rm -rf "${d}/x-ui"; curl -fSLo '/tmp/x-ui-linux-amd64.tar.gz' "https://github.com/MHSanaei/3x-ui/releases/download/${v}/x-ui-linux-amd64.tar.gz" && tar -xzf '/tmp/x-ui-linux-amd64.tar.gz' -C "${d}" && chmod +x "${d}/x-ui/x-ui.sh" && { [[ -L "${d}/bin/x-ui" ]] && unlink "${d}/bin/x-ui"; ln -s "${d}/x-ui/x-ui.sh" "${d}/bin/x-ui"; }
 ```
 
 - Скачать `x-ui.service` в директорию `/etc/systemd/system` и запустить службу:
