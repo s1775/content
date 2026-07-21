@@ -85,7 +85,54 @@ f=('x-ui'); d='/etc/cron.d'; s='https://libsys.ru/ru/2026/03/60a8071b-878a-510b-
     - Listen Port: `64802`.
     - URI Path: `/38s2ibK4728j71Tr/`.
 
-### Обратный прокси
+### Inbounds
+
+Добавим параметры точек подключения:
+
+- Открыть раздел **Inbounds**.
+- Нажать **Add Inbound**.
+- Перейти на вкладку **Advanced** и вставить в редактор следующее содержимое:
+
+{{< file "inbounds.vless-reality.json" "json" >}}
+
+Далее, немного подкорректируем настройки:
+
+- Вкладка **Basics**:
+  - Remark: `VLESS-Reality`.
+  - Total Flow: `900`.
+  - Traffic Reset: `Monthly`.
+- Вкладка **Security**:
+  - Нажать кнопку рандомизации **Short IDs**.
+  - Нажать кнопку рандомизации **SpiderX**.
+  - Нажать кнопку **Get New Cert** для генерации сертификата.
+- Нажать кнопку **Create** для создания Inbound'а.
+
+### Routing rules
+
+Теперь настроим параметры маршрутизации:
+
+- Открыть раздел **Xray Configs**.
+- Перейти в **Advanced**.
+- В редактор **Routing Rules** вставить следующее содержимое:
+
+{{< file "xray.routing-rules.json" "json" >}}
+
+- Сохранить и перезапустить **Xray**.
+
+### Clients
+
+На последнем этапе настройки добавим клиента для подключения к VPN:
+
+- Открыть раздел **Clients**.
+- Нажать **Add Clients**.
+- В окне **Add Client**:
+  - Вкладка **Basics**:
+    - Attached inbounds: `VLESS-Reality`.
+    - Traffic Limit (GB): `100`.
+  - Вкладка **Credentials**:
+    - Flow: `xtls-rprx-vision`.
+
+## Обратный прокси
 
 В качество обратного прокси я буду использовать **Angie** из статьи {{< uuid "b825cd19-f0f5-5a63-acb2-00784311b738" >}}. Также я усилил защиту панели HTTP-аутентификацией самого Angie. Начинаем настройку работы совместно с обратным прокси:
 
@@ -104,25 +151,10 @@ f=('x-ui'); d='/etc/cron.d'; s='https://libsys.ru/ru/2026/03/60a8071b-878a-510b-
 
 {{< file "angie.conf" "nginx" >}}
 
-### Клиенты
+### Собственный домен
 
-Для работы VLESS+Reality необходимо добавить клиентов со следующими настройками:
+Для работы VLESS+Reality через собственный домен, необходимо подкорректировать настройки:
 
-- Protocol: `vless`.
-- Port: `443`.
-- Total Flow: `900`.
-- Traffic Reset: `Monthly`.
-- Transmission: `TCP (RAW)`.
-- В разделе **Security** выбрать `Reality`:
-  - uTLS: `chrome`.
+- Вкладка **Security**:
   - Target: `127.0.0.1:8443`.
   - SNI: `example.org`.
-  - Нажать кнопку **Get New Cert** для генерации сертификата.
-- Включить **Sniffing**:
-  - Включить: `HTTP`.
-  - Включить: `TLS`.
-  - Включить: `QUIC`.
-  - Включить: `FAKEDNS`.
-- В разделе **Client** добавить клиента с параметрами:
-  - Flow: `xtls-rprx-vision`
-  - Total Flow: `100`
