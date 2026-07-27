@@ -88,7 +88,7 @@ Get-Mailbox -Database 'DB01' -ResultSize 'Unlimited' | New-MoveRequest -TargetDa
 - Запустить миграцию нескольких почтовых ящиков из списка `C:\Users.txt` в базу данных `DB02`:
 
 ```powershell
-Get-Content 'C:\Users.txt' | ForEach-Object { New-MoveRequest "${_}" -TargetDatabase 'DB02' }
+Get-Content 'C:\Users.txt' | ForEach-Object { New-MoveRequest -Identity "${_}" -TargetDatabase 'DB02' }
 ```
 
 - Запустить миграцию почтового ящика `john.doe@example.com` в базу данных `DB02`:
