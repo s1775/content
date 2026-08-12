@@ -92,6 +92,11 @@ draft: 0
 - {{< emoji ":no_entry:" >}} **Allow Cortana**  
   Разрешить Cortana. Cortana мне тоже не нужна. Мне не о чём с ней поговорить. Поэтому, я запрещаю Cortana.
 
+### Windows Components/Widgets
+
+- {{< emoji ":no_entry:" >}} **Allow Widgets**  
+  Разрешить использование виджетов. Виджеты я отключаю.
+
 ### Windows Components/Windows Update
 
 - {{< emoji ":white_check_mark:" >}} **Configure Automatic Updates**  
