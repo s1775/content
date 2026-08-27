@@ -57,16 +57,16 @@ draft: 0
 - Экспортировать заранее подготовленные общие параметры в переменные окружения:
 
 ```bash
-export IRM_DOMAIN='mail.example.org'
+export IRM_DOMAIN='mx.example.org'
 ```
 
 ### Параметры
 
-- `IRM_DOMAIN='mail.example.org'` - домен почтового сервера.
+- `IRM_DOMAIN='mx.example.org'` - домен почтового сервера.
 
 ## Настройка ОС
 
-- Добавить в файл `/etc/hosts` строку `127.0.0.1 mail.example.org mail localhost localhost.localdomain`:
+- Добавить в файл `/etc/hosts` строку `127.0.0.1 mx.example.org mx localhost localhost.localdomain`:
 
 ```bash
 f='/etc/hosts'; hostnamectl hostname "${IRM_DOMAIN%%.*}" && cp "${f}" "${f}.orig" && sed -i '/^127\.0/d' "${f}" && sed -i "1i 127.0.0.1 ${IRM_DOMAIN} ${IRM_DOMAIN%%.*} localhost localhost.localdomain" "${f}"
