@@ -77,7 +77,7 @@ systemctl disable --now nginx.service
 - Удалить пакеты старой версии {{< tag "PHP" >}}:
 
 ```bash
-apt purge --yes 'php8.2*' && apt autoremove && rm -rf '/etc/php'
+apt purge --yes 'php8.4*' && apt autoremove && rm -rf '/etc/php'
 ```
 
 - Установить новую версию {{< tag "PHP" >}} по материалу {{< uuid "9bd1261d-3842-5859-8202-2e1d7a5ba9f4" >}}.
