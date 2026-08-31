@@ -322,9 +322,21 @@ smtpd_tls_chain_files =
 # SSL / TLS
 # -------------------------------------------------------------------------------------------------------------------- #
 
-ssl_cert = </etc/ssl/acme/example.org.crt
-ssl_key = </etc/ssl/acme/example.org.key
-ssl_ca = </etc/ssl/acme/example.org.crt
+ssl_server_cert_file = /etc/ssl/acme/example.org.crt
+ssl_server_key_file = /etc/ssl/acme/example.org.key
+```
+
+- Настроить параметры в `/etc/dovecot/dovecot.conf` для домена `example.org` с использованием сертификатов с несколькими шифрами:
+
+```ini
+# -------------------------------------------------------------------------------------------------------------------- #
+# SSL / TLS
+# -------------------------------------------------------------------------------------------------------------------- #
+
+ssl_server_cert_file = /etc/ssl/acme/example.org.rsa.crt
+ssl_server_key_file = /etc/ssl/acme/example.org.rsa.key
+ssl_server_alt_cert_file = /etc/ssl/acme/example.org.ecc.crt
+ssl_server_alt_key_file = /etc/ssl/acme/example.org.ecc.key
 ```
 
 ### MariaDB
