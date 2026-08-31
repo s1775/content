@@ -81,7 +81,7 @@ apt purge --yes 'php8.2*' && apt autoremove && rm -rf '/etc/php'
 ```
 
 - Установить новую версию {{< tag "PHP" >}} по материалу {{< uuid "9bd1261d-3842-5859-8202-2e1d7a5ba9f4" >}}.
-- Создать файл `/etc/php/8.4/fpm/pool.d/iredmail.conf` со следующим содержанием:
+- Создать файл `/etc/php/<VER>/fpm/pool.d/iredmail.conf` со следующим содержанием:
 
 {{< file "irm.php.pool.conf" "ini" >}}
 
