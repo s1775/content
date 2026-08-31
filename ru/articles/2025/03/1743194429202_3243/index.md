@@ -371,6 +371,10 @@ TLSCACertificateFile /etc/ssl/acme/example.org.crt
 
 ## Скрипт
 
+{{< alert "important" >}}
+Раздел находится в переработке! Скрипт LeGo в версии 5 существенно поменялся!
+{{< / alert >}}
+
 [Скрипт](https://github.com/pkgstore/bash-acme) состоит из следующих компонентов:
 
 - `app.acme.conf` - файл с общими настройками.
