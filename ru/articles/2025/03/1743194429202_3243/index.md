@@ -307,10 +307,10 @@ smtpd_tls_CAfile = /etc/ssl/acme/example.org.crt
 # -------------------------------------------------------------------------------------------------------------------- #
 
 smtpd_tls_chain_files =
-    /etc/ssl/acme/example.org.rsa.key,
-    /etc/ssl/acme/example.org.rsa.crt,
     /etc/ssl/acme/example.org.ecc.key,
-    /etc/ssl/acme/example.org.ecc.crt
+    /etc/ssl/acme/example.org.ecc.crt,
+    /etc/ssl/acme/example.org.rsa.key,
+    /etc/ssl/acme/example.org.rsa.crt
 ```
 
 ### Dovecot
@@ -333,10 +333,10 @@ ssl_server_key_file = /etc/ssl/acme/example.org.key
 # SSL / TLS
 # -------------------------------------------------------------------------------------------------------------------- #
 
-ssl_server_cert_file = /etc/ssl/acme/example.org.rsa.crt
-ssl_server_key_file = /etc/ssl/acme/example.org.rsa.key
-ssl_server_alt_cert_file = /etc/ssl/acme/example.org.ecc.crt
-ssl_server_alt_key_file = /etc/ssl/acme/example.org.ecc.key
+ssl_server_cert_file = /etc/ssl/acme/example.org.ecc.crt
+ssl_server_key_file = /etc/ssl/acme/example.org.ecc.key
+ssl_server_alt_cert_file = /etc/ssl/acme/example.org.rsa.crt
+ssl_server_alt_key_file = /etc/ssl/acme/example.org.rsa.key
 ```
 
 ### MariaDB
