@@ -52,7 +52,7 @@ draft: 0
 - Экспортировать заранее подготовленные параметры в переменные окружения:
 
 ```bash
-export PHP_VER='8.4'
+export PHP_VER='8.5'
 ```
 
 ## Репозиторий
@@ -102,7 +102,7 @@ curl -fsSLo '/etc/apt/keyrings/php.gpg' 'https://ftp.mpi-inf.mpg.de/mirrors/linu
 - Установить пакеты:
 
 ```bash
-[[ ! -v 'PHP_VER' ]] && return; apt update && apt install --yes php${PHP_VER} php${PHP_VER}-{fpm,bcmath,bz2,cli,curl,gd,gmp,imagick,imap,intl,ldap,mbstring,memcached,mysql,odbc,opcache,pgsql,redis,uploadprogress,xml,zip,zstd}
+[[ ! -v 'PHP_VER' ]] && return; apt update && apt install --yes php${PHP_VER} php${PHP_VER}-{fpm,bcmath,bz2,cli,curl,gd,gmp,imagick,imap,intl,ldap,mbstring,memcached,mysql,odbc,pgsql,redis,uploadprogress,xml,zip,zstd}
 ```
 
 ## Настройка
