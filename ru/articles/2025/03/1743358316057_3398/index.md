@@ -63,7 +63,13 @@ apt install --yes -t 'stable-backports' dovecot-fts-xapian && apt install --yes 
 
 ## Настойка
 
-- В файле `/etc/dovecot/dovecot.conf` к директиве `mail_plugins` добавить `fts fts_xapian`.
+- В файле `/etc/dovecot/dovecot.conf` в директиву `mail_plugins { <...> }` добавить:
+
+```
+    fts = yes
+    fts_xapian = yes
+```
+
 - В файл `/etc/dovecot/dovecot.conf` добавить следующее содержимое:
 
 {{< file "dovecot.conf" >}}
