@@ -58,7 +58,7 @@ draft: 0
 - Установить пакеты:
 
 ```bash
-apt install --yes -t 'stable-backports' dovecot-fts-xapian && apt install --yes xapian-tools
+apt install --yes -t 'stable-backports' dovecot-fts-xapian && apt install --yes -t 'stable-backports' xapian-tools
 ```
 
 ## Настойка
