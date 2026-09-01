@@ -160,7 +160,7 @@ sed -i 's|ScriptedUpdates yes|ScriptedUpdates no|g' '/etc/clamav/freshclam.conf'
 
 Установить и настроить Fangfrisch можно по инструкции {{< uuid "96bdcb5c-a58b-58ae-9e6b-536b49bf1c51" >}}.
 
-### Postfix: Postscreen
+### Postfix
 
 - В директиве `postscreen_dnsbl_threshold` заменить `2` на `5`.
 - В директиву `postscreen_dnsbl_sites` добавить дополнительные спам-фильтры:
@@ -175,4 +175,21 @@ sed -i 's|ScriptedUpdates yes|ScriptedUpdates no|g' '/etc/clamav/freshclam.conf'
     list.dnswl.org=127.0.[0..255].1*-2
     list.dnswl.org=127.0.[0..255].2*-10
     list.dnswl.org=127.0.[0..255].3*-100
+```
+
+- Изменить размер `message_size_limit` с `15` MB до `50` MB:
+
+```bash
+sed -i 's|message_size_limit = 15728640|message_size_limit = 52428800|g' '/etc/postfix/main.cf'
+```
+
+- Добавить в самый низ файла `/etc/postfix/main.cf` следующее содержание:
+
+```
+# -------------------------------------------------------------------------------------------------------------------- #
+# -----------------------------------------------------< CUSTOM >----------------------------------------------------- #
+# -------------------------------------------------------------------------------------------------------------------- #
+
+mailbox_size_limit = 0
+virtual_mailbox_limit = 0
 ```
