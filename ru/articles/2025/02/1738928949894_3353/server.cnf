@@ -27,6 +27,9 @@ thread_stack = 192K
 # LOGGING
 # -------------------------------------------------------------------------------------------------------------------- #
 
+binlog_storage_engine = innodb
+log_bin
+
 log_error = /var/log/mysql/error.log
 log_slow_query_file = /var/log/mysql/mariadb-slow.log
 
