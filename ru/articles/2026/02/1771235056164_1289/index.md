@@ -194,12 +194,12 @@ sed -i 's|message_size_limit = 15728640|message_size_limit = 52428800|g' '/etc/p
 ### phpMyAdmin
 
 - Скачать [файл](https://www.phpmyadmin.net/downloads/) phpMyAdmin и распаковать в директорию `/opt/www/sql`.
-- Создать директорию `/opt/www/sql/tmp` и установить владельца `www-data`:
+- Создать директорию `/opt/www/db/tmp` и установить владельца `www-data`:
 
 ```bash
-d='/opt/www/sql/tmp'; mkdir "${d}" && www-data:www-data "${d}"
+d='/opt/www/db/tmp'; mkdir "${d}" && www-data:www-data "${d}"
 ```
-- Создать файл `/opt/www/sql/.htpasswd` с содержанием, сгенерированным на [этом](https://hostingcanada.org/htpasswd-generator/) сайте.
+- Создать файл `/opt/www/db/.htpasswd` с содержанием, сгенерированным на [этом](https://hostingcanada.org/htpasswd-generator/) сайте.
 - В файл `/etc/angie/http.d/iredmail-ssl.conf` добавить параметры для phpMyAdmin:
 
 ```nginx
@@ -207,18 +207,18 @@ d='/opt/www/sql/tmp'; mkdir "${d}" && www-data:www-data "${d}"
   # PHPMYADMIN
   # ------------------------------------------------------------------------------------------------------------------ #
 
-  location /sql/ {
-    alias /opt/www/sql/;
+  location /db/ {
+    alias /opt/www/db/;
     index index.php;
     auth_basic 'Restricted Area';
-    auth_basic_user_file /opt/www/sql/.htpasswd;
+    auth_basic_user_file /opt/www/db/.htpasswd;
   }
 
-  location ~ ^/sql/(.*\.php)$ {
+  location ~ ^/db/(.*\.php)$ {
     include fastcgi_params;
     fastcgi_index index.php;
     fastcgi_pass unix:/run/php/iredmail.sock;
     fastcgi_param HTTP_PROXY '';
-    fastcgi_param SCRIPT_FILENAME /opt/www/sql/$1;
+    fastcgi_param SCRIPT_FILENAME /opt/www/db/$1;
   }
 ```
