@@ -190,3 +190,35 @@ sed -i 's|message_size_limit = 15728640|message_size_limit = 52428800|g' '/etc/p
 - Создать файл `/etc/postfix/header_checks_smtp` со следующим содержанием:
 
 {{< file "postfix.header_checks_smtp" >}}
+
+### phpMyAdmin
+
+- Скачать [файл](https://www.phpmyadmin.net/downloads/) phpMyAdmin и распаковать в директорию `/opt/www/sql`.
+- Создать директорию `/opt/www/sql/tmp` и установить владельца `www-data`:
+
+```bash
+d='/opt/www/sql/tmp'; mkdir "${d}" && www-data:www-data "${d}"
+```
+- Создать файл `/opt/www/sql/.htpasswd` с содержанием, сгенерированным на [этом](https://hostingcanada.org/htpasswd-generator/) сайте.
+- В файл `/etc/angie/http.d/iredmail-ssl.conf` добавить параметры для phpMyAdmin:
+
+```nginx
+  # ------------------------------------------------------------------------------------------------------------------ #
+  # PHPMYADMIN
+  # ------------------------------------------------------------------------------------------------------------------ #
+
+  location /sql/ {
+    alias /opt/www/sql/;
+    index index.php;
+    auth_basic 'Restricted Area';
+    auth_basic_user_file /opt/www/sql/.htpasswd;
+  }
+
+  location ~ ^/sql/(.*\.php)$ {
+    include fastcgi_params;
+    fastcgi_index index.php;
+    fastcgi_pass unix:/run/php/iredmail.sock;
+    fastcgi_param HTTP_PROXY '';
+    fastcgi_param SCRIPT_FILENAME /opt/www/sql/$1;
+  }
+```
