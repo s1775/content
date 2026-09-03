@@ -193,11 +193,11 @@ sed -i 's|message_size_limit = 15728640|message_size_limit = 52428800|g' '/etc/p
 
 ### phpMyAdmin
 
-- Скачать [файл](https://www.phpmyadmin.net/downloads/) phpMyAdmin и распаковать в директорию `/opt/www/sql`.
+- Скачать [файл](https://www.phpmyadmin.net/downloads/) phpMyAdmin и распаковать в директорию `/opt/www/db`.
 - Создать директорию `/opt/www/db/tmp` и установить владельца `www-data`:
 
 ```bash
-d='/opt/www/db/tmp'; mkdir "${d}" && www-data:www-data "${d}"
+d='/opt/www/db/tmp'; u='www-data'; mkdir "${d}" && chown "${u}":"${u}" "${d}"
 ```
 - Создать файл `/opt/www/db/.htpasswd` с содержанием, сгенерированным на [этом](https://hostingcanada.org/htpasswd-generator/) сайте.
 - В файл `/etc/angie/http.d/iredmail-ssl.conf` добавить параметры для phpMyAdmin:
