@@ -331,3 +331,35 @@ export GH_NAME='iRedAPD'; export GH_API="gh.api.${GH_NAME}.json"; export IRM_DIR
 ```bash
 export GH_NAME='mlmmjadmin'; export GH_API="gh.api.${GH_NAME}.json"; export IRM_DIR="${HOME}/iRM.mlmmjadmin.$( date '+%s' )"; mkdir "${IRM_DIR}" && cd "${IRM_DIR}" && curl -fsSL "https://api.github.com/repos/iredmail/${GH_NAME}/tags" | tee "${GH_API}" > '/dev/null'; url="$( grep '"tarball_url":' < "${GH_API}" | head -n 1 | awk -F '"' '{ print $(NF-1) }' )"; ver="$( echo "${url}" | awk -F '/' '{ print $(NF) }' )"; cid="$( grep '"sha":' < "${GH_API}" | head -n 1 | awk -F '"' '{ print $(NF-1) }' | head -c 7 )"; curl -fSLOJ "${url}" && tar -xzf ./*"${cid}.tar.gz" && mv ./*"${cid}" "${GH_NAME}-${ver}" && cd "${GH_NAME}-${ver}/tools/" && bash "upgrade_$( echo "${GH_NAME}" | tr '[:upper:]' '[:lower:]' ).sh"
 ```
+
+## phpMyAdmin
+
+- Скачать [файл](https://www.phpmyadmin.net/downloads/) phpMyAdmin и распаковать в директорию `/opt/www/sql`.
+- Создать директорию `/opt/www/sql/tmp` и установить владельца `www-data`:
+
+```bash
+d='/opt/www/sql/tmp'; mkdir "${d}" && www-data:www-data "${d}"
+```
+- Создать файл `/opt/www/sql/.htpasswd` с содержанием, сгенерированным на [этом](https://hostingcanada.org/htpasswd-generator/) сайте.
+- В файл `/etc/angie/http.d/iredmail-ssl.conf` добавить параметры для phpMyAdmin:
+
+```nginx
+  # ------------------------------------------------------------------------------------------------------------------ #
+  # PHPMYADMIN
+  # ------------------------------------------------------------------------------------------------------------------ #
+
+  location /sql/ {
+    alias /opt/www/sql/;
+    index index.php;
+    auth_basic 'Restricted Area';
+    auth_basic_user_file /opt/www/sql/.htpasswd;
+  }
+
+  location ~ ^/sql/(.*\.php)$ {
+    include fastcgi_params;
+    fastcgi_index index.php;
+    fastcgi_pass unix:/run/php/iredmail.sock;
+    fastcgi_param HTTP_PROXY '';
+    fastcgi_param SCRIPT_FILENAME /opt/www/sql/$1;
+  }
+```
