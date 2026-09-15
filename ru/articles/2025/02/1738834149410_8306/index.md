@@ -77,3 +77,11 @@ curl -fsSL 'https://packagecloud.io/timescale/timescaledb/gpgkey' | gpg --dearmo
 ```bash
 [[ ! -v 'PGSQL_VER' || ! -v 'TSDB_VER' ]] && return; apt update && apt install --yes timescaledb-2-postgresql-${PGSQL_VER}=${TSDB_VER} timescaledb-2-loader-postgresql-${PGSQL_VER}=${TSDB_VER} timescaledb-tools
 ```
+
+- Создать файлы предпочтений `/etc/apt/preferences.d/timescaledb.pref` со следующим содержанием:
+
+```
+Package: timescaledb-2-*
+Pin: version 2.29.*
+Pin-Priority: 600
+```
