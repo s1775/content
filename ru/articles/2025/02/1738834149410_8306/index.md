@@ -53,7 +53,7 @@ draft: 0
 - Экспортировать заранее подготовленные параметры в переменные окружения:
 
 ```bash
-export PGSQL_VER='17' && export TSDB_VER='2.18.*'
+export PGSQL_VER='18' && export TSDB_VER='2.29.*'
 ```
 
 ## Репозиторий
