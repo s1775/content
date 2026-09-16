@@ -16,6 +16,7 @@ tags:
   - 'victoria'
   - 'logs'
   - 'victoria-logs'
+  - 'database'
 authors:
   - 'KaiKimera'
 sources:
