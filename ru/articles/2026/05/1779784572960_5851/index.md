@@ -120,6 +120,12 @@ sed -i -e 's|;\[radius\]|\[radius\]|g' -e 's|;radiuscfg => /usr/local/etc/radius
 sed -i 's|;radiuscfg => /usr/local/etc/radiusclient-ng/|radiuscfg => /etc/radcli/|g' '/etc/asterisk/cel.conf'
 ```
 
+- Создать файл юнита `/etc/systemd/system/asterisk.service` со следующим содержанием:
+
+{{< file "asterisk.service" "ini" >}}
+
+- Включить юнит `asterisk.service` командой `systemctl enable --now asterisk.service`.
+
 ## Настройка
 
 - Открыть файл `/etc/asterisk/modules.conf` и в самый низ добавить неиспользуемые модули для их отключения:
