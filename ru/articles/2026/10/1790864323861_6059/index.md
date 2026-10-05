@@ -45,25 +45,25 @@ slug: 'bc2ffc50-8d26-5150-bc98-951a81b17bbb'
 draft: 1
 ---
 
-Summary...
+Разворачиваем центр сертификации {{< tag "OpenSSL" >}} при помощи нескольких команд.
 
 <!--more-->
 
 ## Certificate Authority (CA)
 
-- Скачать скрипты разворачивания CA:
+- Скачать скрипты для настройки CA:
 
 ```bash
 f=('app.ca.sh' 'app.ca.cert.sh' 'app.ca.sign.sh'); d="${HOME}/ca"; s="https://raw.githubusercontent.com/pkgstore/bash-ssl/refs/heads/main"; mkdir "${d}" && for i in ${f[@]}; do curl -fsSLo "${d}/${i}" "${s}/${i}"; done && { cd "${d}" || exit 1; }
 ```
 
-- Развернуть основной ЦС (Root CA):
+- Настроить основной ЦС (Root CA):
 
 ```bash
 bash "${HOME}/ca/app.ca.sh" 'ca_0'
 ```
 
-- Развернуть промежуточный ЦС (Intermediate CA):
+- Настроить промежуточный ЦС (Intermediate CA):
 
 ```bash
 bash "${HOME}/ca/app.ca.sh" 'ca_1'
@@ -79,11 +79,15 @@ bash "${HOME}/ca/app.ca.cert.sh" 'example.com' 'DNS:example.com, DNS:*.example.c
 
 #### Расширения
 
+Доступны следующие расширения:
+
 - `cert_code` - расширение сертификата для подписания кода.
 - `cert_client` - расширение сертификата для клиента.
 - `cert_server` - расширение сертификата для сервера.
 
 ### Подписи
+
+Если пришёл запрос на подпись сертификата от стороннего клиента, этот сертификат можно подписать при помощи команды ниже.
 
 - Создать сертификат под именем `example.com` для подписи `example.com.csr` периодом в `3650` дней и расширением `cert_server`:
 
