@@ -71,7 +71,7 @@ bash "${HOME}/ca/app.ca.sh" 'ca_1'
 
 ### Сертификаты
 
-- Создать сертификат для домена `example.com` под именем `example.com` с `subjectAltName = DNS:example.com, DNS:*.example.com, IP:127.0.0.1`, периодом в `3650` дней и расширением `cert_server`:
+- Создать сертификат для домена `example.com` под именем `example.com` с `subjectAltName = DNS:example.com, DNS:*.example.com, IP:127.0.0.1` периодом в `3650` дней и расширением `cert_server`:
 
 ```bash
 bash "${HOME}/ca/app.ca.cert.sh" 'example.com' 'DNS:example.com, DNS:*.example.com, IP:127.0.0.1' '3650' 'cert_server'
