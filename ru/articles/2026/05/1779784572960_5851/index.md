@@ -108,23 +108,27 @@ mkdir -p '/var/lib/asterisk/moh'
 [[ ! -v 'PBX_VER' ]] && return; apt update && apt install --yes asterisk-sounds-core-en-alaw asterisk-sounds-core-en-ulaw asterisk-sounds-core-en-wideband
 ```
 
-- Исправить конфигурацию `radius` в `/etc/asterisk/cdr.conf`:
+- Исправить конфигурацию `radius` в файлах `/etc/asterisk/cdr.conf` и `/etc/asterisk/cel.conf`:
 
 ```bash
-sed -i -e 's|;\[radius\]|\[radius\]|g' -e 's|;radiuscfg => /usr/local/etc/radiusclient-ng/|radiuscfg => /etc/radcli/|g' '/etc/asterisk/cdr.conf'
+sed -i -e 's|;\[radius\]|\[radius\]|g' -e 's|;radiuscfg => /usr/local/etc/radiusclient-ng/|radiuscfg => /etc/radcli/|g' '/etc/asterisk/cdr.conf' && sed -i 's|;radiuscfg => /usr/local/etc/radiusclient-ng/|radiuscfg => /etc/radcli/|g' '/etc/asterisk/cel.conf'
 ```
 
-- Исправить конфигурацию `radius` в `/etc/asterisk/cel.conf`:
+- Исправить права доступа пользователя `asterisk` для директорий Asterisk и параметры конфигурации:
 
 ```bash
-sed -i 's|;radiuscfg => /usr/local/etc/radiusclient-ng/|radiuscfg => /etc/radcli/|g' '/etc/asterisk/cel.conf'
+d=('/run' '/etc' '/var/lib' '/var/log' '/var/spool' '/usr/lib/x86_64-linux-gnu'); u='asterisk'; usermod -aG audio,dialout "${u}" && for i in "${d[@]}"; do chown -R "${u}":"${u}" "${i}/${u}"; done && sed -i -e 's|;runuser =|runuser =|g' -e 's|;rungroup =|rungroup =|g' "/etc/${u}/${u}.conf"
 ```
 
 - Создать файл юнита `/etc/systemd/system/asterisk.service` со следующим содержанием:
 
 {{< file "asterisk.service" "ini" >}}
 
-- Включить юнит `asterisk.service` командой `systemctl enable --now asterisk.service`.
+- Включить сервис `asterisk.service` командой:
+
+```bash
+systemctl enable --now asterisk.service
+```
 
 ## Настройка
 

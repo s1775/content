@@ -54,19 +54,13 @@ draft: 1
 - Скачать скрипты для настройки CA:
 
 ```bash
-f=('app.ca.sh' 'app.ca.cert.sh' 'app.ca.sign.sh'); d="${HOME}/ca"; s="https://raw.githubusercontent.com/pkgstore/bash-ssl/refs/heads/main"; mkdir "${d}" && for i in ${f[@]}; do curl -fsSLo "${d}/${i}" "${s}/${i}"; done && { cd "${d}" || exit 1; }
+f=('app.ca.sh' 'app.ca.cert.create.sh' 'app.ca.cert.revoke.sh' 'app.ca.cert.sign.sh'); d="${HOME}/ca"; s="https://raw.githubusercontent.com/pkgstore/bash-ssl/refs/heads/main"; mkdir "${d}" && for i in ${f[@]}; do curl -fsSLo "${d}/${i}" "${s}/${i}"; done && { cd "${d}" || exit 1; }
 ```
 
-- Настроить основной ЦС (Root CA):
+- Настроить основной и промежуточный ЦС:
 
 ```bash
-bash "${HOME}/ca/app.ca.sh" 'ca_0'
-```
-
-- Настроить промежуточный ЦС (Intermediate CA):
-
-```bash
-bash "${HOME}/ca/app.ca.sh" 'ca_1'
+bash "${HOME}/ca/app.ca.sh"
 ```
 
 ### Сертификаты
@@ -74,7 +68,7 @@ bash "${HOME}/ca/app.ca.sh" 'ca_1'
 - Создать сертификат для домена `example.com` под именем `example.com` с `subjectAltName = DNS:example.com, DNS:*.example.com, IP:127.0.0.1` периодом в `3650` дней и расширением `cert_server`:
 
 ```bash
-bash "${HOME}/ca/app.ca.cert.sh" 'example.com' 'DNS:example.com, DNS:*.example.com, IP:127.0.0.1' '3650' 'cert_server'
+bash "${HOME}/ca/app.ca.cert.create.sh" 'example.com' 'DNS:example.com, DNS:*.example.com, IP:127.0.0.1' '3650' 'cert_server'
 ```
 
 #### Расширения
@@ -92,7 +86,7 @@ bash "${HOME}/ca/app.ca.cert.sh" 'example.com' 'DNS:example.com, DNS:*.example.c
 - Создать сертификат под именем `example.com` для подписи `example.com.csr` периодом в `3650` дней и расширением `cert_server`:
 
 ```bash
-bash "${HOME}/ca/app.ca.sign.sh" 'example.com' 'example.com.csr' '3650' 'cert_server'
+bash "${HOME}/ca/app.ca.cert.sign.sh" 'example.com' 'example.com.csr' '3650' 'cert_server'
 ```
 
 ## Self-Signed Certificate
