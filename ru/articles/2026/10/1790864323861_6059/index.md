@@ -71,6 +71,12 @@ bash "${HOME}/ca/app.ca.sh"
 bash "${HOME}/ca/app.ca.cert.create.sh" 'example.com' 'DNS:example.com, DNS:*.example.com, IP:127.0.0.1' '3650' 'cert_server'
 ```
 
+- Создать сертификат для клиента `client@example.com` под именем `client@example.com` с `subjectAltName = email:client@example.com` периодом в `3650` дней и расширением `cert_client`:
+
+```bash
+bash "${HOME}/ca/app.ca.cert.create.sh" 'client@example.com' 'email:client@example.com' '3650' 'cert_server'
+```
+
 #### Расширения
 
 Доступны следующие расширения:
