@@ -3,7 +3,7 @@
 # GENERAL
 # -------------------------------------------------------------------------------------------------------------------- #
 
-title: 'AlviStack: Установка и настройка'
+title: 'Podman: Установка и настройка'
 description: ''
 icon: 'far fa-file-lines'
 categories:
@@ -13,15 +13,7 @@ tags:
   - 'debian'
   - 'apt'
   - 'install'
-  - 'ansible'
-  - 'ceph'
-  - 'etcd'
-  - 'git-lfs'
-  - 'git'
   - 'podman'
-  - 'vagrant'
-  - 'yq'
-  - 'zstd'
 authors:
   - 'KaiKimera'
 sources:
@@ -51,7 +43,7 @@ slug: 'dc9141c4-2dd5-54cf-b40b-8468694b9250'
 draft: 1
 ---
 
-Summary...
+Инструкция по установке и настройке {{< tag "Podman" >}}.
 
 <!--more-->
 
@@ -80,5 +72,33 @@ f=('alvistack'); d='/etc/apt/preferences.d'; s='https://libsys.ru/ru/2025/03/dc9
 - Установить {{< tag "Podman" >}}:
 
 ```bash
-apt update && apt install --yes -t 'l=home:alvistack' podman podman-netavark podman-compose
+apt update && apt install --yes -t 'l=home:alvistack' podman netavark aardvark-dns passt
+```
+
+- Скачать файлы конфигурации в `/etc/containers/`:
+
+```bash
+f=('containers' 'storage'); d='/etc/containers'; s='https://libsys.ru/ru/2025/03/dc9141c4-2dd5-54cf-b40b-8468694b9250'; for i in "${f[@]}"; do curl -fsSLo "${d}/${i}.conf" "${s}/${i}.conf"; done
+```
+
+- Привести `chain forward` в конфигурации `nftables` к следующему виду:
+
+```
+table inet filter {
+  chain forward {
+    type filter hook forward priority 0; policy drop;
+
+    ct state { established, related } accept
+    ct state invalid drop
+    iifname "podman*" accept
+    oifname "podman*" accept
+    ct status dnat accept
+  }
+}
+```
+
+- Перезапустить сетевой стек `podman`:
+
+```bash
+podman network reload --all
 ```
