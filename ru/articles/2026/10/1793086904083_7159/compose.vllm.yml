@@ -15,7 +15,7 @@ services:
     container_name: ui
     restart: unless-stopped
     environment:
-      - OPENAI_API_BASE_URL=http://host.containers.internal:8000/v1
+      - OPENAI_API_BASE_URL='http://host.containers.internal:8000/v1'
       - WEBUI_SECRET_KEY='SECRET_KEY'
     volumes:
       - ui-data:/app/backend/data:Z
