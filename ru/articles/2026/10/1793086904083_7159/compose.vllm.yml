@@ -4,7 +4,7 @@ services:
     container_name: llm
     restart: unless-stopped
     environment:
-      - HF_TOKEN='SECRET_TOKEN'
+      HF_TOKEN: 'SECRET_TOKEN'
     volumes:
       - llm-data:/root/.cache/huggingface:Z
     ports:
@@ -15,8 +15,8 @@ services:
     container_name: ui
     restart: unless-stopped
     environment:
-      - OPENAI_API_BASE_URL='http://host.containers.internal:8000/v1'
-      - WEBUI_SECRET_KEY='SECRET_KEY'
+      OPENAI_API_BASE_URL: 'http://host.containers.internal:8000/v1'
+      WEBUI_SECRET_KEY: 'SECRET_KEY'
     volumes:
       - ui-data:/app/backend/data:Z
     ports:
