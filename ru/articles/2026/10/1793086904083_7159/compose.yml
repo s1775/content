@@ -22,24 +22,11 @@ services:
       - ollama
     environment:
       - OLLAMA_BASE_URL=http://host.containers.internal:11434
-      - WEBUI_SECRET_KEY='qwerty@1209'
+      - WEBUI_SECRET_KEY='SECRET_KEY'
     volumes:
       - open-webui:/app/backend/data:Z
     ports:
       - '3000:8080'
-  angie:
-    image: docker.angie.software/angie:latest
-    container_name: angie
-    restart: unless-stopped
-    depends_on:
-      - open-webui
-    volumes:
-      - ./angie.conf:/etc/angie/angie.conf:ro
-      - ./html:/usr/share/angie/html:ro
-      - ./logs:/var/log/angie
-    ports:
-      - '80:80'
-      - '443:443'
 volumes:
   ollama:
     driver: local
