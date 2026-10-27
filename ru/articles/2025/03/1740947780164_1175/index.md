@@ -40,7 +40,7 @@ hash: 'dc9141c42dd5a4cfd40b8468694b9250a2a5b77a'
 uuid: 'dc9141c4-2dd5-54cf-b40b-8468694b9250'
 slug: 'dc9141c4-2dd5-54cf-b40b-8468694b9250'
 
-draft: 1
+draft: 0
 ---
 
 Инструкция по установке и настройке {{< tag "Podman" >}}.
@@ -72,7 +72,7 @@ f=('alvistack'); d='/etc/apt/preferences.d'; s='https://libsys.ru/ru/2025/03/dc9
 - Установить {{< tag "Podman" >}}:
 
 ```bash
-apt update && apt install --yes -t 'l=home:alvistack' podman netavark aardvark-dns passt
+apt update && apt install --yes -t 'l=home:alvistack' podman buildah netavark aardvark-dns passt tini uidmap
 ```
 
 - Скачать файлы конфигурации в `/etc/containers/`:
@@ -81,7 +81,7 @@ apt update && apt install --yes -t 'l=home:alvistack' podman netavark aardvark-d
 f=('containers' 'storage'); d='/etc/containers'; s='https://libsys.ru/ru/2025/03/dc9141c4-2dd5-54cf-b40b-8468694b9250'; for i in "${f[@]}"; do curl -fsSLo "${d}/${i}.conf" "${s}/${i}.conf"; done
 ```
 
-- Привести `chain forward` в конфигурации `nftables` к следующему виду:
+- Привести `chain forward` в конфигурации `/etc/nftables.conf` к следующему виду:
 
 ```
 table inet filter {

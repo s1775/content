@@ -1,0 +1,47 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+      - OLLAMA_CONTEXT_LENGTH=65536
+      - OLLAMA_NUM_PARALLEL=1
+      - OLLAMA_FLASH_ATTENTION=1
+      - OLLAMA_KV_CACHE_TYPE=q8_0
+      - OLLAMA_KEEP_ALIVE=-1
+    volumes:
+      - ollama:/root/.ollama:Z
+    ports:
+      - '11434:11434'
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:latest
+    container_name: open-webui
+    restart: unless-stopped
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_BASE_URL=http://host.containers.internal:11434
+      - WEBUI_SECRET_KEY='qwerty@1209'
+    volumes:
+      - open-webui:/app/backend/data:Z
+    ports:
+      - '3000:8080'
+  angie:
+    image: docker.angie.software/angie:latest
+    container_name: angie
+    restart: unless-stopped
+    depends_on:
+      - open-webui
+    volumes:
+      - ./angie.conf:/etc/angie/angie.conf:ro
+      - ./html:/usr/share/angie/html:ro
+      - ./logs:/var/log/angie
+    ports:
+      - '80:80'
+      - '443:443'
+volumes:
+  ollama:
+    driver: local
+  open-webui:
+    driver: local
