@@ -1,0 +1,30 @@
+services:
+  vllm:
+    image: vllm/vllm-openai-cpu:latest-x86_64
+    container_name: vllm
+    restart: unless-stopped
+    environment:
+      - HF_TOKEN='SECRET_KEY'
+    volumes:
+      - vllm:/root/.cache/huggingface:Z
+    ports:
+      - '8000:8000'
+    ipc: host
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:latest
+    container_name: open-webui
+    restart: unless-stopped
+    environment:
+      - OPENAI_API_BASE_URL=http://host.containers.internal:8000/v1
+      - WEBUI_SECRET_KEY='SECRET_KEY'
+    volumes:
+      - open-webui:/app/backend/data:Z
+    ports:
+      - '3000:8080'
+    depends_on:
+      - vllm
+volumes:
+  vllm:
+    driver: local
+  open-webui:
+    driver: local
