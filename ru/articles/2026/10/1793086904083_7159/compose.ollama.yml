@@ -1,33 +1,40 @@
-services:
-  llm:
-    image: ollama/ollama:latest
-    container_name: llm
+  ollama:
+    image: docker.io/ollama/ollama:latest
+    container_name: ollama
     restart: unless-stopped
-    environment:
-      OLLAMA_CONTEXT_LENGTH: 65536
-      OLLAMA_NUM_PARALLEL: 1
-      OLLAMA_FLASH_ATTENTION: 1
-      OLLAMA_KV_CACHE_TYPE: q8_0
-      OLLAMA_KEEP_ALIVE: -1
     volumes:
-      - llm-data:/root/.ollama:Z
+      - ollama-data:/root/.ollama:Z
     ports:
       - '11434:11434'
-  ui:
+  webui:
     image: ghcr.io/open-webui/open-webui:latest
-    container_name: ui
+    container_name: webui
     restart: unless-stopped
     environment:
-      OLLAMA_BASE_URL: 'http://host.containers.internal:11434'
       WEBUI_SECRET_KEY: 'SECRET_KEY'
+      CORS_ALLOW_ORIGIN: '*'
+      #DATABASE_URL: 'postgresql://user:password@127.0.0.1:5432/ui'
+      #PGVECTOR_DB_URL: 'postgresql://user:password@127.0.0.1:5432/llm'
+      #VECTOR_DB: 'pgvector'
+      #REDIS_URL: 'redis://redis-host:6379/0'
+      #WEBSOCKET_MANAGER: 'redis'
+      #ENABLE_WEBSOCKET_SUPPORT: true
+      #CONTENT_EXTRACTION_ENGINE: 'tika'
+      #TIKA_SERVER_URL: 'http://tika:9998'
+      #RAG_EMBEDDING_ENGINE: 'openai'
+      #UVICORN_WORKERS: 1
+      #ENABLE_DB_MIGRATIONS: false
+      #THREAD_POOL_SIZE: 2000
+      #DATABASE_USER_ACTIVE_STATUS_UPDATE_INTERVAL: 120
+      #ENABLE_ORJSON: true
+      #ENABLE_CHAT_RESPONSE_STREAM_INPLACE_APPEND: true
+      #AIOHTTP_CLIENT_ASYNC_DNS_RESOLVER: true
     volumes:
-      - ui-data:/app/backend/data:Z
+      - webui-data:/app/backend/data:Z
     ports:
       - '3000:8080'
-    depends_on:
-      - llm
 volumes:
-  llm-data:
+  ollama-data:
     driver: local
-  ui-data:
+  webui-data:
     driver: local

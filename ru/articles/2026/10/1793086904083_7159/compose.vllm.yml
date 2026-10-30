@@ -1,12 +1,4 @@
 services:
-  ollama:
-    image: docker.io/ollama/ollama:latest
-    container_name: ollama
-    restart: unless-stopped
-    volumes:
-      - ollama-data:/root/.ollama:Z
-    ports:
-      - '11434:11434'
   vllm:
     image: docker.io/vllm/vllm-openai-cpu:latest-x86_64
     container_name: vllm
@@ -49,8 +41,6 @@ services:
     ports:
       - '3000:8080'
 volumes:
-  ollama-data:
-    driver: local
   vllm-cache:
     driver: local
   webui-data:
