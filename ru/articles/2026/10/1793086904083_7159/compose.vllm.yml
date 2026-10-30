@@ -1,43 +1,57 @@
 services:
-  llm:
-    image: vllm/vllm-openai-cpu:latest-x86_64
-    container_name: llm
+  ollama:
+    image: docker.io/ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    volumes:
+      - ollama-data:/root/.ollama:Z
+    ports:
+      - '11434:11434'
+  vllm:
+    image: docker.io/vllm/vllm-openai-cpu:latest-x86_64
+    container_name: vllm
     restart: unless-stopped
     environment:
-      HF_TOKEN: 'SECRET_TOKEN'
-      CUDA_VISIBLE_DEVICES: '0,1'
+      HF_TOKEN: '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'
     volumes:
-      - llm-cache:/root/.cache/huggingface:Z
+      - vllm-cache:/root/.cache/huggingface:Z
     ports:
       - '8000:8000'
     ipc: host
-    shm_size: '4g'
     command: >
       --model Qwen/Qwen2.5-1.5B-Instruct
       --gpu-memory-utilization 0.5
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-  ui:
+  webui:
     image: ghcr.io/open-webui/open-webui:latest
-    container_name: ui
+    container_name: webui
     restart: unless-stopped
     environment:
-      OPENAI_API_BASE_URL: 'http://host.containers.internal:8000/v1'
-      OPENAI_API_KEY: 'none'
       WEBUI_SECRET_KEY: 'SECRET_KEY'
+      CORS_ALLOW_ORIGIN: '*'
+      #DATABASE_URL: 'postgresql://user:password@127.0.0.1:5432/ui'
+      #PGVECTOR_DB_URL: 'postgresql://user:password@127.0.0.1:5432/llm'
+      #VECTOR_DB: 'pgvector'
+      #REDIS_URL: 'redis://redis-host:6379/0'
+      #WEBSOCKET_MANAGER: 'redis'
+      #ENABLE_WEBSOCKET_SUPPORT: true
+      #CONTENT_EXTRACTION_ENGINE: 'tika'
+      #TIKA_SERVER_URL: 'http://tika:9998'
+      #RAG_EMBEDDING_ENGINE: 'openai'
+      #UVICORN_WORKERS: 1
+      #ENABLE_DB_MIGRATIONS: false
+      #THREAD_POOL_SIZE: 2000
+      #DATABASE_USER_ACTIVE_STATUS_UPDATE_INTERVAL: 120
+      #ENABLE_ORJSON: true
+      #ENABLE_CHAT_RESPONSE_STREAM_INPLACE_APPEND: true
+      #AIOHTTP_CLIENT_ASYNC_DNS_RESOLVER: true
     volumes:
-      - ui-data:/app/backend/data:Z
+      - webui-data:/app/backend/data:Z
     ports:
       - '3000:8080'
-    depends_on:
-      - llm
 volumes:
-  llm-cache:
+  ollama-data:
     driver: local
-  ui-data:
+  vllm-cache:
+    driver: local
+  webui-data:
     driver: local
