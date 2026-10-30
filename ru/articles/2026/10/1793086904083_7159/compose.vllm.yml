@@ -12,7 +12,7 @@ services:
     container_name: vllm
     restart: unless-stopped
     environment:
-      HF_TOKEN: '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'
+      HF_TOKEN: 'SECRET_TOKEN'
     volumes:
       - vllm-cache:/root/.cache/huggingface:Z
     ports:
