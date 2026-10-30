@@ -1,0 +1,15 @@
+[Unit]
+Description=UI Service
+After=network-online.target
+
+[Service]
+Type=simple
+User=%i
+Group=%i
+WorkingDirectory=/home/%i
+ExecStart=/home/%i/init.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

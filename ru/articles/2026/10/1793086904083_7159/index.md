@@ -48,18 +48,52 @@ Summary...
 
 <!--more-->
 
-```bash
-podman pull docker.io/ollama/ollama:latest
-```
+## Пользователи
+
+- Создать пользователей `llm` и `ui`:
 
 ```bash
-podman pull ghcr.io/open-webui/open-webui:main
+for i in 'llm' 'ui'; do echo "--- CREATING USER: ${i}" && useradd -m -G 'sudo' -s '/bin/zsh' -c "${i}" "${i}" && passwd "${i}"; done
 ```
 
-```bash
-podman run -d --name 'open-webui' -p 3000:8080 -v 'open-webui:/app/backend/data' -e WEBUI_SECRET_KEY='secret_key' --restart 'always' 'ghcr.io/open-webui/open-webui:main'
-```
+- Создать директорию `data` у пользователей:
 
 ```bash
-podman run -d --name 'ollama' -p 11434:11434 -v 'ollama:/root/.ollama' --restart 'always' 'docker.io/ollama/ollama:latest'
+for i in 'llm' 'ui'; do install -d -o "${i}" -g "${i}" "/home/${i}/data"; done
+```
+
+## vLLM
+
+- Установить vLLM:
+
+```bash
+uv venv --python 3.12 --seed --managed-python && source '.venv/bin/activate' && uv pip install vllm --torch-backend=auto
+```
+
+{{< alert "tip" >}}
+Для установки vLLM на CPU без видеокарты, можно воспользоваться следующей командой:
+
+```bash
+uv venv --python 3.12 --seed --managed-python && source '.venv/bin/activate' && uv pip install vllm --extra-index-url 'https://wheels.vllm.ai/0.32.0/cpu' --torch-backend cpu --constraint <(echo 'triton @ https://github.com/triton-lang/triton-cpu/releases/download/v3.8.0/triton-3.8.0+cpu-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl')
+```
+{{< /alert >}}
+
+- Запустить vLLM с моделью `Qwen2.5-1.5B-Instruct`:
+
+```bash
+vllm serve 'Qwen/Qwen2.5-1.5B-Instruct' --gpu_memory_utilization='0.5'
+```
+
+## Open WebUI
+
+- Установить WebUI
+
+```bash
+uv venv --python=3.12 --seed --managed-python && source '.venv/bin/activate' && uv pip install "open-webui[all]"
+```
+
+- Запустить WebUI с директорией `data` для хранения данных:
+
+```bash
+DATA_DIR="${HOME}/data" open-webui serve
 ```
