@@ -97,3 +97,23 @@ uv venv --python=3.12 --seed --managed-python && source '.venv/bin/activate' && 
 ```bash
 DATA_DIR="${HOME}/data" open-webui serve
 ```
+
+## PROXY
+
+- Зайти в контейнер `ollama`:
+
+```bash
+podman exec -it ollama sh
+```
+
+- Удалить переменные окружения:
+
+```bash
+unset HTTP_PROXY HTTPS_PROXY NO_PROXY
+```
+
+- Запустить скачивание LLM:
+
+```bash
+ollama run qwen2.5
+```

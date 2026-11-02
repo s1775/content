@@ -1,18 +1,16 @@
 services:
-  vllm:
-    image: docker.io/vllm/vllm-openai-cpu:latest-x86_64
-    container_name: vllm
+  ollama:
+    image: docker.io/ollama/ollama:latest
+    container_name: ollama
     restart: unless-stopped
     environment:
-      HF_TOKEN: 'SECRET_TOKEN'
+      #HTTP_PROXY: 'http://user:password@example.com:3128/'
+      #HTTPS_PROXY: 'http://user:password@example.com:3128/'
+      #NO_PROXY: '127.0.0.1,localhost,host.containers.internal'
     volumes:
-      - vllm-cache:/root/.cache/huggingface:Z
+      - ollama-data:/root/.ollama:Z
     ports:
-      - '8000:8000'
-    ipc: host
-    command: >
-      --model Qwen/Qwen2.5-1.5B-Instruct
-      --gpu-memory-utilization 0.5
+      - '11434:11434'
   webui:
     image: ghcr.io/open-webui/open-webui:latest
     container_name: webui
@@ -41,7 +39,7 @@ services:
     ports:
       - '3000:8080'
 volumes:
-  vllm-cache:
+  ollama-data:
     driver: local
   webui-data:
     driver: local

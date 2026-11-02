@@ -1,11 +1,35 @@
-  ollama:
-    image: docker.io/ollama/ollama:latest
-    container_name: ollama
+services:
+  vllm:
+    image: docker.io/vllm/vllm-openai:latest
+    container_name: vllm
     restart: unless-stopped
+    environment:
+      #HTTP_PROXY: 'http://user:password@example.com:3128/'
+      #HTTPS_PROXY: 'http://user:password@example.com:3128/'
+      #NO_PROXY: '127.0.0.1,localhost,host.containers.internal'
+      HF_TOKEN: 'SECRET_TOKEN'
     volumes:
-      - ollama-data:/root/.ollama:Z
+      - vllm-cache:/root/.cache/huggingface:Z
     ports:
-      - '11434:11434'
+      - '8000:8000'
+    ipc: host
+    command: [
+      '--model', 'Qwen/Qwen2.5-1.5B-Instruct',
+      '--gpu-memory-utilization', '0.5'
+    ]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: ['gpu']
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -f --connect-timeout 4 --max-time 9 http://127.0.0.1:8000/health || exit 1']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 1200s
   webui:
     image: ghcr.io/open-webui/open-webui:latest
     container_name: webui
@@ -34,7 +58,7 @@
     ports:
       - '3000:8080'
 volumes:
-  ollama-data:
+  vllm-cache:
     driver: local
   webui-data:
     driver: local

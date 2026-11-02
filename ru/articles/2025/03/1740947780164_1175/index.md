@@ -81,20 +81,37 @@ apt update && apt install --yes -t 'l=home:alvistack' podman buildah netavark aa
 f=('containers' 'storage'); d='/etc/containers'; s='https://libsys.ru/ru/2025/03/dc9141c4-2dd5-54cf-b40b-8468694b9250'; for i in "${f[@]}"; do curl -fsSLo "${d}/${i}.conf" "${s}/${i}.conf"; done
 ```
 
+- Привести `chain input` в конфигурации `/etc/nftables.conf` к следующему виду:
+
+```c
+table inet filter {
+  chain input {
+    # <...>
+    # Podman: DNS.
+    iifname "podman*" th dport { 53 } accept
+    # <...>
+  }
+}
+```
+
 - Привести `chain forward` в конфигурации `/etc/nftables.conf` к следующему виду:
 
-```
+```c
 table inet filter {
   chain forward {
     type filter hook forward priority 0; policy drop;
-
-    ct state { established, related } accept
-    ct state invalid drop
+    # <...>
     iifname "podman*" accept
     oifname "podman*" accept
-    ct status dnat accept
+    # <...>
   }
 }
+```
+
+- Включить параметр `ip_forward` в ядре Linux:
+
+```bash
+echo 'net.ipv4.ip_forward = 1' | tee '/etc/sysctl.d/99-podman-forwarding.conf' && sysctl --system
 ```
 
 - Перезапустить сетевой стек `podman`:
