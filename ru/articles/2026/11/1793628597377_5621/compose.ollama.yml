@@ -4,16 +4,53 @@ services:
     image: docker.io/ollama/ollama:latest
     container_name: ollama
     restart: unless-stopped
-    environment:
-      #HTTP_PROXY: 'http://user:password@example.com:3128/'
-      #HTTPS_PROXY: 'http://user:password@example.com:3128/'
-      #NO_PROXY: '127.0.0.1,localhost,host.containers.internal'
     volumes:
-      - ollama-data:/root/.ollama:Z
+      - ollama_data:/root/.ollama:Z
     ports:
       - '11434:11434'
     networks:
       - llm-net
+  postgres:
+    image: docker.io/postgres:18
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: 'PASSWORD'
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    ports:
+      - '5432:5432'
+    networks:
+      - llm_net
+  qdrant:
+    image: docker.io/qdrant/qdrant:1.18
+    container_name: qdrant
+    restart: unless-stopped
+    volumes:
+      - qdrant_data:/qdrant/storage
+    ports:
+      - '6333:6333'
+      - '6334:6334'
+    expose:
+      - 6333
+      - 6334
+      - 6335
+    networks:
+      - llm_net
+    configs:
+      - source: qdrant_config
+        target: /qdrant/config/production.yaml
+  redis:
+    image: docker.io/redis:latest
+    container_name: redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/redis/storage
+    ports:
+      - '6333:6333'
+      - '6334:6334'
+    networks:
+      - llm_net
   webui:
     image: ghcr.io/open-webui/open-webui:latest
     container_name: webui
@@ -21,10 +58,12 @@ services:
     environment:
       WEBUI_SECRET_KEY: 'SECRET_KEY'
       CORS_ALLOW_ORIGIN: '*'
-      #DATABASE_URL: 'postgresql://user:password@127.0.0.1:5432/ui'
-      #PGVECTOR_DB_URL: 'postgresql://user:password@127.0.0.1:5432/llm'
-      #VECTOR_DB: 'pgvector'
-      #REDIS_URL: 'redis://redis-host:6379/0'
+      OLLAMA_BASE_URL: 'http://ollama:11434'
+      #DATABASE_URL: 'postgresql://user:password@postgres:5432/webui'
+      #PGVECTOR_DB_URL: 'postgresql://user:password@postgres:5432/webui_vector'
+      #VECTOR_DB: 'qdrant'
+      #QDRANT_URI: 'http://qdrant:6333'
+      #REDIS_URL: 'redis://redis:6379/0'
       #WEBSOCKET_MANAGER: 'redis'
       #ENABLE_WEBSOCKET_SUPPORT: true
       #CONTENT_EXTRACTION_ENGINE: 'tika'
@@ -38,13 +77,19 @@ services:
       #ENABLE_CHAT_RESPONSE_STREAM_INPLACE_APPEND: true
       #AIOHTTP_CLIENT_ASYNC_DNS_RESOLVER: true
     volumes:
-      - webui-data:/app/backend/data:Z
+      - webui_data:/app/backend/data:Z
     ports:
       - '3000:8080'
     networks:
-      - llm-net
+      - llm_net
 volumes:
-  ollama-data:
-  webui-data:
+  ollama_data:
+  postgres_data:
+  qdrant_data:
+  webui_data:
 networks:
-  llm-net:
+  llm_net:
+configs:
+  qdrant_config:
+    content: |
+      log_level: INFO
