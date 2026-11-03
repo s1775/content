@@ -1,3 +1,4 @@
+name: llm
 services:
   ollama:
     image: docker.io/ollama/ollama:latest
@@ -11,6 +12,8 @@ services:
       - ollama-data:/root/.ollama:Z
     ports:
       - '11434:11434'
+    networks:
+      - llm-net
   webui:
     image: ghcr.io/open-webui/open-webui:latest
     container_name: webui
@@ -38,8 +41,10 @@ services:
       - webui-data:/app/backend/data:Z
     ports:
       - '3000:8080'
+    networks:
+      - llm-net
 volumes:
   ollama-data:
-    driver: local
   webui-data:
-    driver: local
+networks:
+  llm-net:

@@ -1,3 +1,4 @@
+name: llm
 services:
   vllm:
     image: docker.io/vllm/vllm-openai:latest
@@ -12,6 +13,8 @@ services:
       - vllm-cache:/root/.cache/huggingface:Z
     ports:
       - '8000:8000'
+    networks:
+      - llm-net
     ipc: host
     command: [
       '--model', 'Qwen/Qwen2.5-1.5B-Instruct',
@@ -57,8 +60,12 @@ services:
       - webui-data:/app/backend/data:Z
     ports:
       - '3000:8080'
+    networks:
+      - llm-net
 volumes:
   vllm-cache:
     driver: local
   webui-data:
     driver: local
+networks:
+  llm-net:
