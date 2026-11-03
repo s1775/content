@@ -1,33 +1,33 @@
-name: llm
+name: ai
 services:
-  ollama:
+  llm:
     image: docker.io/ollama/ollama:latest
-    container_name: ollama
+    container_name: llm
     restart: unless-stopped
     volumes:
-      - ollama_data:/root/.ollama:Z
+      - llm_data:/root/.ollama:Z
     ports:
       - '11434:11434'
     networks:
-      - llm-net
-  postgres:
+      - llm_net
+  db:
     image: docker.io/postgres:18
-    container_name: postgres
+    container_name: db
     restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: 'PASSWORD'
     volumes:
-      - postgres_data:/var/lib/postgresql
+      - db_data:/var/lib/postgresql
     ports:
       - '5432:5432'
     networks:
       - llm_net
-  qdrant:
-    image: docker.io/qdrant/qdrant:1.18
-    container_name: qdrant
+  vector:
+    image: docker.io/qdrant/qdrant:v1.18
+    container_name: vector
     restart: unless-stopped
     volumes:
-      - qdrant_data:/qdrant/storage
+      - vector_data:/qdrant/storage
     ports:
       - '6333:6333'
       - '6334:6334'
@@ -38,32 +38,31 @@ services:
     networks:
       - llm_net
     configs:
-      - source: qdrant_config
+      - source: vector_config
         target: /qdrant/config/production.yaml
-  redis:
+  cache:
     image: docker.io/redis:latest
-    container_name: redis
+    container_name: cache
     restart: unless-stopped
     volumes:
-      - redis_data:/redis/storage
+      - cache_data:/data
     ports:
-      - '6333:6333'
-      - '6334:6334'
+      - '6379:6379'
     networks:
       - llm_net
-  webui:
+  ui:
     image: ghcr.io/open-webui/open-webui:latest
-    container_name: webui
+    container_name: ui
     restart: unless-stopped
     environment:
       WEBUI_SECRET_KEY: 'SECRET_KEY'
       CORS_ALLOW_ORIGIN: '*'
-      OLLAMA_BASE_URL: 'http://ollama:11434'
-      #DATABASE_URL: 'postgresql://user:password@postgres:5432/webui'
-      #PGVECTOR_DB_URL: 'postgresql://user:password@postgres:5432/webui_vector'
+      OLLAMA_BASE_URL: 'http://llm:11434'
+      #DATABASE_URL: 'postgresql://user:password@db:5432/ui'
+      #PGVECTOR_DB_URL: 'postgresql://user:password@db:5432/ui_vector'
       #VECTOR_DB: 'qdrant'
-      #QDRANT_URI: 'http://qdrant:6333'
-      #REDIS_URL: 'redis://redis:6379/0'
+      #QDRANT_URI: 'http://vector:6333'
+      #REDIS_URL: 'redis://cache:6379/0'
       #WEBSOCKET_MANAGER: 'redis'
       #ENABLE_WEBSOCKET_SUPPORT: true
       #CONTENT_EXTRACTION_ENGINE: 'tika'
@@ -77,19 +76,26 @@ services:
       #ENABLE_CHAT_RESPONSE_STREAM_INPLACE_APPEND: true
       #AIOHTTP_CLIENT_ASYNC_DNS_RESOLVER: true
     volumes:
-      - webui_data:/app/backend/data:Z
+      - ui_data:/app/backend/data:Z
     ports:
       - '3000:8080'
     networks:
       - llm_net
 volumes:
-  ollama_data:
-  postgres_data:
-  qdrant_data:
-  webui_data:
+  llm_data:
+    driver: local
+  db_data:
+    driver: local
+  vector_data:
+    driver: local
+  cache_data:
+    driver: local
+  ui_data:
+    driver: local
 networks:
   llm_net:
+    driver: bridge
 configs:
-  qdrant_config:
+  vector_config:
     content: |
       log_level: INFO
