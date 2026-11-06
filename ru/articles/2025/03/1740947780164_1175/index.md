@@ -101,6 +101,7 @@ table inet filter {
   chain forward {
     type filter hook forward priority 0; policy drop;
     # <...>
+    # Podman.
     iifname "podman*" accept
     oifname "podman*" accept
     # <...>
@@ -119,3 +120,15 @@ echo 'net.ipv4.ip_forward = 1' | tee '/etc/sysctl.d/99-podman-forwarding.conf' &
 ```bash
 podman network reload --all
 ```
+
+## Конфигурации
+
+{{< file "compose.angie.yml" "yaml" >}}
+{{< file "compose.clickhouse.yml" "yaml" >}}
+{{< file "compose.clickhouse.yml" "yaml" >}}
+{{< file "compose.mariadb.yml" "yaml" >}}
+{{< file "compose.mongodb.yml" "yaml" >}}
+{{< file "compose.percona.yml" "yaml" >}}
+{{< file "compose.postgres.yml" "yaml" >}}
+{{< file "compose.qdrant.yml" "yaml" >}}
+{{< file "compose.redis.yml" "yaml" >}}
