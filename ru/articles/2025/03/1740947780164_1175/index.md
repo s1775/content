@@ -72,7 +72,7 @@ f=('alvistack'); d='/etc/apt/preferences.d'; s='https://libsys.ru/ru/2025/03/dc9
 - Установить {{< tag "Podman" >}}:
 
 ```bash
-apt update && apt install --yes -t 'l=home:alvistack' podman buildah netavark aardvark-dns passt tini uidmap
+apt update && apt install --yes -t 'l=home:alvistack' podman podman-compose buildah netavark aardvark-dns passt tini uidmap
 ```
 
 - Скачать файлы конфигурации в `/etc/containers/`:
