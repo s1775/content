@@ -9,9 +9,9 @@ services:
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
     volumes:
-      - mariadb_conf:/etc/mysql:Z
       - mariadb_data:/var/lib/mysql:Z
       - mariadb_logs:/var/log/mysql:Z
+      - mariadb_conf:/etc/mysql:Z
       - mariadb_backups:/backup:Z
     ports: ['3306:3306']
     networks: ['example_net']
@@ -22,11 +22,11 @@ services:
       timeout: 5s
       retries: 5
 volumes:
-  mariadb_conf:
-    driver: local
   mariadb_data:
     driver: local
   mariadb_logs:
+    driver: local
+  mariadb_conf:
     driver: local
   mariadb_backup:
     driver: local
