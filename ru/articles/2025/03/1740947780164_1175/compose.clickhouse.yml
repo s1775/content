@@ -6,6 +6,7 @@ services:
     volumes:
       - clickhouse_conf:/etc/clickhouse-server:Z
       - clickhouse_data:/var/lib/clickhouse:Z
+      - clickhouse_logs:/var/log/clickhouse-server:Z
     ports: ['6379:6379']
     networks: ['example_net']
     healthcheck:
@@ -17,6 +18,8 @@ volumes:
   clickhouse_conf:
     driver: local
   clickhouse_data:
+    driver: local
+  clickhouse_logs:
     driver: local
 networks:
   example_net:

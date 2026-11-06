@@ -4,20 +4,16 @@ services:
     container_name: vector
     restart: unless-stopped
     volumes:
+      - qdrant_conf:/qdrant/config:Z
       - qdrant_data:/qdrant/storage:Z
     ports: ['6333:6333', '6334:6334']
     expose: ['6333', '6334', '6335']
     networks: ['example_net']
-    configs:
-      - source: qdrant_config
-        target: /qdrant/config/production.yaml
 volumes:
+  qdrant_conf:
+    driver: local
   qdrant_data:
     driver: local
 networks:
   example_net:
     driver: bridge
-configs:
-  qdrant_config:
-    content: |
-      log_level: INFO

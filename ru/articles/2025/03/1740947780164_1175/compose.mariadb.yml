@@ -11,6 +11,7 @@ services:
     volumes:
       - mariadb_conf:/etc/mysql:Z
       - mariadb_data:/var/lib/mysql:Z
+      - mariadb_logs:/var/log/mysql:Z
       - mariadb_backups:/backup:Z
     ports: ['3306:3306']
     networks: ['example_net']
@@ -24,6 +25,8 @@ volumes:
   mariadb_conf:
     driver: local
   mariadb_data:
+    driver: local
+  mariadb_logs:
     driver: local
   mariadb_backup:
     driver: local
