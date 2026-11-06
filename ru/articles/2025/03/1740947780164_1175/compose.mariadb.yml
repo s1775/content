@@ -28,7 +28,7 @@ volumes:
     driver: local
   mariadb_conf:
     driver: local
-  mariadb_backup:
+  mariadb_backups:
     driver: local
 networks:
   example_net:
